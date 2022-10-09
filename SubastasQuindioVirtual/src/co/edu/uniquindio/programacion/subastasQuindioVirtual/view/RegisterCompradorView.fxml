@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="380.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="380.0" prefWidth="380.0">
+         <children>
+            <Pane prefHeight="380.0" prefWidth="380.0">
+               <children>
+                  <Label layoutX="100.0" layoutY="140.0" text="Edad:" />
+                  <TextField fx:id="txtEdadComprador" layoutX="190.0" layoutY="135.0" />
+                  <Label layoutX="95.0" layoutY="205.0" text="Correo:" />
+                  <TextField fx:id="txtCorreoComprador" layoutX="190.0" layoutY="200.0" />
+                  <Label layoutX="81.0" layoutY="270.0" text="Contraseña:" />
+                  <TextField fx:id="txtContraComprador" layoutX="190.0" layoutY="265.0" />
+                  <Button fx:id="btnRegistroComprador" layoutX="149.0" layoutY="323.0" mnemonicParsing="false" text="Registrarse" />
+               </children>
+            </Pane>
+            <Label layoutX="120.0" layoutY="14.0" text="Registro como comprador" />
+            <TextField fx:id="txtNombreComprador" layoutX="190.0" layoutY="70.0" />
+            <Label layoutX="65.0" layoutY="75.0" text="Nombre completo:" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18">
+   <children>
+      <AnchorPane layoutX="8.0" layoutY="-1.0" prefHeight="457.0" prefWidth="568.0">
+         <children>
+            <Text layoutX="162.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido Anunciante">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text layoutX="185.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Que desea hacer?">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Button fx:id="btnCrearAnuncio" layoutX="101.0" layoutY="269.0" mnemonicParsing="false" onAction="#irViewCrearAnuncio" prefHeight="47.0" prefWidth="135.0" text="Crear Anuncio">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnModificarAnuncio" layoutX="329.0" layoutY="269.0" mnemonicParsing="false" onAction="#irViewModificarAnuncio" prefHeight="47.0" prefWidth="154.0" text="Modificar Anuncio">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

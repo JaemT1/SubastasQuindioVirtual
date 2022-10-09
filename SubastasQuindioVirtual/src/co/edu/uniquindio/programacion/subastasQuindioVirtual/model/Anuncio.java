@@ -1,8 +1,10 @@
 package co.edu.uniquindio.programacion.subastasQuindioVirtual.model;
 
-import java.awt.Image;
-import java.sql.Date;
+
 import java.util.ArrayList;
+import java.util.Date;
+
+import javafx.scene.image.Image;
 
 public class Anuncio {
 	TipoProducto tipoProducto;
