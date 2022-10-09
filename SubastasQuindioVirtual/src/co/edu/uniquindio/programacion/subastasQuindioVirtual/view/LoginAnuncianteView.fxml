@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18">
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0">
          <children>
@@ -18,9 +17,10 @@
                   <Label layoutX="48.0" layoutY="100.0" text="Contraseña:" />
                   <TextField fx:id="txtCorreoLoginA" layoutX="144.0" layoutY="54.0" />
                   <TextField fx:id="txtContraLoginA" layoutX="144.0" layoutY="96.0" />
-                  <Button fx:id="btnLoginAnunciante" layoutX="147.0" layoutY="138.0" mnemonicParsing="false" text="Iniciar Sesión" />
+                  <Button fx:id="btnLoginAnunciante" layoutX="147.0" layoutY="138.0" mnemonicParsing="false" onAction="#loginAnunciante" text="Iniciar Sesión" />
                </children>
             </Pane>
+            <Button fx:id="btnRegistrarseA" layoutX="303.0" layoutY="164.0" mnemonicParsing="false" text="Registrarse" />
          </children>
       </AnchorPane>
    </children>
