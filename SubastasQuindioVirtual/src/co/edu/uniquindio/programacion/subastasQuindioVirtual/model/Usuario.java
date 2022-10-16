@@ -1,24 +1,26 @@
 package co.edu.uniquindio.programacion.subastasQuindioVirtual.model;
 
 public class Usuario {
-	String contrasena;
-	String nombre;
-	int edad;
+	//Declaración de atributos
+	private String contrasena;
+	private String userName;
+	private int edad;
+	private String correo;
 	
-	
+	//Constructores
 	public Usuario() {
 		super();
 	}
 
-
-	public Usuario(String contrasena, String nombre, int edad) {
+	public Usuario(String contrasena, String nombre, int edad, String correo) {
 		super();
 		this.contrasena = contrasena;
-		this.nombre = nombre;
+		this.userName = nombre;
 		this.edad = edad;
+		this.correo = correo;
 	}
-	
-	
+
+	//Getters y Setters
 	public String getContrasena() {
 		return contrasena;
 	}
@@ -26,10 +28,10 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 	public String getNombre() {
-		return nombre;
+		return userName;
 	}
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.userName = nombre;
 	}
 	public int getEdad() {
 		return edad;
@@ -37,6 +39,17 @@ public class Usuario {
 	public void setEdad(int edad) {
 		this.edad = edad;
 	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
 	
+	//Sobreescritura del método toString
+	@Override
+	public String toString() {
+		return contrasena + "@@" + userName + "@@" + edad + "@@" + correo + "\n";
+	}
 	
 }

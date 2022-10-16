@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 
 public class Main extends Application {
 	
-	private Stage primaryStage;
+	private Stage primaryStage = new Stage();
 	
 	@Override
 	public void start(Stage primaryStage) throws IOException {
@@ -26,17 +26,9 @@ public class Main extends Application {
 		}
 	}
 	
-	public void cerrarVentanaUsuarioView() {
-		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/UsuarioView.fxml"));
-		try {
-            Scene scene = new Scene(fxmlLoader.load());
-            primaryStage.setScene(scene);
-            primaryStage.close();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
+	/**
+	 * Método que abre la ventana para crear un anuncio
+	 */
 	public void abrirVentanaCrearAnuncioView() {
 		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/CrearAnuncioView.fxml"));
 		try {
@@ -48,7 +40,36 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * Método que abre la ventana de login anunciante
+	 */
+	public void abrirVentanaLoginAnuncianteView() {
+		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/LoginAnuncianteView.fxml"));
+		try {
+            Scene scene = new Scene(fxmlLoader.load());
+            primaryStage.setScene(scene);
+            primaryStage.show();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Método que abre la ventana de registro de anunciantes
+	 */
+	public void abrirVentanaRegistroAnuncianteView() {
+		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/RegisterAnuncianteView.fxml"));
+		try {
+			Scene scene = new Scene(fxmlLoader.load());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 }
