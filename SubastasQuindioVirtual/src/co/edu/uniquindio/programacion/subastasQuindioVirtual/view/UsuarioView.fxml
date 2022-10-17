@@ -19,11 +19,6 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <ScrollPane layoutX="170.0" layoutY="130.0" prefHeight="200.0" prefWidth="200.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
-            </ScrollPane>
             <Pane layoutX="13.0" layoutY="55.0" prefHeight="57.0" prefWidth="515.0" style="-fx-border-color: black;">
                <children>
                   <Button fx:id="btnAnunciar" layoutX="14.0" layoutY="9.0" mnemonicParsing="false" onAction="#anunciar" prefHeight="38.0" prefWidth="105.0" text="Anunciar" />
@@ -31,6 +26,11 @@
                   <Button layoutX="396.0" layoutY="9.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="105.0" text="Mis Anuncios" />
                </children>
             </Pane>
+            <ScrollPane layoutX="146.0" layoutY="207.0" prefHeight="200.0" prefWidth="200.0">
+               <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </ScrollPane>
          </children>
       </AnchorPane>
    </children>

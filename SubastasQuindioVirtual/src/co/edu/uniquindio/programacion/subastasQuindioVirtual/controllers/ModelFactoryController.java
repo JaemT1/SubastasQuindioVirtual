@@ -35,6 +35,7 @@ public class ModelFactoryController implements Serializable{
      * Método constructor
      */
     private ModelFactoryController(){
+    	cargarAnunciantes();
         //Siempre se debe verificar si la raiz del recurso es null
         if(aplicacionSubastas == null) {
             System.out.println("La aplicación de subastas está vacía");
