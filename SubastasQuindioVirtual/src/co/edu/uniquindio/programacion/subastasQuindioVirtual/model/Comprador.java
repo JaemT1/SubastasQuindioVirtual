@@ -7,8 +7,8 @@ public class Comprador extends Usuario{
 	
 	
 
-	public Comprador(ArrayList<Puja> pujas) {
-		super();
+	public Comprador(ArrayList<Puja> pujas,String contrasena,String nombre,int edad,String correo) {
+		super(contrasena, nombre, edad, correo);
 		this.pujas = pujas;
 	}
 

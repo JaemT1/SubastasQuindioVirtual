@@ -36,6 +36,7 @@ public class ModelFactoryController implements Serializable{
      */
     private ModelFactoryController(){
     	cargarAnunciantes();
+    
         //Siempre se debe verificar si la raiz del recurso es null
         if(aplicacionSubastas == null) {
             System.out.println("La aplicación de subastas está vacía");
@@ -43,11 +44,26 @@ public class ModelFactoryController implements Serializable{
     }
     
     /**
-     * Método que carga los estudiantes desde el archivo .txt
+     * Método que carga los usuarios desde el archivo .txt
      */
     public void cargarAnunciantes() {
     	try {
 			this.aplicacionSubastas.setUsuarios(Persistencia.cargarAnunciantes());
+			cargarCompradores();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    /**
+     * M�todo que carga los compradores desde el archivo .txt
+     */
+    public void cargarCompradores() {
+    	try {
+    		ArrayList<Usuario> usuarios = Persistencia.cargarCompradores();
+    		for (Usuario usuario : usuarios) {
+				this.aplicacionSubastas.getUsuarios().add(usuario);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -73,6 +89,15 @@ public class ModelFactoryController implements Serializable{
      */
 	public void guardarAnunciante(Anunciante anunciante) {
 		Persistencia.guardarAnunciante(anunciante);
+		
+	}   
+	
+	/**
+	 * M�todo que guarda el comprador en el archivo de texto
+	 * @param comprador
+	 */
+	public void guardarComprador(Comprador comprador) {
+		Persistencia.guardarComprador(comprador);
 		
 	}   
 }

@@ -6,17 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.LoginCompradorViewController">
    <children>
       <Pane prefHeight="190.0" prefWidth="380.0">
          <children>
-            <Label layoutX="157.0" layoutY="14.0" text="Inicia Sesión" />
+            <Label layoutX="110.0" layoutY="14.0" text="Iniciar sesion como comprador" />
             <Label layoutX="60.0" layoutY="58.0" text="Correo:" />
             <Label layoutX="48.0" layoutY="100.0" text="Contraseña:" />
-            <TextField layoutX="144.0" layoutY="54.0" />
-            <TextField fx:id="txtContraLoginC" layoutX="144.0" layoutY="96.0" />
-            <Button fx:id="btnLoginComprador" layoutX="147.0" layoutY="141.0" mnemonicParsing="false" onAction="#loginComprador" text="Iniciar Sesión" />
-            <Button fx:id="btnRegistrarseC" layoutX="293.0" layoutY="154.0" mnemonicParsing="false" text="Registrarse" />
+            <TextField fx:id="txtCorreoLoginComprador" layoutX="144.0" layoutY="54.0" />
+            <TextField fx:id="txtContraLoginComprador" layoutX="144.0" layoutY="96.0" />
+            <Button fx:id="btnLoginComprador" layoutX="147.0" layoutY="141.0" mnemonicParsing="false" onAction="#iniciarSesionComprador" text="Iniciar Sesión" />
          </children>
       </Pane>
    </children>

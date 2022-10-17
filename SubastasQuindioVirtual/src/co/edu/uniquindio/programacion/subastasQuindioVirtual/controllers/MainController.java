@@ -19,6 +19,12 @@ public class MainController implements Initializable{
 	    stage.close();
 		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaLoginAnuncianteView();
 	}
+	
+	public void verOfertas(ActionEvent event) {
+		Stage stage = (Stage) this.btnAnunciar.getScene().getWindow();
+	    stage.close();
+		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaLoginCompradorView();
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

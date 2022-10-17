@@ -35,15 +35,31 @@ public class Persistencia {
 		ArrayList<Usuario> anunciantes = new ArrayList<Usuario>();
 		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
 		for (String anuncianteAux : anuncianteTxt) {
-			String[] anuncianteSeparado = anuncianteAux.split("@@");
-			String contrasena = anuncianteSeparado[0];
-			String nombre = anuncianteSeparado[1];
-			int edad = Integer.parseInt(anuncianteSeparado[2]);
-			String correo = anuncianteSeparado[3];
+			String[] compradorSeparado = anuncianteAux.split("@@");
+			String contrasena = compradorSeparado[0];
+			String nombre = compradorSeparado[1];
+			int edad = Integer.parseInt(compradorSeparado[2]);
+			String correo = compradorSeparado[3];
 			Usuario anunciante = new Anunciante(anuncios, contrasena, nombre, edad, correo);
 			anunciantes.add(anunciante);
 		}
 		return anunciantes;
+	}
+	
+	public static ArrayList<Usuario> cargarCompradores() throws IOException{
+		ArrayList<String> compradorTxt = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_COMPRADORES);
+		ArrayList<Usuario> compradores = new ArrayList<Usuario>();
+		ArrayList<Puja> pujas = new ArrayList<Puja>();
+		for (String compradorAux : compradorTxt) {
+			String[] compradorSeparado = compradorAux.split("@@");
+			String contrasena = compradorSeparado[0];
+			String nombre = compradorSeparado[1];
+			int edad = Integer.parseInt(compradorSeparado[2]);
+			String correo = compradorSeparado[3];
+			Usuario comprador = new Comprador(pujas, contrasena, nombre, edad, correo);
+			compradores.add(comprador);
+		}
+		return compradores;
 	}
 
 	/**
@@ -66,6 +82,21 @@ public class Persistencia {
 		contenido += anunciante.toString();
 		try {
 			ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_ANUNCIANTES, contenido, true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * Método que guarda el anunciante en el archivo de texto
+	 * @param comprador
+	 */
+	public static void guardarComprador(Comprador comprador) {
+		String contenido = "";
+		contenido += comprador.toString();
+		try {
+			ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_COMPRADORES, contenido, true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
