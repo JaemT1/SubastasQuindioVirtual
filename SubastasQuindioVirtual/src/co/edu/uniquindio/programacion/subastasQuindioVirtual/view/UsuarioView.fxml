@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -7,9 +11,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.MainController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.MainController">
    <children>
-      <AnchorPane layoutY="2.0" prefHeight="476.0" prefWidth="541.0">
+      <AnchorPane layoutY="-12.0" prefHeight="476.0" prefWidth="541.0">
          <children>
             <Text layoutX="176.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subastas Quindío" wrappingWidth="189.43359375">
                <font>
@@ -23,11 +27,7 @@
                   <Button layoutX="396.0" layoutY="9.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="105.0" text="Mis Anuncios" />
                </children>
             </Pane>
-            <ScrollPane layoutX="146.0" layoutY="207.0" prefHeight="200.0" prefWidth="200.0">
-               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-               </content>
-            </ScrollPane>
+            <Pane layoutX="13.0" layoutY="122.0" prefHeight="341.0" prefWidth="515.0" style="-fx-border-color: black;" />
          </children>
       </AnchorPane>
    </children>

@@ -1,33 +1,38 @@
 package co.edu.uniquindio.programacion.subastasQuindioVirtual.model;
 
-
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
-import javafx.scene.image.Image;
+public class Anuncio implements Serializable{
 
-public class Anuncio {
-	TipoProducto tipoProducto;
+	private static final long serialVersionUID = -5448981009687680450L;
+	
+	//Declaracion de atributos
+	String tipoProducto;
 	int tiempoLimite;
 	String nombreProducto;
 	String descripcion;
-	Image foto;
+	String rutaFoto;
 	String nombreAnunciante;
-	Date fechaPublicacion;
-	Date fechaFinPublicacion;
+	String fechaPublicacion;
+	String fechaFinPublicacion;
 	double valorInicial;
 	boolean estado;
 	ArrayList<Puja> pujas= new ArrayList<Puja>();
 	
-	public Anuncio(TipoProducto tipoProducto, int tiempoLimite, String nombreProducto, String descripcion, Image foto,
-			String nombreAnunciante, Date fechaPublicacion, Date fechaFinPublicacion, double valorInicial,
+	//Constructores
+	public Anuncio() {
+	}
+	
+	public Anuncio(String tipoProducto, int tiempoLimite, String nombreProducto, String descripcion, String foto,
+			String nombreAnunciante, String fechaPublicacion, String fechaFinPublicacion, double valorInicial,
 			boolean estado, ArrayList<Puja> pujas) {
 		super();
 		this.tipoProducto = tipoProducto;
 		this.tiempoLimite = tiempoLimite;
 		this.nombreProducto = nombreProducto;
 		this.descripcion = descripcion;
-		this.foto = foto;
+		this.rutaFoto = foto;
 		this.nombreAnunciante = nombreAnunciante;
 		this.fechaPublicacion = fechaPublicacion;
 		this.fechaFinPublicacion = fechaFinPublicacion;
@@ -36,11 +41,12 @@ public class Anuncio {
 		this.pujas = pujas;
 	}
 
-	public TipoProducto getTipoProducto() {
+	//Getters y Setters
+	public String getTipoProducto() {
 		return tipoProducto;
 	}
 
-	public void setTipoProducto(TipoProducto tipoProducto) {
+	public void setTipoProducto(String tipoProducto) {
 		this.tipoProducto = tipoProducto;
 	}
 
@@ -68,12 +74,12 @@ public class Anuncio {
 		this.descripcion = descripcion;
 	}
 
-	public Image getFoto() {
-		return foto;
+	public String getFoto() {
+		return rutaFoto;
 	}
 
-	public void setFoto(Image foto) {
-		this.foto = foto;
+	public void setFoto(String foto) {
+		this.rutaFoto = foto;
 	}
 
 	public String getNombreAnunciante() {
@@ -84,19 +90,19 @@ public class Anuncio {
 		this.nombreAnunciante = nombreAnunciante;
 	}
 
-	public Date getFechaPublicacion() {
+	public String getFechaPublicacion() {
 		return fechaPublicacion;
 	}
 
-	public void setFechaPublicacion(Date fechaPublicacion) {
+	public void setFechaPublicacion(String fechaPublicacion) {
 		this.fechaPublicacion = fechaPublicacion;
 	}
 
-	public Date getFechaFinPublicacion() {
+	public String getFechaFinPublicacion() {
 		return fechaFinPublicacion;
 	}
 
-	public void setFechaFinPublicacion(Date fechaFinPublicacion) {
+	public void setFechaFinPublicacion(String fechaFinPublicacion) {
 		this.fechaFinPublicacion = fechaFinPublicacion;
 	}
 

@@ -1,6 +1,11 @@
 package co.edu.uniquindio.programacion.subastasQuindioVirtual.model;
 
-public class Puja {
+import java.io.Serializable;
+
+public class Puja implements Serializable{
+
+	private static final long serialVersionUID = -8486945425831717466L;
+	
 	double valor;
 	Anuncio anuncio;
 	Comprador comprador;

@@ -1,6 +1,11 @@
 package co.edu.uniquindio.programacion.subastasQuindioVirtual.model;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable{
+	
+	private static final long serialVersionUID = 2723592590182269081L;
+	
 	//Declaración de atributos
 	private String contrasena;
 	private String userName;

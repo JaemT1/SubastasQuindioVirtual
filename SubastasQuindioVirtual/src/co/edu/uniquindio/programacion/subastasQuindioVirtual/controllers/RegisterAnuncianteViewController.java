@@ -44,8 +44,8 @@ public class RegisterAnuncianteViewController {
 		if (!verificarCampoEdad(txtEdadAnunciante.getText())) {
 			ModelFactoryController.getInstance().guardarLog(
 					"Usuario no registrado, ingresÃ³ letras en el campo de la edad", 2, "Registrar anunciante");
-			JOptionPane.showMessageDialog(null, "La edad solo debe contener números");
-			throw new InvalidInputException("La edad solo debe contener números");
+			JOptionPane.showMessageDialog(null, "La edad solo debe contener nï¿½meros");
+			throw new InvalidInputException("La edad solo debe contener nï¿½meros");
 		} else {
 			edad = Integer.parseInt(txtEdadAnunciante.getText());
 		}
@@ -64,6 +64,7 @@ public class RegisterAnuncianteViewController {
 			Anunciante anunciante = new Anunciante(anuncios, contrasena, nombre, edad, correo);
 			ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios().add(anunciante);
 			ModelFactoryController.getInstance().guardarAnunciante(anunciante);
+			ModelFactoryController.getInstance().serializarModeloXml();
 			ModelFactoryController.getInstance().guardarLog("Se registra el anunciante con nombre: " + nombre, 1,"Registrar anunciante");
 			JOptionPane.showMessageDialog(null, "Anunciante registrado con Ã©xito");
 			vaciarTxtFields();
@@ -90,7 +91,7 @@ public class RegisterAnuncianteViewController {
 	/**
 	 * MÃ©todo que verifica si la edad tiene solo numeros o tambien tiene letras
 	 * @param edad la edad a verificar
-	 * @return retorna true si solo tiene números o false si tiene letras
+	 * @return retorna true si solo tiene nï¿½meros o false si tiene letras
 	 */
 	public boolean verificarCampoEdad(String edad) {
 		boolean esApta = true;

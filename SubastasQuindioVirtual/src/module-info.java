@@ -8,5 +8,7 @@ module SubastasQuindioVirtual{
 
 	opens co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers to javafx.fxml;
 	opens co.edu.uniquindio.programacion.subastasQuindioVirtual.application to javafx.graphics, javafx.fxml;
+	opens co.edu.uniquindio.programacion.subastasQuindioVirtual.model;
 	exports co.edu.uniquindio.programacion.subastasQuindioVirtual.application;
+	exports co.edu.uniquindio.programacion.subastasQuindioVirtual.model;
 }

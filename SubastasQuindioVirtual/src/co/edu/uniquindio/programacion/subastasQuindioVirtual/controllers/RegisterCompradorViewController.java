@@ -35,7 +35,7 @@ public class RegisterCompradorViewController {
     private TextField txtNombreComprador;
 
     /**
-     * Método para registrar un comprador
+     * Mï¿½todo para registrar un comprador
      * @param event
      * @throws AgeNotAllowedException
      * @throws AlreadyTakenUsernameException
@@ -43,8 +43,7 @@ public class RegisterCompradorViewController {
      * @throws InvalidInputException
      */
     @FXML
-	private void registrarComprador(ActionEvent event)
-		throws AgeNotAllowedException, AlreadyTakenUsernameException, IOException, InvalidInputException {
+	private void registrarComprador(ActionEvent event)throws AgeNotAllowedException, AlreadyTakenUsernameException, IOException, InvalidInputException {
 		ArrayList<Puja> pujas = new ArrayList<Puja>();
 		String nombre = txtNombreComprador.getText();
 		String correo = txtCorreoComprador.getText();
@@ -52,9 +51,9 @@ public class RegisterCompradorViewController {
 		int edad = 0;
 		// Verifica si hay letras en el txtField de la edad
 		if (!verificarCampoEdad(txtEdadComprador.getText())) {
-			ModelFactoryController.getInstance().guardarLog("Usuario no registrado, ingresó letras en el campo de la edad", 2, "Registrar comprador");
-			JOptionPane.showMessageDialog(null, "La edad solo debe contener números");
-			throw new InvalidInputException("La edad solo debe contener números");
+			ModelFactoryController.getInstance().guardarLog("Usuario no registrado, ingresï¿½ letras en el campo de la edad", 2, "Registrar comprador");
+			JOptionPane.showMessageDialog(null, "La edad solo debe contener nï¿½meros");
+			throw new InvalidInputException("La edad solo debe contener nï¿½meros");
 		} else {
 			edad = Integer.parseInt(txtEdadComprador.getText());
 		}
@@ -64,14 +63,15 @@ public class RegisterCompradorViewController {
 			JOptionPane.showMessageDialog(null, "Para registrarse debe ser mayor de edad");
 			throw new AgeNotAllowedException("Para registrarse debe ser mayor de edad");
 		}
-		if (verificarUserName(nombre)){ // Verifica si el nombre de usuario ya está en uso
-			ModelFactoryController.getInstance().guardarLog("Usuario no registrado, nombre de usuario ya está en uso",2, "Registrar comprador");
-			JOptionPane.showMessageDialog(null, "Lo sentimos, el nombre de usuario ya está en uso");
-			throw new AlreadyTakenUsernameException("Lo sentimos, el nombre de usuario ya está en uso");
+		if (verificarUserName(nombre)){ // Verifica si el nombre de usuario ya estï¿½ en uso
+			ModelFactoryController.getInstance().guardarLog("Usuario no registrado, nombre de usuario ya estï¿½ en uso",2, "Registrar comprador");
+			JOptionPane.showMessageDialog(null, "Lo sentimos, el nombre de usuario ya estï¿½ en uso");
+			throw new AlreadyTakenUsernameException("Lo sentimos, el nombre de usuario ya estï¿½ en uso");
 		} else {
 			Comprador comprador = new Comprador(pujas, contrasena, nombre, edad, correo);
 			ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios().add(comprador);
 			ModelFactoryController.getInstance().guardarComprador(comprador);
+			ModelFactoryController.getInstance().serializarModeloXml();
 			ModelFactoryController.getInstance().guardarLog("Se registra el comprador con nombre: " + nombre, 1,"Registrar comprador");
 			JOptionPane.showMessageDialog(null, "Comprador registrado con Ã©xito");
 			vaciarTxtFields();
@@ -81,9 +81,9 @@ public class RegisterCompradorViewController {
 	}
 	
 	/**
-	 * Método que verifica si un nombre de usuario ya está en uso
+	 * Mï¿½todo que verifica si un nombre de usuario ya estï¿½ en uso
 	 * @param userName nombre de usuario a verificar
-	 * @return retorna false si no está en uso y true si si lo está
+	 * @return retorna false si no estï¿½ en uso y true si si lo estï¿½
 	 */
 	public boolean verificarUserName(String userName) {
 		boolean nombreTomado = false;
@@ -98,7 +98,7 @@ public class RegisterCompradorViewController {
 	/**
 	 * MÃ©todo que verifica si la edad tiene solo numeros o tambien tiene letras
 	 * @param edad la edad a verificar
-	 * @return retorna true si solo tiene números o false si tiene letras
+	 * @return retorna true si solo tiene nï¿½meros o false si tiene letras
 	 */
 	public boolean verificarCampoEdad(String edad) {
 		boolean esApta = true;

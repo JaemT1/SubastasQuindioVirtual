@@ -10,9 +10,16 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable{
+	//Declaracion de atributos
 	@FXML
 	Button btnAnunciar;
+	@FXML
+	Button btnMisOfertas;
 	
+	/**
+	 * Metodo que nos lleva a la ventana para login de anunciantes
+	 * @param event
+	 */
 	@FXML
 	public void anunciar(ActionEvent event) {
 		Stage stage = (Stage) this.btnAnunciar.getScene().getWindow();
@@ -20,16 +27,20 @@ public class MainController implements Initializable{
 		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaLoginAnuncianteView();
 	}
 	
+	/**
+	 * Metodo que nos lleva a el login de comprador
+	 * @param event
+	 */
+	@FXML
 	public void verOfertas(ActionEvent event) {
-		Stage stage = (Stage) this.btnAnunciar.getScene().getWindow();
+		Stage stage = (Stage) this.btnMisOfertas.getScene().getWindow();
 	    stage.close();
 		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaLoginCompradorView();
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		ModelFactoryController.getInstance().cargarAnunciantes();
-		
+		ModelFactoryController.getInstance().cargarDatosModelo();
 	}
 	
 }

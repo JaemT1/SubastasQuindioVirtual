@@ -17,6 +17,7 @@ public class ModelFactoryController implements Serializable{
 	private static ModelFactoryController instance;
 	SubastasQuindio aplicacionSubastas = new SubastasQuindio();
 	Main gestorVentanas = new Main();
+	String[] tiposProductos = new String[5];
 
     //------------------------------  SINGLETON ------------------------------------------------
     /**
@@ -35,8 +36,7 @@ public class ModelFactoryController implements Serializable{
      * Método constructor
      */
     private ModelFactoryController(){
-    	cargarAnunciantes();
-    
+    	cargarDatosModelo();
         //Siempre se debe verificar si la raiz del recurso es null
         if(aplicacionSubastas == null) {
             System.out.println("La aplicación de subastas está vacía");
@@ -56,7 +56,7 @@ public class ModelFactoryController implements Serializable{
     }
     
     /**
-     * M�todo que carga los compradores desde el archivo .txt
+     * M�todo que carga los compradores desde el archivo .txt
      */
     public void cargarCompradores() {
     	try {
@@ -93,11 +93,33 @@ public class ModelFactoryController implements Serializable{
 	}   
 	
 	/**
-	 * M�todo que guarda el comprador en el archivo de texto
+	 * M�todo que guarda el comprador en el archivo de texto
 	 * @param comprador
 	 */
 	public void guardarComprador(Comprador comprador) {
 		Persistencia.guardarComprador(comprador);
 		
 	}   
+	
+	/**
+	 * Metodo que carga los tipos de productos desde un archivo properties
+	 */
+	public void cargarTiposProductos() {
+		tiposProductos = Persistencia.cargarTiposProductos();
+	}
+	
+	/**
+	 * Serializa el modelo en xml
+	 */
+	public void serializarModeloXml() {
+		Persistencia.serializarModeloXml(aplicacionSubastas);
+	}
+	
+	/**
+	 * Carga los datos del modelo desde el archivo .xml
+	 */
+	public void cargarDatosModelo() {
+		aplicacionSubastas = Persistencia.cargarDatosModelo();
+		
+	}
 }

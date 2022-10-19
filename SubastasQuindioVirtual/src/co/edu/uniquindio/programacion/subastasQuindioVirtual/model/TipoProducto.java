@@ -1,5 +1,7 @@
 package co.edu.uniquindio.programacion.subastasQuindioVirtual.model;
 
-public enum TipoProducto {
+import java.io.Serializable;
+
+public enum TipoProducto implements Serializable{
 	TIPOTECNOLOGICO,TIPOHOGAR,TIPODEPORTES,TIPOVEHICULOS,TIPOBIENESRAICES
 }

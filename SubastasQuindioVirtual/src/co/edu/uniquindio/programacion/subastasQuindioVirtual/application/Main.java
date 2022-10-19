@@ -69,7 +69,7 @@ public class Main extends Application {
 	}
 	
 	/**
-	 * Método que abre la ventana de iniciar sesión del comprador
+	 * Mï¿½todo que abre la ventana de iniciar sesiï¿½n del comprador
 	 */
 	public void abrirVentanaLoginCompradorView() {
 		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/LoginCompradorView.fxml"));
@@ -83,7 +83,7 @@ public class Main extends Application {
 	}
 	
 	/**
-	 * Método que abre la ventana de resgistro del comprador
+	 * Mï¿½todo que abre la ventana de resgistro del comprador
 	 */
 	public void abrirVentanaRegistroCompradorView() {
 		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/RegisterCompradorView.fxml"));
@@ -95,6 +95,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

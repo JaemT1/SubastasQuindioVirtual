@@ -1,17 +1,13 @@
 package co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
-
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.*;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -20,14 +16,14 @@ import javafx.stage.Stage;
 public class LoginCompradorViewController {
 
     @FXML
-    private TextField txtContraLoginComprador;
+    private PasswordField txtContraLoginComprador;
     @FXML
     private Button btnLoginComprador;
     @FXML
     private TextField txtCorreoLoginComprador;
 
     /**
-     * Metodo que verifica si un comprador ya esta registrado y si no esta registrado lanza una excepción, y abre una ventana para registrarse.
+     * Metodo que verifica si un comprador ya esta registrado y si no esta registrado lanza una excepciï¿½n, y abre una ventana para registrarse.
      * @param event
      * @throws UserNotFoundException
      * @throws IOException
@@ -42,17 +38,17 @@ public class LoginCompradorViewController {
         for (Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
 
             if (correoComprador.equals(usuario.getCorreo()) && contraseniaComprador.equals(usuario.getContrasena())) {
-                JOptionPane.showMessageDialog(null, "Sesión Iniciada");
-                ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoComprador + " inicia sesión", 1, "Se inicia sesión");
+                JOptionPane.showMessageDialog(null, "Sesiï¿½n Iniciada");
+                ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoComprador + " inicia sesiï¿½n", 1, "Se inicia sesiï¿½n");
                 cerrarVentanaLogin();
                 ModelFactoryController.getInstance().gestorVentanas.start(primaryStage);
                 usuarioEncontrado = true;
             }
 
         }
-        //Si no es encontrado se lanza la excepción y se abre la ventana de registro
+        //Si no es encontrado se lanza la excepciï¿½n y se abre la ventana de registro
         if (usuarioEncontrado == false) {
-            ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoComprador + " no pudo iniciar sesión", 2, "No Se inicia sesión");
+            ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoComprador + " no pudo iniciar sesiï¿½n", 2, "No Se inicia sesiï¿½n");
             int registro = JOptionPane.showConfirmDialog(null,"No se encuentra registrado" + "\n" + "Desea registrarse?");
             if (registro == 0) {
                 cerrarVentanaLogin();

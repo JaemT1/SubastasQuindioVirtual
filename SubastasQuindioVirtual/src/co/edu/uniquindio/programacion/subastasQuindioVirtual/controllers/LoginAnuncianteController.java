@@ -19,7 +19,7 @@ public class LoginAnuncianteController{
 	private Button btnLoginAnunciante;
 	
 	/**
-	 * Método que verifica si un anunciante ya está registrado
+	 * Mï¿½todo que verifica si un anunciante ya estï¿½ registrado
 	 * @param event
 	 * @throws UserNotFoundException
 	 */
@@ -33,17 +33,17 @@ public class LoginAnuncianteController{
         for (Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
 
             if (correoAnunciante.equals(usuario.getCorreo()) && contraseniaAnunciante.equals(usuario.getContrasena())) {
-                JOptionPane.showMessageDialog(null, "Sesión Iniciada");
-                ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoAnunciante + " inicia sesión", 1, "Se inicia sesión");
+                JOptionPane.showMessageDialog(null, "SesiÃ³n Iniciada");
+                ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoAnunciante + " inicia sesiÃ³n", 1, "Se inicia sesiÃ³n");
                 cerrarVentanaLogin();
-                ModelFactoryController.getInstance().gestorVentanas.start(primaryStage);
+                ModelFactoryController.getInstance().gestorVentanas.abrirVentanaCrearAnuncioView();
                 usuarioEncontrado = true;
             }
 
         }
-        //Si no es encontrado se lanza la excepción y se abre la ventana de registro
+        //Si no es encontrado se lanza la excepciÃ³n y se abre la ventana de registro
         if (usuarioEncontrado == false) {
-            ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoAnunciante + " no pudo iniciar sesión", 2, "No Se inicia sesión");
+            ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoAnunciante + " no pudo iniciar sesiÃ³n", 2, "No Se inicia sesiÃ³n");
             int registro = JOptionPane.showConfirmDialog(null,"No se encuentra registrado" + "\n" + "Desea registrarse?");
             if (registro == 0) {
                 cerrarVentanaLogin();
@@ -54,7 +54,7 @@ public class LoginAnuncianteController{
 	}
 	
 	/**
-	 * Método que cierra la ventana de login de anunciantes
+	 * Mï¿½todo que cierra la ventana de login de anunciantes
 	 */
 	@FXML
 	public void cerrarVentanaLogin() {

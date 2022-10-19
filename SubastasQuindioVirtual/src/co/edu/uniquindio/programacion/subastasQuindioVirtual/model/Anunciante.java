@@ -1,8 +1,12 @@
 package co.edu.uniquindio.programacion.subastasQuindioVirtual.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Anunciante extends Usuario {
+public class Anunciante extends Usuario implements Serializable{
+
+	private static final long serialVersionUID = 7032391086599142701L;
+	
 	ArrayList<Anuncio> anuncios= new ArrayList<Anuncio>();
 	
 	public Anunciante() {
