@@ -29,7 +29,7 @@ public class LoginCompradorViewController {
      * @throws IOException
      */
     @FXML
-    private void iniciarSesionComprador(ActionEvent event) throws UserNotFoundException, IOException {
+    private void iniciarSesionComprador(ActionEvent event) throws UserNotFoundException, Exception {
     	Stage primaryStage = new Stage();
         String correoComprador = txtCorreoLoginComprador.getText();
         String contraseniaComprador = txtContraLoginComprador.getText();

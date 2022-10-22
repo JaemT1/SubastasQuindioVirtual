@@ -64,16 +64,16 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtNombreProducto" layoutX="189.0" layoutY="132.0" />
+            <TextField fx:id="txtNombreProducto" layoutX="189.0" layoutY="132.0" /> 
             <TextField fx:id="txtDesProducto" layoutX="189.0" layoutY="167.0" />
-            <TextField fx:id="txtNombreAnuncio" layoutX="189.0" layoutY="207.0" />
+            <TextField fx:id="txtNombreAnunciante" layoutX="189.0" layoutY="207.0" />
             <TextField fx:id="txtValorInicialPuja" layoutX="189.0" layoutY="327.0" />
-            <ImageView fx:id="imgVwImagenProducto" fitHeight="150.0" fitWidth="200.0" layoutX="354.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="btnInsetarImagen" layoutX="391.0" layoutY="87.0" mnemonicParsing="false" onAction="#insertarImagen" text="Insertar Imagen" />
             <ChoiceBox fx:id="cBoxTipoProducto" layoutX="189.0" layoutY="87.0" prefWidth="150.0" />
             <DatePicker fx:id="dtPckrFechaPublicacion" layoutX="189.0" layoutY="248.0" prefHeight="25.0" prefWidth="150.0" />
             <DatePicker fx:id="dtPckrFechaFin" layoutX="189.0" layoutY="288.0" prefHeight="25.0" prefWidth="150.0" />
             <Label fx:id="lblRutaImagen" layoutX="342.0" layoutY="332.0" prefHeight="17.0" prefWidth="215.0" />
+            <ImageView fx:id="imgVwImagenProducto" fitHeight="150.0" fitWidth="200.0" layoutX="350.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
       <Button fx:id="btnVolver" layoutX="512.0" layoutY="425.0" mnemonicParsing="false" onAction="#regresar" text="Volver" />

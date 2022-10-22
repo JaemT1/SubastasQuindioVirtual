@@ -13,8 +13,18 @@ import javafx.scene.Scene;
 public class Main extends Application {
 	
 	private Stage primaryStage = new Stage();
-	
+	public static final String CURRENCY = "$";
+   
 	@Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/UsuarioViewTestNuevo.fxml"));
+    
+        primaryStage.setTitle("Subastas Quindio");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+	
+	/*@Override
 	public void start(Stage primaryStage) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/UsuarioView.fxml"));
 		try {
@@ -24,13 +34,13 @@ public class Main extends Application {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	/**
 	 * Método que abre la ventana para crear un anuncio
 	 */
 	public void abrirVentanaCrearAnuncioView() {
-		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/CrearAnuncioView.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/CrearAnuncioVi.fxml"));
 		try {
             Scene scene = new Scene(fxmlLoader.load());
             primaryStage.setScene(scene);
@@ -95,6 +105,9 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 	
 	public static void main(String[] args) {
 		launch(args);
