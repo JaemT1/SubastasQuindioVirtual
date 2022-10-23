@@ -14,15 +14,29 @@
    <children>
       <Pane prefHeight="190.0" prefWidth="380.0">
          <children>
-            <Label layoutX="81.0" layoutY="14.0" text="Iniciar sesion como comprador">
+            <Label layoutX="60.0" layoutY="14.0" text="Iniciar sesion como comprador" textFill="#878787">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="18.0" />
                </font></Label>
-            <Label layoutX="60.0" layoutY="58.0" text="Correo:" />
-            <Label layoutX="48.0" layoutY="100.0" text="Contraseña:" />
+            <Label layoutX="60.0" layoutY="58.0" text="Correo:" textFill="#878787">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
+            <Label layoutX="48.0" layoutY="100.0" text="Contraseña:" textFill="#878787">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
             <TextField fx:id="txtCorreoLoginComprador" layoutX="144.0" layoutY="54.0" />
-            <Button fx:id="btnLoginComprador" layoutX="147.0" layoutY="141.0" mnemonicParsing="false" onAction="#iniciarSesionComprador" text="Iniciar Sesión" />
+            <Button fx:id="btnLoginComprador" layoutX="129.0" layoutY="139.0" mnemonicParsing="false" onAction="#iniciarSesionComprador" styleClass="login-btn" stylesheets="@../application/style.css" text="Iniciar Sesión" textFill="#878787">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font></Button>
             <PasswordField fx:id="txtContraLoginComprador" layoutX="144.0" layoutY="96.0" />
+            <Button fx:id="btnVolver" layoutX="320.0" layoutY="158.0" mnemonicParsing="false" onAction="#volverASelectorRol" styleClass="free-delivery-card" stylesheets="@../application/style.css" text="Volver" textFill="#878787">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>

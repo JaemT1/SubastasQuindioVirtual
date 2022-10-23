@@ -13,12 +13,24 @@ public class ModelFactoryController implements Serializable{
 	private static final long serialVersionUID = -4040905587180317945L;
 	
 	//Declaración de atributos
-
 	private static ModelFactoryController instance;
+	
+	//Quien almacena todo el modelo
 	SubastasQuindio aplicacionSubastas = new SubastasQuindio();
+	
+	//Quien gestiona las views
 	Main gestorVentanas = new Main();
+	
 	String[] tiposProductos = new String[5];
-
+	
+	//Almacena el usuario, en este caso, el anunciante que ha iniciado sesión
+	Anunciante anuncianteSesionIniciada = new Anunciante();
+	
+	//Almacena el usuario, en este caso, el comprador que ha iniciado sesión
+	Comprador compradorSesionIniciada = new Comprador();
+	
+	//Nombre del anuncio a modificar
+	String nombreAnuncioAModificar = "";
     //------------------------------  SINGLETON ------------------------------------------------
     /**
      * Método que devuelve la instancia del singleton 
@@ -42,7 +54,7 @@ public class ModelFactoryController implements Serializable{
             System.out.println("La aplicación de subastas está vacía");
         }
     }
-    
+
     /**
      * Método que carga los usuarios desde el archivo .txt
      */

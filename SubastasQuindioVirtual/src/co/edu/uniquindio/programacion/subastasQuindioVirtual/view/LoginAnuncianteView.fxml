@@ -16,15 +16,29 @@
          <children>
             <Pane layoutX="-10.0" layoutY="-10.0" prefHeight="200.0" prefWidth="390.0">
                <children>
-                  <Label layoutX="86.0" layoutY="14.0" text="Inicia Sesión Como Anunciante">
+                  <Label layoutX="68.0" layoutY="14.0" text="Inicia Sesión Como Anunciante" textFill="#828282">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="Cambria Bold" size="18.0" />
                      </font></Label>
-                  <Label layoutX="60.0" layoutY="58.0" text="Correo:" />
-                  <Label layoutX="48.0" layoutY="100.0" text="Contraseña:" />
+                  <Label layoutX="60.0" layoutY="58.0" text="Correo:" textFill="#828282">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
+                  <Label layoutX="48.0" layoutY="100.0" text="Contraseña:" textFill="#8d8d8d">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
                   <TextField fx:id="txtCorreoLoginAnunciante" layoutX="144.0" layoutY="54.0" />
-                  <Button fx:id="btnLoginAnunciante" layoutX="147.0" layoutY="138.0" mnemonicParsing="false" onAction="#iniciarSesionAnunciante" text="Iniciar Sesión" />
+                  <Button fx:id="btnLoginAnunciante" layoutX="135.0" layoutY="139.0" mnemonicParsing="false" onAction="#iniciarSesionAnunciante" prefHeight="39.0" prefWidth="120.0" styleClass="login-btn" stylesheets="@../application/style.css" text="Iniciar Sesión" textFill="#878787">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Button>
                   <PasswordField fx:id="txtContraLoginAnunciante" layoutX="144.0" layoutY="96.0" />
+                  <Button fx:id="btnVolver" layoutX="322.0" layoutY="163.0" mnemonicParsing="false" onAction="#volverASelector" prefHeight="31.0" prefWidth="63.0" styleClass="free-delivery-card" stylesheets="@../application/style.css" text="Volver" textFill="#878787">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
          </children>

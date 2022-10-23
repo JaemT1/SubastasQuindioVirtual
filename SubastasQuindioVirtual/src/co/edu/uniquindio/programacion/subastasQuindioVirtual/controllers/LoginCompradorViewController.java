@@ -23,14 +23,13 @@ public class LoginCompradorViewController {
     private TextField txtCorreoLoginComprador;
 
     /**
-     * Metodo que verifica si un comprador ya esta registrado y si no esta registrado lanza una excepci�n, y abre una ventana para registrarse.
+     * Metodo que verifica si un comprador ya esta registrado y si no esta registrado lanza una excepción, y abre una ventana para registrarse.
      * @param event
      * @throws UserNotFoundException
      * @throws IOException
      */
     @FXML
     private void iniciarSesionComprador(ActionEvent event) throws UserNotFoundException, Exception {
-    	Stage primaryStage = new Stage();
         String correoComprador = txtCorreoLoginComprador.getText();
         String contraseniaComprador = txtContraLoginComprador.getText();
         boolean usuarioEncontrado = false;
@@ -38,17 +37,19 @@ public class LoginCompradorViewController {
         for (Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
 
             if (correoComprador.equals(usuario.getCorreo()) && contraseniaComprador.equals(usuario.getContrasena())) {
-                JOptionPane.showMessageDialog(null, "Sesi�n Iniciada");
-                ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoComprador + " inicia sesi�n", 1, "Se inicia sesi�n");
+                JOptionPane.showMessageDialog(null, "Sesión Iniciada");
+                ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoComprador + " inicia sesión", 1, "Se inicia sesión");
                 cerrarVentanaLogin();
-                ModelFactoryController.getInstance().gestorVentanas.start(primaryStage);
                 usuarioEncontrado = true;
+                Comprador comprador = (Comprador)usuario;
+                ModelFactoryController.getInstance().compradorSesionIniciada = comprador;
+                ModelFactoryController.getInstance().gestorVentanas.abrirVentanaCompradorView();
             }
 
         }
         //Si no es encontrado se lanza la excepci�n y se abre la ventana de registro
         if (usuarioEncontrado == false) {
-            ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoComprador + " no pudo iniciar sesi�n", 2, "No Se inicia sesi�n");
+            ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoComprador + " no pudo iniciar sesión", 2, "No Se inicia sesi�n");
             int registro = JOptionPane.showConfirmDialog(null,"No se encuentra registrado" + "\n" + "Desea registrarse?");
             if (registro == 0) {
                 cerrarVentanaLogin();
@@ -57,6 +58,18 @@ public class LoginCompradorViewController {
             throw new UserNotFoundException("Usuario no encontrado");
         }
     }
+    
+    /**
+     * Metodo que nos permite volver al selector de rol
+     * @param event
+     */
+    @FXML
+    public void volverASelectorRol(ActionEvent event) {
+    	cerrarVentanaLogin();
+    	ModelFactoryController.getInstance().gestorVentanas.abrirVentanaSelectorRolView();
+    }
+    
+    
     /**
      * cierra la ventana login
      */

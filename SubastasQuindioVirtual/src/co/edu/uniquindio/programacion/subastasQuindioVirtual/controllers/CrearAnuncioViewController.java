@@ -94,11 +94,14 @@ public class CrearAnuncioViewController implements Initializable {
 		//Añadiendo el anuncio al arraylist de anuncios
 		ModelFactoryController.getInstance().aplicacionSubastas.getAnuncios().add(anuncio);
 		//Se añade el anuncio al arraylist de anuncios del anunciante que lo creó
-		for (Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
+		ArrayList<Usuario> usuarios = ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios();
+		for (Usuario usuario : usuarios) {
 			if (usuario.getNombre().equals(nombreAnunciante) && usuario instanceof Anunciante) {
 				((Anunciante) usuario).getAnuncios().add(anuncio);
+				break;
 			}
 		}
+		ModelFactoryController.getInstance().aplicacionSubastas.setUsuarios(usuarios);
 		ModelFactoryController.getInstance().guardarLog("El usuario : " + nombreAnunciante + " crea un nuevo anuncio", 1, "Crear anuncio");
 		JOptionPane.showMessageDialog(null, "El anuncio ha sido creado");
 		ModelFactoryController.getInstance().serializarModeloXml();
@@ -149,7 +152,7 @@ public class CrearAnuncioViewController implements Initializable {
 	private void regresar(ActionEvent event) {
 		cerrarVentanaCrearAnuncio();
 		try {
-			ModelFactoryController.getInstance().gestorVentanas.start(stage);
+			ModelFactoryController.getInstance().gestorVentanas.abrirVentanaAnuncianteView();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -192,6 +195,8 @@ public class CrearAnuncioViewController implements Initializable {
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		txtNombreAnunciante.setEditable(false);
+		txtNombreAnunciante.setText(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre());
 		lblRutaImagen.setVisible(false);
 		dtPckrFechaPublicacion.setEditable(false);
 		dtPckrFechaFin.setEditable(false);

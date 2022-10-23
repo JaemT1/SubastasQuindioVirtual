@@ -18,14 +18,15 @@ public class LoginAnuncianteController{
 	@FXML
 	private Button btnLoginAnunciante;
 	
+	private Stage stage = new Stage();
+	
 	/**
 	 * M�todo que verifica si un anunciante ya est� registrado
 	 * @param event
 	 * @throws UserNotFoundException
 	 */
 	@FXML
-	public void iniciarSesionAnunciante(ActionEvent event) throws UserNotFoundException, IOException{
-		Stage primaryStage = new Stage();
+	public void iniciarSesionAnunciante(ActionEvent event) throws UserNotFoundException, Exception, IOException{
         String correoAnunciante = txtCorreoLoginAnunciante.getText();
         String contraseniaAnunciante = txtContraLoginAnunciante.getText();
         boolean usuarioEncontrado = false;
@@ -36,10 +37,11 @@ public class LoginAnuncianteController{
                 JOptionPane.showMessageDialog(null, "Sesión Iniciada");
                 ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoAnunciante + " inicia sesión", 1, "Se inicia sesión");
                 cerrarVentanaLogin();
-                ModelFactoryController.getInstance().gestorVentanas.abrirVentanaCrearAnuncioView();
-                usuarioEncontrado = true;
+                usuarioEncontrado = true;  
+                Anunciante anunciante = (Anunciante)usuario;
+                ModelFactoryController.getInstance().anuncianteSesionIniciada = anunciante;
+                ModelFactoryController.getInstance().gestorVentanas.abrirVentanaAnuncianteView();
             }
-
         }
         //Si no es encontrado se lanza la excepción y se abre la ventana de registro
         if (usuarioEncontrado == false) {
@@ -51,6 +53,16 @@ public class LoginAnuncianteController{
             }
             throw new UserNotFoundException("Usuario no encontrado");
         }
+	}
+	
+	/**
+	 * Metodo que nos permite volver al selector de rol
+	 * @param event
+	 */
+	@FXML
+	public void volverASelector(ActionEvent event) {
+		cerrarVentanaLogin();
+		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaSelectorRolView();
 	}
 	
 	/**

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.SelectorRolViewController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="92.0" prefWidth="400.0">
+         <children>
+            <Label text="¿Desea ser...." textFill="#878787">
+               <font>
+                  <Font name="Cambria" size="40.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutY="105.0" prefHeight="100.0" prefWidth="400.0" stylesheets="@../application/style.css">
+         <children>
+            <Button fx:id="btnAnunciante" mnemonicParsing="false" onAction="#anuncianteView" prefHeight="59.0" prefWidth="154.0" styleClass="login-btn" stylesheets="@../application/style.css" text="ANUNCIANTE" textFill="#828282">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Label contentDisplay="CENTER" prefHeight="49.0" prefWidth="30.0" text="Ó" textFill="#878787">
+               <font>
+                  <Font name="Cambria" size="40.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnComprador" mnemonicParsing="false" onAction="#compradorView" prefHeight="65.0" prefWidth="149.0" styleClass="free-delivery-card" stylesheets="@../application/style.css" text="COMPRADOR" textFill="#878787">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <Button fx:id="btnVolver" layoutX="326.0" layoutY="208.0" mnemonicParsing="false" onAction="#volverAPaginaPrin" styleClass="free-delivery-card" stylesheets="@../application/style.css" text="Volver" textFill="#878787">
+         <font>
+            <Font name="Cambria" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
