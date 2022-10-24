@@ -143,7 +143,6 @@ public class CrearAnuncioViewController implements Initializable {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 		}
 	}
 	

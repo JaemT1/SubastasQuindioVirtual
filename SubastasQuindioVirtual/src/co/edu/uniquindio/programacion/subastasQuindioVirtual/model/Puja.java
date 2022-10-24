@@ -65,7 +65,8 @@ public class Puja implements Serializable{
 		this.codigoPuja = codigoPuja;
 	}
 
-	
-	
-	
+	@Override
+	public String toString() {
+		return valor + "@@" + nombreAnunciante + "@@" + nombreProducto + "@@" + nombreComprador + "@@" + codigoPuja + "\n";
+	}	
 }

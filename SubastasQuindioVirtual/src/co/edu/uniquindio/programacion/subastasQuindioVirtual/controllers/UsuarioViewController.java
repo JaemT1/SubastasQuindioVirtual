@@ -2,7 +2,12 @@ package co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.Main;
@@ -99,11 +104,40 @@ public class UsuarioViewController implements Initializable {
 		Stage stage = (Stage) this.btnIniciarSesion.getScene().getWindow();
 		stage.close();
 	}
+	
+	public void crearCopiaXML() {
+		//Se obtiene la fecha
+		Calendar cal1 = Calendar.getInstance();
+
+		int dia = cal1.get(Calendar.DAY_OF_MONTH);
+		int mes = cal1.get(Calendar.MONTH) + 1;
+		int anio = cal1.get(Calendar.YEAR);
+		int hora = cal1.get(Calendar.HOUR);
+		int minuto = cal1.get(Calendar.MINUTE);
+		int segundo = cal1.get(Calendar.SECOND);
+		
+		//Declaracion de rutas
+		Path origenPath = FileSystems.getDefault().getPath("C:\\td\\persistencia\\model.xml");
+        Path destinoPath = FileSystems.getDefault().getPath("C:\\td\\persistencia\\respaldo\\" + "model_"+dia+"_"+mes+"_"+anio+"_"+hora+"_"+minuto+"_"+segundo+".xml");
+        
+		//Se hace la copia del archivo
+		try {
+			Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void pujar(ActionEvent event) {
+		cerrarVentanaPrincipal();
+		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaLoginCompradorView();
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ModelFactoryController.getInstance();
-		//ModelFactoryController.getInstance().cargarDatosModelo();
+		crearCopiaXML();
+		ModelFactoryController.getInstance().cargarDatosModelo();
 		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
 		anuncios = ModelFactoryController.getInstance().aplicacionSubastas.getAnuncios();
 		// Pone el primer anuncio a la izq

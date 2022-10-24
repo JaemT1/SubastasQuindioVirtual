@@ -3,12 +3,17 @@ package co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.ResourceBundle;
+
 import javax.swing.JOptionPane;
+
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.Main;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.MyListenerCopia;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anunciante;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Puja;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Transaccion;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +23,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -51,6 +57,15 @@ public class AnuncianteViewController implements Initializable{
 	
 	@FXML
 	private Label lblUserName;
+	
+	@FXML
+	private Label lblCodigoPuja;
+
+	@FXML
+	private Button btnVender;
+	
+	@FXML
+	private TextField txtCodigoPuja;
 
     @FXML
     private Label lblNombreProducto;
@@ -204,6 +219,46 @@ public class AnuncianteViewController implements Initializable{
 		ModelFactoryController.getInstance().nombreAnuncioAModificar =  lblNombreProducto.getText();
 		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaOfertasAnuncioView(stage);
 	}
+	
+	@FXML
+	public void vender(ActionEvent event) {
+		int codigoPujaSeleccionado = Integer.parseInt(txtCodigoPuja.getText());
+		
+		Calendar cal1 = Calendar.getInstance();
+
+		int dia = cal1.get(Calendar.DAY_OF_MONTH);
+		int mes = cal1.get(Calendar.MONTH) + 1;
+		int anio = cal1.get(Calendar.YEAR);
+
+		String fecha = ""+anio+"-"+mes+"-"+dia;
+		double valorFinal = 0;
+		String nombreAnunciante = ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre();
+		String nombreComprador = "";
+		String nombreProducto = lblNombreProducto.getText();
+		
+		ArrayList<Anuncio> anuncios = ModelFactoryController.getInstance().anuncianteSesionIniciada.getAnuncios();
+		ArrayList<Puja> pujasAnuncio = new ArrayList<Puja>();
+		
+		for (Anuncio anuncio : anuncios) {
+			if (lblNombreProducto.getText().equals(anuncio.getNombreProducto())) {
+				pujasAnuncio = anuncio.getPujas();
+				break;
+			}
+		}
+		
+		for (Puja puja : pujasAnuncio) {
+			if (codigoPujaSeleccionado == puja.getCodigoPuja()) {
+				valorFinal = puja.getValor();
+				nombreComprador = puja.getNombreComprador();
+				break;
+			}
+		} 
+		
+		Transaccion transaccion = new Transaccion(0,fecha,valorFinal,nombreAnunciante,nombreComprador,nombreProducto);
+		ModelFactoryController.getInstance().guardarLog("Se vende el producto: " + nombreProducto + " a " + nombreComprador, 1, "Vender Producto");
+		ModelFactoryController.getInstance().guardarTransaccion(transaccion);
+		JOptionPane.showMessageDialog(null, "Se vendió con exito el anuncio");
+	}
 
 	@Override	
     public void initialize(URL location, ResourceBundle resources) {
@@ -217,7 +272,21 @@ public class AnuncianteViewController implements Initializable{
 			myListener = new MyListenerCopia() {
 				@Override
 				public void onClickListener(Anuncio anuncio) {
+					Calendar cal1 = Calendar.getInstance();
+					int dia = cal1.get(Calendar.DAY_OF_MONTH);
 					setChosenAnnounce(anuncio);
+					String fecha = anuncio.getFechaFinPublicacion();
+					String[] fechaSplit = fecha.split("-");
+
+					if (dia > Integer.parseInt(fechaSplit[2])) {
+						lblCodigoPuja.setVisible(true);
+						txtCodigoPuja.setVisible(true);
+						btnVender.setVisible(true);
+					}else {
+						lblCodigoPuja.setVisible(false);
+						txtCodigoPuja.setVisible(false);
+						btnVender.setVisible(false);
+					}
 				}
 			};
 		}

@@ -87,7 +87,11 @@ public class CompradorViewController implements Initializable{
 	private MyListenerCopia myListener;
 	Stage stage = new Stage();
 
-	
+	/**
+	 * Metodo que nos permite pujar
+	 * @param event
+	 * @throws Exception
+	 */
 	@FXML
     public void pujar(ActionEvent event) throws Exception {
 		//Se obtiene el valor de la puja
@@ -124,14 +128,6 @@ public class CompradorViewController implements Initializable{
 		//Se añade al anuncio la puja
 		anuncioAPujar.getPujas().add(puja);
 		
-		/*//Se añade la puja al anuncio en el arraylist global
-		for (Anuncio anuncio : anunciosGlobales) {
-			if (nombreProducto.equals(anuncio.getNombreProducto())) {
-				anuncio.getPujas().add(puja);
-				break;
-			}
-		}*/
-		
 		//Se setea el arraylist de anuncios globales con la nueva puja en el anuncio especifico
 		ModelFactoryController.getInstance().aplicacionSubastas.setAnuncios(anunciosGlobales);
 
@@ -163,6 +159,7 @@ public class CompradorViewController implements Initializable{
 		ModelFactoryController.getInstance().guardarLog("Se guarda la puja", 1, "Pujar");
 		ModelFactoryController.getInstance().serializarModeloXml();
 		ModelFactoryController.getInstance().serializarModeloBinario();
+		ModelFactoryController.getInstance().guardarPuja(puja);
 		cerrarVentanaCompradorView();
 		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaSelectorRolView();
     }

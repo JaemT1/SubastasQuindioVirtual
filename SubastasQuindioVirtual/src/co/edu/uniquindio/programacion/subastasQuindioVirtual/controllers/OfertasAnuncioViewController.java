@@ -46,7 +46,6 @@ public class OfertasAnuncioViewController implements Initializable{
 		ClmnCodigoPuja.setCellValueFactory(new PropertyValueFactory<Puja, Integer>("codigoPuja"));
 		ClmnNombreComprador.setCellValueFactory(new PropertyValueFactory<Puja, String>("nombreComprador"));
 		ClmnValorOferta.setCellValueFactory(new PropertyValueFactory<Puja, Double>("valor"));
-
 		tblOfertasAnuncio.setItems(datosPujas);
 
 	}

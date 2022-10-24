@@ -48,6 +48,7 @@ public class ModelFactoryController implements Serializable{
      * Método constructor
      */
     private ModelFactoryController(){
+    	//cargarDatosIniciales()
     	cargarDatosModelo();
         //Siempre se debe verificar si la raiz del recurso es null
         if(aplicacionSubastas == null) {
@@ -176,5 +177,22 @@ public class ModelFactoryController implements Serializable{
 	public void cargarDatosModeloBinario() throws Exception {
 		aplicacionSubastas = Persistencia.cargarDatosModeloBinario();
 		
+	}
+	
+	/**
+	 * Metodo que guarda la transaccion
+	 * @param transaccion
+	 */
+	public void guardarTransaccion(Transaccion transaccion) {
+		Persistencia.guardarTransaccion(transaccion);
+		
+	}
+	
+	/**
+	 * Metodo que guarda la puja
+	 * @param puja
+	 */
+	public void guardarPuja(Puja puja) {
+		Persistencia.guardarPuja(puja);		
 	}
 }

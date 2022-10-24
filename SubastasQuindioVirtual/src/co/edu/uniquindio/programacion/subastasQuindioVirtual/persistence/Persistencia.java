@@ -9,6 +9,7 @@ import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Comprador;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Puja;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.SubastasQuindio;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Transaccion;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Usuario;
 
 public class Persistencia implements Serializable{
@@ -18,6 +19,7 @@ public class Persistencia implements Serializable{
 	//Declaración de rutas
 	public static final String RUTA_ARCHIVO_ANUNCIANTES = "C:\\td\\persistencia\\archivos\\archivoAnunciantes.txt";
 	public static final String RUTA_ARCHIVO_COMPRADORES = "C:\\td\\persistencia\\archivos\\archivoCompradores.txt";
+	public static final String RUTA_ARCHIVO_TRANSACCIONES = "C:\\td\\persistencia\\archivos\\archivoTransaccion.txt";
 	public static final String RUTA_ARCHIVO_PUJAS = "C:\\td\\persistencia\\archivos\\archivoPujas.txt";
 	public static final String RUTA_ARCHIVO_LOG = "C:\\td\\persistencia\\log\\subastasQuindioLog.txt";
 	public static final String RUTA_ARCHIVO_TIPOS_PRODUCTOS_PROPERTIES = "C:\\td\\persistencia\\archivos\\tiposProductos.properties";
@@ -153,5 +155,32 @@ public class Persistencia implements Serializable{
 		}
 		return aplicacionSubastasQuindio;
 	}
-
+	
+	/**
+	 * Metodo que guarda la transaccion
+	 * @param transaccion
+	 */
+	public static void guardarTransaccion(Transaccion transaccion) {
+		String contenido = "";
+		contenido += transaccion.toString();
+		try {
+			ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_TRANSACCIONES, contenido, true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Metodo que guarda la puja
+	 * @param puja
+	 */
+	public static void guardarPuja(Puja puja) {
+		String contenido = "";
+		contenido += puja.toString();
+		try {
+			ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_PUJAS, contenido, true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

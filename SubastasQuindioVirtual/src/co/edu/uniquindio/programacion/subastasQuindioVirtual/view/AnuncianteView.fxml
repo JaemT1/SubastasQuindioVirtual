@@ -177,7 +177,31 @@
                                  </HBox.margin>
                               </Button>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
                         </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="lblCodigoPuja" text="Código Puja: " textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria Bold" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="txtCodigoPuja" prefHeight="25.0" prefWidth="166.0" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="btnVender" mnemonicParsing="false" onAction="#vender" prefHeight="39.0" prefWidth="111.0" styleClass="add-btn" stylesheets="@../application/style.css" text="VENDER" textFill="#828282">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
                      <styleClass>
                         <String fx:value="chosen-fruit-card" />

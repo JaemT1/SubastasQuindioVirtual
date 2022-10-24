@@ -172,7 +172,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" styleClass="add-btn" stylesheets="@../application/style.css" text="PUJAR" textFill="#828282">
+                        <Button mnemonicParsing="false" onAction="#pujar" prefHeight="50.0" prefWidth="270.0" styleClass="add-btn" stylesheets="@../application/style.css" text="PUJAR" textFill="#828282">
                            <VBox.margin>
                               <Insets bottom="20.0" top="30.0" />
                            </VBox.margin>

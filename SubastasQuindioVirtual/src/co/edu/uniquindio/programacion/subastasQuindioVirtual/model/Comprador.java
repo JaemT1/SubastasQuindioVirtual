@@ -26,5 +26,4 @@ public class Comprador extends Usuario implements Serializable{
 		this.pujas = pujas;
 	}
 	
-	
 }
