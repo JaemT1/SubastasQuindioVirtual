@@ -64,9 +64,10 @@ public class CrearAnuncioViewController implements Initializable {
 	/**
 	 * Método que crea un anuncio
 	 * @param event
+	 * @throws Exception 
 	 */	
 	@FXML
-	public void crearAnuncio(ActionEvent event) throws InvalidInputException{
+	public void crearAnuncio(ActionEvent event) throws Exception{
 		//Obtencion de datos
 		String tipoProducto = cBoxTipoProducto.getValue();
 		String nombreProducto = txtNombreProducto.getText();
@@ -105,6 +106,7 @@ public class CrearAnuncioViewController implements Initializable {
 		ModelFactoryController.getInstance().guardarLog("El usuario : " + nombreAnunciante + " crea un nuevo anuncio", 1, "Crear anuncio");
 		JOptionPane.showMessageDialog(null, "El anuncio ha sido creado");
 		ModelFactoryController.getInstance().serializarModeloXml();
+		ModelFactoryController.getInstance().serializarModeloBinario();
 		vaciarCampos();
 	}
 

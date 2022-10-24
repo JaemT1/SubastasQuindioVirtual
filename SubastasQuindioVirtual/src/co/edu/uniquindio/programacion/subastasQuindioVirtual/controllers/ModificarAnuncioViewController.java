@@ -135,6 +135,7 @@ public class ModificarAnuncioViewController implements Initializable {
 			}
 		}
 		ModelFactoryController.getInstance().serializarModeloXml();
+		ModelFactoryController.getInstance().serializarModeloBinario();
 		JOptionPane.showMessageDialog(null, "Se modifico el anuncio con exito");
 		ModelFactoryController.getInstance().guardarLog("Se modifico el anuncio: " + nombreAnuncioAModificar, 1,"Modificar anuncio");
 		ModelFactoryController.getInstance().gestorVentanas.start(stage);

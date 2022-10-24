@@ -51,22 +51,25 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <VBox fx:id="chosenFruitCard" alignment="CENTER" prefHeight="595.0" prefWidth="335.0" stylesheets="@../application/style.css">
+                  <VBox fx:id="chosenAnnounce" alignment="CENTER" prefHeight="627.0" prefWidth="335.0" stylesheets="@../application/style.css">
                      <VBox.margin>
                         <Insets left="50.0" right="50.0" />
                      </VBox.margin>
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="335.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="315.0">
                            <children>
-                              <Label fx:id="lblNombreProducto" prefHeight="48.0" prefWidth="316.0" text="El balón de la champions" textFill="WHITE">
+                              <Label fx:id="lblNombreProducto" prefHeight="32.0" prefWidth="223.0" text="Balón Champions" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblPrecioProducto" alignment="CENTER" prefHeight="57.0" prefWidth="171.0" text="\$2.99" textFill="WHITE">
+                              <Label fx:id="lblPrecioProducto" alignment="CENTER" prefHeight="32.0" prefWidth="129.0" text="\$2.99" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="20.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
                            <VBox.margin>
@@ -98,7 +101,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="73.0" prefWidth="335.0">
                            <children>
-                              <Label prefHeight="59.0" prefWidth="299.0" text="vendo la roca chiquita esta en buen estado" textFill="WHITE" wrapText="true">
+                              <Label fx:id="lblDesProducto" prefHeight="59.0" prefWidth="299.0" text="vendo la roca chiquita esta en buen estado" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font name="Cambria" size="17.0" />
                                  </font>
@@ -112,35 +115,52 @@
                            <children>
                               <Line endX="100.0" startX="-200.0" stroke="WHITE" />
                            </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="42.0" prefWidth="335.0">
+                        <VBox alignment="CENTER" prefHeight="103.0" prefWidth="335.0">
                            <children>
-                              <Label prefHeight="49.0" prefWidth="139.0" text="Va desde:" textFill="WHITE">
+                              <Label fx:id="lblFechaInicio" prefHeight="41.0" prefWidth="206.0" text="Va desde:" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="18.0" />
                                  </font>
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
                               </Label>
-                              <Label prefHeight="47.0" prefWidth="153.0" text="Hasta:" textFill="WHITE">
+                              <Label fx:id="lblFechaFin" prefHeight="41.0" prefWidth="206.0" text="Hasta:" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="18.0" />
                                  </font>
                               </Label>
                            </children>
-                           <padding>
-                              <Insets bottom="20.0" top="20.0" />
-                           </padding>
-                        </HBox>
+                        </VBox>
                         <HBox alignment="CENTER" prefHeight="38.0" prefWidth="335.0">
                            <children>
                               <Line endX="100.0" startX="-200.0" stroke="WHITE" />
                            </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="335.0">
+                           <children>
+                              <Label text="Anunciante:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria Bold" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" right="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="lblNombreAnunciante" prefHeight="24.0" prefWidth="142.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="335.0">
                            <children>
-                              <Label prefHeight="39.0" prefWidth="169.0" text="Categoria: " textFill="WHITE">
+                              <Label fx:id="lblCategoria" prefHeight="36.0" prefWidth="290.0" text="Categoria: " textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="24.0" />
                                  </font>
@@ -153,16 +173,37 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" prefHeight="96.0" prefWidth="335.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="140.0" styleClass="add-btn" stylesheets="@../application/style.css" text="PUJAR" textFill="#828282">
+                              <Button fx:id="btnPujar" mnemonicParsing="false" onAction="#pujar" prefHeight="39.0" prefWidth="140.0" styleClass="add-btn" stylesheets="@../application/style.css" text="PUJAR" textFill="#828282">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets right="10.0" />
+                                    <Insets right="5.0" />
                                  </HBox.margin>
                               </Button>
+                              <Button fx:id="btnMostrarListaOfertas" mnemonicParsing="false" onAction="#MostrarListaOfertas" prefHeight="44.0" prefWidth="169.0" styleClass="add-btn" stylesheets="@../application/style.css" text="LISTA DE OFERTAS" textFill="#828282" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="335.0">
+                           <children>
+                              <Label text="Valor a pujar: " textFill="WHITE">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="Cambria Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtValorPuja" prefHeight="25.0" prefWidth="182.0" />
                            </children>
                         </HBox>
                      </children>
@@ -213,7 +254,7 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="96.0" prefWidth="213.0" stylesheets="@../application/style.css">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="72.0" prefWidth="228.0" styleClass="login-btn" stylesheets="@../application/style.css" text="MIS OFERTAS" textFill="#878787">
+                                    <Button fx:id="btnMisOfertas" mnemonicParsing="false" onAction="#verMisOfertas" prefHeight="72.0" prefWidth="228.0" styleClass="login-btn" stylesheets="@../application/style.css" text="MIS OFERTAS" textFill="#878787">
                                        <font>
                                           <Font name="Cambria Bold" size="28.0" />
                                        </font>

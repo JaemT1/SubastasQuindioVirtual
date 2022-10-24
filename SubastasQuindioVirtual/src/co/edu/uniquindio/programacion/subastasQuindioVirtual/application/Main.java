@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -126,7 +127,7 @@ public class Main extends Application {
 	 * M�todo que abre la ventana del comprador
 	 */
 	public void abrirVentanaCompradorView() {
-		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/CompradorView.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/CompradorVi.fxml"));
 		try {
 			Scene scene = new Scene(fxmlLoader.load());
 			primaryStage.setScene(scene);
@@ -147,6 +148,52 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setMaximized(true);
 			primaryStage.show();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * M�todo que abre la ventana de pujar 
+	 */
+	public void abrirVentanaPujarCompradorView() {
+		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/PujarCompradorView.fxml"));
+		try {
+			Scene scene = new Scene(fxmlLoader.load());
+			primaryStage.setScene(scene);
+			primaryStage.setMaximized(true);
+			primaryStage.show();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * M�todo que abre la ventana de las ofertas de un comprador
+	 */
+	public void abrirVentanaOfertasCompradorView(Stage stage) {
+		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/MostrarOfertasCompradorView.fxml"));
+		try {
+			Scene scene = new Scene(fxmlLoader.load());
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(scene);
+			stage.showAndWait();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * M�todo que abre la ventana de las ofertas de un comprador
+	 */
+	public void abrirVentanaOfertasAnuncioView(Stage stage) {
+		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/co/edu/uniquindio/programacion/subastasquindioVirtual/view/OfertasAnuncioView.fxml"));
+		try {
+			Scene scene = new Scene(fxmlLoader.load());
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(scene);
+			stage.showAndWait();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}

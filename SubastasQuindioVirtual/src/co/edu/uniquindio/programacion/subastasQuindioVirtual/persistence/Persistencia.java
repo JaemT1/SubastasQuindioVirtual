@@ -18,10 +18,11 @@ public class Persistencia implements Serializable{
 	//Declaración de rutas
 	public static final String RUTA_ARCHIVO_ANUNCIANTES = "C:\\td\\persistencia\\archivos\\archivoAnunciantes.txt";
 	public static final String RUTA_ARCHIVO_COMPRADORES = "C:\\td\\persistencia\\archivos\\archivoCompradores.txt";
-	public static final String RUTA_ARCHIVO_PRODUCTOS = "C:\\td\\persistencia\\archivos\\archivoProductos.txt";
+	public static final String RUTA_ARCHIVO_PUJAS = "C:\\td\\persistencia\\archivos\\archivoPujas.txt";
 	public static final String RUTA_ARCHIVO_LOG = "C:\\td\\persistencia\\log\\subastasQuindioLog.txt";
 	public static final String RUTA_ARCHIVO_TIPOS_PRODUCTOS_PROPERTIES = "C:\\td\\persistencia\\archivos\\tiposProductos.properties";
 	public static final String RUTA_ARCHIVO_MODEL_XML = "C:\\td\\persistencia\\model.xml";
+	public static final String RUTA_ARCHIVO_MODEL_DAT = "C:\\td\\persistencia\\model.dat";
 	
 	/**
 	 * Método que carga todos los anunciantes guardados en el archivo .txt
@@ -125,6 +126,28 @@ public class Persistencia implements Serializable{
 		SubastasQuindio aplicacionSubastasQuindio = null;
 		try {
 			aplicacionSubastasQuindio = (SubastasQuindio)ArchivoUtil.cargarRecursoSerializadoXML(RUTA_ARCHIVO_MODEL_XML);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return aplicacionSubastasQuindio;
+	}
+	
+	/**
+	 * Serializa el modelo en binario
+	 * @param aplicacionSubastas
+	 */
+	public static void serializarModeloBinario(SubastasQuindio aplicacionSubastas) throws Exception {
+		ArchivoUtil.salvarRecursoSerializado(RUTA_ARCHIVO_MODEL_DAT, aplicacionSubastas);	
+	}
+	
+	/**
+	 * Carga los datos del modelo desde el archivo .dat
+	 * @return un objeto SubastasQuindio
+	 */
+	public static SubastasQuindio cargarDatosModeloBinario() throws Exception {
+		SubastasQuindio aplicacionSubastasQuindio = null;
+		try {
+			aplicacionSubastasQuindio = (SubastasQuindio)ArchivoUtil.cargarRecursoSerializado(RUTA_ARCHIVO_MODEL_DAT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

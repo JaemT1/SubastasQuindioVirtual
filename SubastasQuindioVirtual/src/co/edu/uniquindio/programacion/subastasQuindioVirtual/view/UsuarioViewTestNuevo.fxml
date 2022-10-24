@@ -52,7 +52,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <VBox fx:id="chosenFruitCard" alignment="CENTER" prefHeight="576.0" prefWidth="335.0" style="-fx-background-color: #6A7324;" stylesheets="@../application/style.css">
+                  <VBox fx:id="chosenFruitCard" alignment="CENTER" prefHeight="635.0" prefWidth="335.0" style="-fx-background-color: #6A7324;" stylesheets="@../application/style.css">
                      <VBox.margin>
                         <Insets left="50.0" right="50.0" />
                      </VBox.margin>
@@ -140,6 +140,24 @@
                         <HBox alignment="CENTER" prefHeight="38.0" prefWidth="335.0">
                            <children>
                               <Line endX="100.0" startX="-200.0" stroke="WHITE" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="335.0">
+                           <children>
+                              <Label fx:id="lblNombreAnunciante" text="Anunciante:" textFill="WHITE">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="Cambria Bold" size="20.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="335.0">

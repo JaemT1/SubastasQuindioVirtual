@@ -1,9 +1,7 @@
 package co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers;
 
-import java.io.IOException;
-import java.net.URL;
+
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
@@ -15,7 +13,6 @@ import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Puja;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -37,13 +34,10 @@ public class RegisterCompradorViewController {
     /**
      * M�todo para registrar un comprador
      * @param event
-     * @throws AgeNotAllowedException
-     * @throws AlreadyTakenUsernameException
-     * @throws IOException
-     * @throws InvalidInputException
+     * @throws Exception 
      */
     @FXML
-	private void registrarComprador(ActionEvent event)throws AgeNotAllowedException, AlreadyTakenUsernameException, IOException, InvalidInputException {
+	private void registrarComprador(ActionEvent event)throws Exception {
 		ArrayList<Puja> pujas = new ArrayList<Puja>();
 		String nombre = txtNombreComprador.getText();
 		String correo = txtCorreoComprador.getText();
@@ -72,6 +66,7 @@ public class RegisterCompradorViewController {
 			ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios().add(comprador);
 			ModelFactoryController.getInstance().guardarComprador(comprador);
 			ModelFactoryController.getInstance().serializarModeloXml();
+			ModelFactoryController.getInstance().serializarModeloBinario();
 			ModelFactoryController.getInstance().guardarLog("Se registra el comprador con nombre: " + nombre, 1,"Registrar comprador");
 			JOptionPane.showMessageDialog(null, "Comprador registrado con éxito");
 			vaciarTxtFields();

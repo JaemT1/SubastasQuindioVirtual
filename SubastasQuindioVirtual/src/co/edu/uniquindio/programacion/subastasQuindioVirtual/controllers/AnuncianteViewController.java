@@ -47,6 +47,9 @@ public class AnuncianteViewController implements Initializable{
     private Button btnAnunciar;
 	
 	@FXML
+    private Button btnVerOfertas;
+	
+	@FXML
 	private Label lblUserName;
 
     @FXML
@@ -141,9 +144,10 @@ public class AnuncianteViewController implements Initializable{
 	/**
 	 * Metodo que nos permite eliminar un anuncio
 	 * @param event
+	 * @throws Exception 
 	 */
 	@FXML
-	public void eliminarAnuncio(ActionEvent event) {
+	public void eliminarAnuncio(ActionEvent event) throws Exception {
 		//Se obtiene el nombre del producto a eliminar
 		String nombreProducto = lblNombreProducto.getText();
 		//Se crea un arraylist temporal para trabajarlo mejor
@@ -181,6 +185,7 @@ public class AnuncianteViewController implements Initializable{
 			}
 		}
 		ModelFactoryController.getInstance().serializarModeloXml();
+		ModelFactoryController.getInstance().serializarModeloBinario();
 		JOptionPane.showMessageDialog(null, "Se eliminó el anuncio con exito");
 		ModelFactoryController.getInstance().guardarLog("Se elimina el anuncio: " + nombreProducto, 1, "Eliminar anuncio");
 	}
@@ -194,7 +199,13 @@ public class AnuncianteViewController implements Initializable{
 		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaModificarAnuncioView();
 	}
 	
-    @Override	
+	public void verOfertas(ActionEvent event) {
+		Stage stage = new Stage();
+		ModelFactoryController.getInstance().nombreAnuncioAModificar =  lblNombreProducto.getText();
+		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaOfertasAnuncioView(stage);
+	}
+
+	@Override	
     public void initialize(URL location, ResourceBundle resources) {
     	ModelFactoryController.getInstance().cargarDatosModelo();
     	lblUserName.setText("Anunciante : " + ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre());

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="369.0" prefWidth="401.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.OfertasCompradorViewController">
+   <children>
+      <TableView fx:id="tblOfertasComprador" layoutX="-1.0" layoutY="1.0" prefHeight="367.0" prefWidth="403.0">
+        <columns>
+          <TableColumn fx:id="ClmnCodigo" prefWidth="75.0" text="Código Puja" />
+          <TableColumn fx:id="ClmnNomProducto" prefWidth="115.0" text="Nombre Producto" />
+            <TableColumn fx:id="ClmnNomAnunciante" prefWidth="127.0" text="Nombre Anunciante" />
+            <TableColumn fx:id="ClmnValorOferta" prefWidth="75.0" text="Valor Oferta" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

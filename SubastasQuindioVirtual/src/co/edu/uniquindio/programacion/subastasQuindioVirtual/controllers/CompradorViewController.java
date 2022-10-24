@@ -3,13 +3,15 @@ package co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.Main;
-import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.MyListener;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.MyListenerCopia;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anunciante;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Comprador;
-import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Fruit;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Puja;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -27,120 +30,172 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CompradorViewController implements Initializable{
-	@FXML
-    private VBox chosenFruitCard;
 	
-	@FXML
-	private Button btnCerrarSesion;
-	
-	@FXML
-	private Label lblUserName;
+		
+		@FXML
+	    private Label lblUserName;
 
-    @FXML
-    private Label lblNombreProducto;
+	    @FXML
+	    private Label lblFechaInicio;
 
-    @FXML
-    private Label lblPrecioProducto;
+	    @FXML
+	    private Label lblNombreProducto;
 
-    @FXML
-    private ImageView imgProducto;
+	    @FXML
+	    private Label lblFechaFin;
 
-    @FXML
-    private ScrollPane scroll;
+	    @FXML
+	    private ImageView imgProducto;
 
-    @FXML
-    private GridPane grid;
+	    @FXML
+	    private Label lblDesProducto;
 
-    private List<Fruit> fruits = new ArrayList<>();
+	    @FXML
+	    private GridPane grid;
+
+	    @FXML
+	    private Label lblNombreAnunciante;
+	    
+	    @FXML
+	    private TextField txtValorPuja;
+	    
+	    @FXML
+	    private Label lblCategoria;
+
+	    @FXML
+	    private Button btnCerrarSesion;
+	    
+	    @FXML
+	    private Button btnPujar;
+	    
+	    @FXML
+	    private Button btnMostrarListaOfertas;
+	    
+	    @FXML
+	    private Button btnMisOfertas;
+
+	    @FXML
+	    private ScrollPane scroll;
+
+	    @FXML
+	    private VBox chosenAnnounce;
+
+	    @FXML
+	    private Label lblPrecioProducto;
+
     private Image image;
-    private MyListener myListener;
-    private Stage stage = new Stage();
+	private MyListenerCopia myListener;
+	Stage stage = new Stage();
 
-    private List<Fruit> getData() {
-        List<Fruit> fruits = new ArrayList<>();
-        Fruit fruit;
+	
+	@FXML
+    public void pujar(ActionEvent event) throws Exception {
+		//Se obtiene el valor de la puja
+		Double valorPuja = Double.parseDouble(txtValorPuja.getText()); //Hacerle verificacion sobre el valor inicial
+		//Se obtiene el nombre del producto para buscar el anuncio
+		String nombreProducto = lblNombreProducto.getText();
+		
+		//Se setean los objetos necesarios para el constructor de la puja
+		Comprador comprador = ModelFactoryController.getInstance().compradorSesionIniciada;
+		Anuncio anuncioAPujar = new Anuncio();
+		
+		//Se obtiene el codigo de la puja
+		int codigoPuja = ModelFactoryController.getInstance().aplicacionSubastas.getCantidadPujas();
+		
+		//Se le suma a la cantidad de pujas
+		int nuevaCantidadPujas = ModelFactoryController.getInstance().aplicacionSubastas.getCantidadPujas() + 1;
+		
+		//Se setea la nueva cantidad de pujas
+		ModelFactoryController.getInstance().aplicacionSubastas.setCantidadPujas(nuevaCantidadPujas);
+		
+		//Se obtiene el anuncio
+		ArrayList<Anuncio> anunciosGlobales = ModelFactoryController.getInstance().aplicacionSubastas.getAnuncios();
+		
+		for (Anuncio anuncio : anunciosGlobales) {
+			if (nombreProducto.equals(anuncio.getNombreProducto())) {
+				anuncioAPujar = anuncio;
+				break;
+			}
+		}
+		
+		//Se construye el objeto puja
+		Puja puja = new Puja(valorPuja, anuncioAPujar.getNombreAnunciante(), anuncioAPujar.getNombreProducto(), comprador.getNombre(), codigoPuja);
+		
+		//Se añade al anuncio la puja
+		anuncioAPujar.getPujas().add(puja);
+		
+		/*//Se añade la puja al anuncio en el arraylist global
+		for (Anuncio anuncio : anunciosGlobales) {
+			if (nombreProducto.equals(anuncio.getNombreProducto())) {
+				anuncio.getPujas().add(puja);
+				break;
+			}
+		}*/
+		
+		//Se setea el arraylist de anuncios globales con la nueva puja en el anuncio especifico
+		ModelFactoryController.getInstance().aplicacionSubastas.setAnuncios(anunciosGlobales);
 
-        fruit = new Fruit();
-        fruit.setName("Kiwi");
-        fruit.setPrice(2.99);
-        fruit.setImgSrc("/co/edu/uniquindio/programacion/subastasQuindioVirtual/resources/kiwi.png");
-        fruit.setColor("6A7324");
-        fruits.add(fruit);
-
-        fruit = new Fruit();
-        fruit.setName("Coconut");
-        fruit.setPrice(3.99);
-        fruit.setImgSrc("/co/edu/uniquindio/programacion/subastasQuindioVirtual/resources/coconut.png");
-        fruit.setColor("A7745B");
-        fruits.add(fruit);
-
-        fruit = new Fruit();
-        fruit.setName("Peach");
-        fruit.setPrice(1.50);
-        fruit.setImgSrc("/co/edu/uniquindio/programacion/subastasQuindioVirtual/resources/peach.png");
-        fruit.setColor("F16C31");
-        fruits.add(fruit);
-
-        fruit = new Fruit();
-        fruit.setName("Grapes");
-        fruit.setPrice(0.99);
-        fruit.setImgSrc("/co/edu/uniquindio/programacion/subastasQuindioVirtual/resources/grapes.png");
-        fruit.setColor("291D36");
-        fruits.add(fruit);
-
-        fruit = new Fruit();
-        fruit.setName("Watermelon");
-        fruit.setPrice(4.99);
-        fruit.setImgSrc("/co/edu/uniquindio/programacion/subastasQuindioVirtual/resources/watermelon.png");
-        fruit.setColor("22371D");
-        fruits.add(fruit);
-
-        fruit = new Fruit();
-        fruit.setName("Orange");
-        fruit.setPrice(2.99);
-        fruit.setImgSrc("/co/edu/uniquindio/programacion/subastasQuindioVirtual/resources/orange.png");
-        fruit.setColor("FB5D03");
-        fruits.add(fruit);
-
-        fruit = new Fruit();
-        fruit.setName("StrawBerry");
-        fruit.setPrice(0.99);
-        fruit.setImgSrc("/co/edu/uniquindio/programacion/subastasQuindioVirtual/resources/strawberry.png");
-        fruit.setColor("80080C");
-        fruits.add(fruit);
-
-        fruit = new Fruit();
-        fruit.setName("Mango");
-        fruit.setPrice(0.99);
-        fruit.setImgSrc("/co/edu/uniquindio/programacion/subastasQuindioVirtual/resources/mango.png");
-        fruit.setColor("FFB605");
-        fruits.add(fruit);
-
-        fruit = new Fruit();
-        fruit.setName("Cherry");
-        fruit.setPrice(0.99);
-        fruit.setImgSrc("/co/edu/uniquindio/programacion/subastasQuindioVirtual/resources/cherry.png");
-        fruit.setColor("5F060E");
-        fruits.add(fruit);
-
-        fruit = new Fruit();
-        fruit.setName("Banana");
-        fruit.setPrice(1.99);
-        fruit.setImgSrc("/co/edu/uniquindio/programacion/subastasQuindioVirtual/resources/banana.png");
-        fruit.setColor("E7C00F");
-        fruits.add(fruit);
-
-        return fruits;
+		
+		ArrayList<Usuario> usuarios = ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios();
+		
+		for (Usuario usuario : usuarios) {
+			if (lblNombreAnunciante.getText().equals(usuario.getNombre()) && usuario instanceof Anunciante) {
+				ArrayList<Anuncio>anunciosAnunciante = ((Anunciante) usuario).getAnuncios();
+				for (Anuncio anuncio : anunciosAnunciante) {
+					if (anuncioAPujar.getNombreProducto().equals(anuncio.getNombreProducto())) {
+						anuncio.getPujas().add(puja);
+						((Anunciante) usuario).setAnuncios(anunciosAnunciante);
+						break;
+					}
+				}
+				break;
+			}
+		}
+		
+		for (Usuario usuario : usuarios) {
+			if (ModelFactoryController.getInstance().compradorSesionIniciada.getNombre().equals(usuario.getNombre()) && usuario instanceof Comprador) {
+				((Comprador) usuario).getPujas().add(puja);
+				break;
+			}
+		}
+		
+		ModelFactoryController.getInstance().aplicacionSubastas.setUsuarios(usuarios);
+		ModelFactoryController.getInstance().guardarLog("Se guarda la puja", 1, "Pujar");
+		ModelFactoryController.getInstance().serializarModeloXml();
+		ModelFactoryController.getInstance().serializarModeloBinario();
+		cerrarVentanaCompradorView();
+		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaSelectorRolView();
     }
-
-    private void setChosenFruit(Fruit fruit) {
-    	lblNombreProducto.setText(fruit.getName());
-    	lblPrecioProducto.setText(Main.CURRENCY + fruit.getPrice());
-        image = new Image(getClass().getResourceAsStream(fruit.getImgSrc()));
-        imgProducto.setImage(image);
-        chosenFruitCard.setStyle("-fx-background-color: #" + fruit.getColor() + ";\n" +
-                "    -fx-background-radius: 30;");
+	
+	@FXML
+    void MostrarListaOfertas(ActionEvent event) {
+		Stage stage = new Stage();
+		ModelFactoryController.getInstance().nombreAnuncioAModificar =  lblNombreProducto.getText();
+		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaOfertasAnuncioView(stage);
     }
+	
+	@FXML
+	public void verMisOfertas() {
+		Stage stage = new Stage();
+		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaOfertasCompradorView(stage);
+	}
+	
+	
+    /**
+	 * Metodo que nos permite setear los datos de un anuncio en especifíco a la izq de la interfaz
+	 * @param anuncio anuncio a setear
+	 */
+	private void setChosenAnnounce(Anuncio anuncio) {
+		lblNombreProducto.setText(anuncio.getNombreProducto());
+		lblPrecioProducto.setText(Main.CURRENCY + anuncio.getValorInicial());
+		image = new Image(anuncio.getFoto());
+		imgProducto.setImage(image);
+		lblDesProducto.setText(anuncio.getDescripcion());
+		lblFechaInicio.setText("Va desde: " + anuncio.getFechaPublicacion());
+		lblFechaFin.setText("Hasta: " + anuncio.getFechaFinPublicacion());
+		lblCategoria.setText("Categoria: " + anuncio.getTipoProducto());
+		lblNombreAnunciante.setText("Anunciante: " + anuncio.getNombreAnunciante());
+	}
     
     
     /**
@@ -153,7 +208,7 @@ public class CompradorViewController implements Initializable{
 	}
 
 	/**
-     * Metodo que nos permite cerrar sesion como anunciantes
+     * Metodo que nos permite cerrar sesion como comprador
      * @param event
      * @throws Exception 
      */
@@ -168,51 +223,53 @@ public class CompradorViewController implements Initializable{
 	
     @Override	
     public void initialize(URL location, ResourceBundle resources) {
-    	lblUserName.setText("Comprador : " + ModelFactoryController.getInstance().compradorSesionIniciada.getNombre());
     	
     	ModelFactoryController.getInstance().cargarDatosModelo();
-    	
-        fruits.addAll(getData());
-        if (fruits.size() > 0) {
-            setChosenFruit(fruits.get(0));
-            myListener = new MyListener() {
-            	@Override
-                public void onClickListener(Fruit fruit) {
-                    setChosenFruit(fruit);
-                }
-            };
-        }
-        int column = 0;
-        int row = 1;
-        try {
-            for (int i = 0; i < fruits.size(); i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/co/edu/uniquindio/programacion/subastasQuindioVirtual/view/PlantillaAnuncio.fxml"));
-                AnchorPane anchorPane = fxmlLoader.load();
+    	lblUserName.setText("Comprador : " + ModelFactoryController.getInstance().compradorSesionIniciada.getNombre());
+		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
+		anuncios = ModelFactoryController.getInstance().aplicacionSubastas.getAnuncios();
+		// Pone el primer anuncio a la izq
+		if (anuncios.size() > 0) {
+			setChosenAnnounce(anuncios.get(0));
+			myListener = new MyListenerCopia() {
+				@Override
+				public void onClickListener(Anuncio anuncio) {
+					setChosenAnnounce(anuncio);
+				}
+			};
+		}
+		int column = 0;
+		int row = 1;
+		try {
+			for (int i = 0; i < anuncios.size(); i++) {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				fxmlLoader.setLocation(getClass().getResource(
+						"/co/edu/uniquindio/programacion/subastasQuindioVirtual/view/PlantillaAnuncioCopia.fxml"));
+				AnchorPane anchorPane = fxmlLoader.load();
 
-                PlantillaAnuncioController PlantillaController = fxmlLoader.getController();
-                PlantillaController.setData(fruits.get(i),myListener);
+				PlantillaAnuncioControllerCopia PlantillaController = fxmlLoader.getController();
+				PlantillaController.setData(anuncios.get(i), myListener);
 
-                if (column == 3) {
-                    column = 0;
-                    row++;
-                }
+				if (column == 3) {
+					column = 0;
+					row++;
+				}
 
-                grid.add(anchorPane, column++, row); //(child,column,row)
-                //set grid width
-                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                grid.setMaxWidth(Region.USE_PREF_SIZE);
+				grid.add(anchorPane, column++, row); // (child,column,row)
+				// set grid width
+				grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+				grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+				grid.setMaxWidth(Region.USE_PREF_SIZE);
 
-                //set grid height
-                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                grid.setMaxHeight(Region.USE_PREF_SIZE);
+				// set grid height
+				grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+				grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+				grid.setMaxHeight(Region.USE_PREF_SIZE);
 
-                GridPane.setMargin(anchorPane, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+				GridPane.setMargin(anchorPane, new Insets(10));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

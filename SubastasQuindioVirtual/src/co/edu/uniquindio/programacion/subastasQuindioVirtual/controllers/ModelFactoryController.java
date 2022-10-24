@@ -30,7 +30,7 @@ public class ModelFactoryController implements Serializable{
 	Comprador compradorSesionIniciada = new Comprador();
 	
 	//Nombre del anuncio a modificar
-	String nombreAnuncioAModificar = "";
+	String nombreAnuncioAModificar = ""; 
     //------------------------------  SINGLETON ------------------------------------------------
     /**
      * Método que devuelve la instancia del singleton 
@@ -53,6 +53,31 @@ public class ModelFactoryController implements Serializable{
         if(aplicacionSubastas == null) {
             System.out.println("La aplicación de subastas está vacía");
         }
+    }
+    
+    /**
+     * Datos de prueba
+     * @throws Exception
+     */
+    public void cargarDatosIniciales() {
+    	ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
+    	ArrayList<Puja> pujas = new ArrayList<Puja>();
+    	Anunciante anunciante = new Anunciante(anuncios, "holi", "Juan Tunubala", 19, "juantunubala@gmail.com");
+    	Comprador comprador = new Comprador(pujas, "puedeser", "Jose Antonio", 41, "joseant@gmail.com");
+    	Anuncio anuncio = new Anuncio("Tecnologico", 68, "La roca chiquita", "Skin limitada de la roca chiquita", "C:\\td\\persistencia\\imagenesProductos\\laroca.jpeg", "Juan Tunubala", "2022-10-23", "2022-12-30", 78000, true, pujas);
+    	anunciante.getAnuncios().add(anuncio);
+    	aplicacionSubastas.getAnuncios().add(anuncio);
+    	aplicacionSubastas.getUsuarios().add(anunciante);
+    	aplicacionSubastas.getUsuarios().add(comprador);
+    	try {
+			serializarModeloBinario();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	serializarModeloXml();
+    	guardarAnunciante(anunciante);
+    	guardarComprador(comprador);
     }
 
     /**
@@ -132,6 +157,24 @@ public class ModelFactoryController implements Serializable{
 	 */
 	public void cargarDatosModelo() {
 		aplicacionSubastas = Persistencia.cargarDatosModelo();
+		
+	}
+	
+
+	/**
+	 * Serializa el modelo en binario
+	 * @throws Exception 
+	 */
+	public void serializarModeloBinario() throws Exception {
+		Persistencia.serializarModeloBinario(aplicacionSubastas);
+	}
+	
+	/**
+	 * Carga los datos del modelo desde el archivo binario
+	 * @throws Exception 
+	 */
+	public void cargarDatosModeloBinario() throws Exception {
+		aplicacionSubastas = Persistencia.cargarDatosModeloBinario();
 		
 	}
 }

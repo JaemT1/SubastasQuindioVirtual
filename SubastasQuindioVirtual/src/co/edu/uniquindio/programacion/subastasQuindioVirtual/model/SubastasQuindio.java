@@ -9,6 +9,7 @@ public class SubastasQuindio implements Serializable{
 	
 	ArrayList<Anuncio> anuncios= new ArrayList<Anuncio>();
 	ArrayList<Usuario> usuarios= new ArrayList<Usuario>();
+	int cantidadPujas = 0;
 	
 	public ArrayList<Anuncio> getAnuncios() {
 		return anuncios;
@@ -21,6 +22,12 @@ public class SubastasQuindio implements Serializable{
 	}
 	public void setUsuarios(ArrayList<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+	public int getCantidadPujas() {
+		return cantidadPujas;
+	}
+	public void setCantidadPujas(int cantidadPujas) {
+		this.cantidadPujas = cantidadPujas;
 	}
 	
 	

@@ -7,44 +7,65 @@ public class Puja implements Serializable{
 	private static final long serialVersionUID = -8486945425831717466L;
 	
 	double valor;
-	Anuncio anuncio;
-	Comprador comprador;
+	String nombreAnunciante;
+	String nombreProducto;
+	String nombreComprador;
 	int codigoPuja;
 	
 	public Puja() {
 		super();
 	}
 
-	public Puja(double valor, Anuncio anuncio, Comprador comprador, int codigoPuja) {
+	public Puja(double valor, String nombreAnunciante, String nombreProducto, String nombreComprador, int codigoPuja) {
 		super();
 		this.valor = valor;
-		this.anuncio = anuncio;
-		this.comprador = comprador;
+		this.nombreAnunciante = nombreAnunciante;
+		this.nombreProducto = nombreProducto;
+		this.nombreComprador = nombreComprador;
 		this.codigoPuja = codigoPuja;
 	}
-	
+
 	public double getValor() {
 		return valor;
 	}
+
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
-	public Anuncio getAnuncio() {
-		return anuncio;
+
+	public String getNombreAnunciante() {
+		return nombreAnunciante;
 	}
-	public void setAnuncio(Anuncio anuncio) {
-		this.anuncio = anuncio;
+
+	public void setNombreAnunciante(String nombreAnunciante) {
+		this.nombreAnunciante = nombreAnunciante;
 	}
-	public Comprador getComprador() {
-		return comprador;
+
+	public String getNombreProducto() {
+		return nombreProducto;
 	}
-	public void setComprador(Comprador comprador) {
-		this.comprador = comprador;
+
+	public void setNombreProducto(String nombreProducto) {
+		this.nombreProducto = nombreProducto;
 	}
+
+	public String getNombreComprador() {
+		return nombreComprador;
+	}
+
+	public void setNombreComprador(String nombreComprador) {
+		this.nombreComprador = nombreComprador;
+	}
+
 	public int getCodigoPuja() {
 		return codigoPuja;
 	}
+
 	public void setCodigoPuja(int codigoPuja) {
 		this.codigoPuja = codigoPuja;
-	}	
+	}
+
+	
+	
+	
 }

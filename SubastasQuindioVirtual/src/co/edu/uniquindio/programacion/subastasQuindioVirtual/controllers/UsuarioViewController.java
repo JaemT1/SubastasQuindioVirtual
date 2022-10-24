@@ -34,6 +34,9 @@ public class UsuarioViewController implements Initializable {
 
 	@FXML
 	private Label lblNombreProducto;
+	
+	@FXML 
+	private Label lblNombreAnunciante;
 
 	@FXML
 	private Label lblPrecioProducto;
@@ -75,6 +78,7 @@ public class UsuarioViewController implements Initializable {
 		lblFechaInicio.setText("Va desde: " + anuncio.getFechaPublicacion());
 		lblFechaFin.setText("Hasta: " + anuncio.getFechaFinPublicacion());
 		lblCategoria.setText("Categoria: " + anuncio.getTipoProducto());
+		lblNombreAnunciante.setText("Anunciante: " + anuncio.getNombreAnunciante());
 	}
 
 	/**
@@ -98,7 +102,8 @@ public class UsuarioViewController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ModelFactoryController.getInstance().cargarDatosModelo();
+		ModelFactoryController.getInstance();
+		//ModelFactoryController.getInstance().cargarDatosModelo();
 		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
 		anuncios = ModelFactoryController.getInstance().aplicacionSubastas.getAnuncios();
 		// Pone el primer anuncio a la izq

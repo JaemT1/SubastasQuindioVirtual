@@ -1,6 +1,5 @@
 package co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -29,12 +28,11 @@ public class RegisterAnuncianteViewController {
 	/**
 	 * Método que registra un anunciante 
 	 * @param event
-	 * @throws AgeNotAllowedException
-	 * @throws AlreadyTakenUsernameException
+	 * @throws Exception 
 	 */
 	@FXML
 	private void registrarAnunciante(ActionEvent event)
-			throws AgeNotAllowedException, AlreadyTakenUsernameException, IOException, InvalidInputException {
+			throws Exception {
 		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
 		String nombre = txtNombreAnunciante.getText();
 		String correo = txtCorreoAnunciante.getText();
@@ -65,6 +63,7 @@ public class RegisterAnuncianteViewController {
 			ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios().add(anunciante);
 			ModelFactoryController.getInstance().guardarAnunciante(anunciante);
 			ModelFactoryController.getInstance().serializarModeloXml();
+			ModelFactoryController.getInstance().serializarModeloBinario();
 			ModelFactoryController.getInstance().guardarLog("Se registra el anunciante con nombre: " + nombre, 1,"Registrar anunciante");
 			JOptionPane.showMessageDialog(null, "Anunciante registrado con éxito");
 			vaciarTxtFields();
