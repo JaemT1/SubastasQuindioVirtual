@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -24,9 +15,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.AnuncianteViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.AnuncianteViewController">
    <children>
       <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -118,12 +110,12 @@
                         </HBox>
                         <VBox alignment="CENTER" prefHeight="122.0" prefWidth="335.0">
                            <children>
-                              <Label fx:id="lblFechaFin" prefHeight="41.0" prefWidth="206.0" text="Va desde:" textFill="WHITE">
+                              <Label fx:id="lblFechaInicio" prefHeight="41.0" prefWidth="206.0" text="Va desde:" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblFechaInicio" prefHeight="41.0" prefWidth="206.0" text="Hasta:" textFill="WHITE">
+                              <Label fx:id="lblFechaFin" prefHeight="41.0" prefWidth="206.0" text="Hasta:" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="18.0" />
                                  </font>

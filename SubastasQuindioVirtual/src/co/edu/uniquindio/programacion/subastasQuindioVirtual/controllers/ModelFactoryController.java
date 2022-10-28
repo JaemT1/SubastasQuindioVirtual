@@ -48,7 +48,7 @@ public class ModelFactoryController implements Serializable{
      * Método constructor
      */
     private ModelFactoryController(){
-    	//cargarDatosIniciales()
+    	//cargarDatosIniciales();
     	cargarDatosModelo();
         //Siempre se debe verificar si la raiz del recurso es null
         if(aplicacionSubastas == null) {
