@@ -100,8 +100,6 @@ public class AnuncianteViewController implements Initializable {
 	private MyListenerCopia myListener;
 	private Stage stage = new Stage();
 	Calendar cal1 = Calendar.getInstance();
-	Calendar cal2 = Calendar.getInstance();
-	Calendar cal3 = Calendar.getInstance();
 
 	/**
 	 * M茅todo que agrega los datos del anuncio seleccionado a la izq de la interfaz
@@ -138,8 +136,7 @@ public class AnuncianteViewController implements Initializable {
 	 */
 	@FXML
 	public void cerrarSesion(ActionEvent event) throws Exception {
-		ModelFactoryController.getInstance().guardarLog("El " + lblUserName.getText() + " cierra sesi贸n", 1,
-				"Cerrar Sesi贸n");
+		ModelFactoryController.getInstance().guardarLog("El " + lblUserName.getText() + " cierra sesi贸n", 1,"Cerrar Sesi贸n");
 		Anunciante anunciante = new Anunciante();
 		ModelFactoryController.getInstance().anuncianteSesionIniciada = anunciante;
 		cerrarVentanaAnuncianteView();
@@ -214,20 +211,22 @@ public class AnuncianteViewController implements Initializable {
 		ModelFactoryController.getInstance().serializarModeloXml();
 		ModelFactoryController.getInstance().serializarModeloBinario();
 		JOptionPane.showMessageDialog(null, "Se elimin贸 el anuncio con exito");
-		ModelFactoryController.getInstance().guardarLog("Se elimina el anuncio: " + nombreProducto, 1,
-				"Eliminar anuncio");
+		ModelFactoryController.getInstance().guardarLog("Se elimina el anuncio: " + nombreProducto, 1,"Eliminar anuncio");
 	}
 
 	/**
 	 * Metodo que nos lleva a la ventana de modificar anuncio
-	 * 
 	 * @param event
 	 */
 	public void modificarAnuncio(ActionEvent event) {
 		ModelFactoryController.getInstance().nombreAnuncioAModificar = lblNombreProducto.getText();
 		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaModificarAnuncioView();
 	}
-
+	
+	/**
+	 * Metodo que nos lleva a la ventana de ver ofertas
+	 * @param event
+	 */
 	public void verOfertas(ActionEvent event) {
 		Stage stage = new Stage();
 		ModelFactoryController.getInstance().nombreAnuncioAModificar = lblNombreProducto.getText();
@@ -243,12 +242,12 @@ public class AnuncianteViewController implements Initializable {
 	 */
 	@FXML
 	public void vender(ActionEvent event) throws InvalidInputException {
-		if (!verificarCampoEdad(txtCodigoPuja.getText())) {
-			JOptionPane.showMessageDialog(null, "El codigo solo debe contener n鷐eros");
+		if (!esNumero(txtCodigoPuja.getText())) {
+			JOptionPane.showMessageDialog(null, "El codigo solo debe contener n锟絤eros");
 			throw new InvalidInputException("El cogigo solo debe contener numeros");
 		}
 		if (txtCodigoPuja.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debe ingresar el c骴igo de una oferta");
+			JOptionPane.showMessageDialog(null, "Debe ingresar el c锟絛igo de una oferta");
 		} else {
 
 			// Se obtiene el codigo de la puja seleccionada
@@ -293,18 +292,23 @@ public class AnuncianteViewController implements Initializable {
 
 		}
 	}
-
-	public boolean verificarCampoEdad(String edad) {
-		boolean esApta = true;
-		char[] edadChar = edad.toCharArray();
-		for (char c : edadChar) {
-			if (!Character.isDigit(c)) {
-				esApta = false;
-			}
-		}
-		return esApta;
-	}
-
+	
+	/**
+	 * Verifica el campo de texto que contenga solo numeros
+	 * @param esNumero
+	 * @return
+	 */
+	public boolean esNumero(String esNumero) {
+        boolean esApta = true;
+        char[] car = esNumero.toCharArray();
+        for (char c : car) {
+            if (!Character.isDigit(c)) {
+                esApta = false;
+            }
+        }
+        return esApta;
+    }
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ModelFactoryController.getInstance().cargarDatosModelo();
@@ -318,7 +322,7 @@ public class AnuncianteViewController implements Initializable {
 			myListener = new MyListenerCopia() {
 				@Override
 				public void onClickListener(Anuncio anuncio) {
-					// Se obtiene el dia del a駉 actual
+					// Se obtiene el dia del a锟給 actual
 					int diaActual = cal1.get(Calendar.DAY_OF_YEAR);
 					// Se setea el anuncio clickeado
 					setChosenAnnounce(anuncio);
@@ -327,16 +331,16 @@ public class AnuncianteViewController implements Initializable {
 					String[] fechaSplit = fecha.split("-");
 					int diaFinAnuncio = Integer.parseInt(fechaSplit[2]);
 					int mesFinAnuncio = Integer.parseInt(fechaSplit[1]) - 1;
-					int a駉FinAnuncio = Integer.parseInt(fechaSplit[0]);
-					GregorianCalendar fechaFinAnuncio = new GregorianCalendar(a駉FinAnuncio, mesFinAnuncio,
+					int anioFinAnuncio = Integer.parseInt(fechaSplit[0]);
+					GregorianCalendar fechaFinAnuncio = new GregorianCalendar(anioFinAnuncio, mesFinAnuncio,
 							diaFinAnuncio);
 
 					if (diaActual > fechaFinAnuncio.get(GregorianCalendar.DAY_OF_YEAR)) {// Se hace la comparacion con
 						lblCodigoPuja.setVisible(true);
 						txtCodigoPuja.setVisible(true);
 						btnVender.setVisible(true);
-						// el dia actual del a駉 y
-						// el dia del a駉 de la
+						// el dia actual del a锟給 y
+						// el dia del a锟給 de la
 						// fecha fin del anuncio
 					} else {
 						lblCodigoPuja.setVisible(false);

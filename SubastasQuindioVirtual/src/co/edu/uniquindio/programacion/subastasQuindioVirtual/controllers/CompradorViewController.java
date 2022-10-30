@@ -5,8 +5,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.Main;
+import javax.swing.JOptionPane;
+
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.MyListenerCopia;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.IncorrectAmountOfferedException;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.InvalidInputException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anunciante;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Comprador;
@@ -29,59 +32,57 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class CompradorViewController implements Initializable{
-	
-		
-		@FXML
-	    private Label lblUserName;
+public class CompradorViewController implements Initializable{	
+	@FXML
+	private Label lblUserName;
 
-	    @FXML
-	    private Label lblFechaInicio;
+    @FXML
+	private Label lblFechaInicio;
 
-	    @FXML
-	    private Label lblNombreProducto;
+	@FXML
+	private Label lblNombreProducto;
 
-	    @FXML
-	    private Label lblFechaFin;
+	@FXML
+	private Label lblFechaFin;
 
-	    @FXML
-	    private ImageView imgProducto;
+	@FXML
+	private ImageView imgProducto;
 
-	    @FXML
-	    private Label lblDesProducto;
+	@FXML
+	private Label lblDesProducto;
 
-	    @FXML
-	    private GridPane grid;
+	@FXML
+	private GridPane grid;
 
-	    @FXML
-	    private Label lblNombreAnunciante;
-	    
-	    @FXML
-	    private TextField txtValorPuja;
-	    
-	    @FXML
-	    private Label lblCategoria;
+	@FXML
+	private Label lblNombreAnunciante;
 
-	    @FXML
-	    private Button btnCerrarSesion;
-	    
-	    @FXML
-	    private Button btnPujar;
-	    
-	    @FXML
-	    private Button btnMostrarListaOfertas;
-	    
-	    @FXML
-	    private Button btnMisOfertas;
+	@FXML
+	private TextField txtValorPuja;
 
-	    @FXML
-	    private ScrollPane scroll;
+	@FXML
+	private Label lblCategoria;
 
-	    @FXML
-	    private VBox chosenAnnounce;
+	@FXML
+	private Button btnCerrarSesion;
 
-	    @FXML
-	    private Label lblPrecioProducto;
+	@FXML
+	private Button btnPujar;
+
+	@FXML
+	private Button btnMostrarListaOfertas;
+
+	@FXML
+	private Button btnMisOfertas;
+
+	@FXML
+	private ScrollPane scroll;
+
+	@FXML
+	private VBox chosenAnnounce;
+
+	@FXML
+	private Label lblPrecioProducto;
 
     private Image image;
 	private MyListenerCopia myListener;
@@ -94,74 +95,100 @@ public class CompradorViewController implements Initializable{
 	 */
 	@FXML
     public void pujar(ActionEvent event) throws Exception {
-		//Se obtiene el valor de la puja
-		Double valorPuja = Double.parseDouble(txtValorPuja.getText()); //Hacerle verificacion sobre el valor inicial
-		//Se obtiene el nombre del producto para buscar el anuncio
-		String nombreProducto = lblNombreProducto.getText();
-		
-		//Se setean los objetos necesarios para el constructor de la puja
+		double valorProducto = 0;
+		double valorPuja = 0;
+		// comprador que inicio sesion
 		Comprador comprador = ModelFactoryController.getInstance().compradorSesionIniciada;
-		Anuncio anuncioAPujar = new Anuncio();
-		
-		//Se obtiene el codigo de la puja
-		int codigoPuja = ModelFactoryController.getInstance().aplicacionSubastas.getCantidadPujas();
-		
-		//Se le suma a la cantidad de pujas
-		int nuevaCantidadPujas = ModelFactoryController.getInstance().aplicacionSubastas.getCantidadPujas() + 1;
-		
-		//Se setea la nueva cantidad de pujas
-		ModelFactoryController.getInstance().aplicacionSubastas.setCantidadPujas(nuevaCantidadPujas);
-		
-		//Se obtiene el anuncio
-		ArrayList<Anuncio> anunciosGlobales = ModelFactoryController.getInstance().aplicacionSubastas.getAnuncios();
-		
-		for (Anuncio anuncio : anunciosGlobales) {
-			if (nombreProducto.equals(anuncio.getNombreProducto())) {
-				anuncioAPujar = anuncio;
-				break;
+		//Verifica si el campo de texto del valor a pujar está vacío
+		if (txtValorPuja.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debe ingresar un valor");
+			ModelFactoryController.getInstance().guardarLog("No ingresó ningun dato en el campo del valor a pujar", 2, "Pujar");		
+			throw new InvalidInputException("Debe ingresar un valor");
+		}else { //Si no está vacío verifica que solo sean numeros
+			if (!esNumero(txtValorPuja.getText())) {
+				JOptionPane.showMessageDialog(null, "El valor de la puja debe contener solo numeros");
+				ModelFactoryController.getInstance().guardarLog("Ingresó letras en el campo del valor a pujar", 2, "Pujar");
+				throw new InvalidInputException("El valor de la puja debe contener solo numeros");
+			} else {//Y si son solo numeros obtiene los valores
+				valorProducto = Double.parseDouble(lblPrecioProducto.getText());
+				// Se obtiene el valor de la puja
+				valorPuja = Double.parseDouble(txtValorPuja.getText());
 			}
-		}
-		
-		//Se construye el objeto puja
-		Puja puja = new Puja(valorPuja, anuncioAPujar.getNombreAnunciante(), anuncioAPujar.getNombreProducto(), comprador.getNombre(), codigoPuja);
-		
-		//Se añade al anuncio la puja
-		anuncioAPujar.getPujas().add(puja);
-		
-		//Se setea el arraylist de anuncios globales con la nueva puja en el anuncio especifico
-		ModelFactoryController.getInstance().aplicacionSubastas.setAnuncios(anunciosGlobales);
+			// verificacion de que la puja sea mayor al valor inicial del producto
+			if (valorProducto > valorPuja) {
+				JOptionPane.showMessageDialog(null,"El valor de la puja debe ser mayor al precio del producto: " + "$"+valorProducto);
+				throw new IncorrectAmountOfferedException("El valor de la puja debe ser mayor al valor inicial de subasta");
+			} else {//Si el valor a pujar es correcto obtiene los datos necesarios, crea la puja y la guarda
+				
+				// Se obtiene el nombre del producto para buscar el anuncio
+				String nombreProducto = lblNombreProducto.getText();
 
-		
-		ArrayList<Usuario> usuarios = ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios();
-		
-		for (Usuario usuario : usuarios) {
-			if (lblNombreAnunciante.getText().equals(usuario.getNombre()) && usuario instanceof Anunciante) {
-				ArrayList<Anuncio>anunciosAnunciante = ((Anunciante) usuario).getAnuncios();
-				for (Anuncio anuncio : anunciosAnunciante) {
-					if (anuncioAPujar.getNombreProducto().equals(anuncio.getNombreProducto())) {
-						anuncio.getPujas().add(puja);
-						((Anunciante) usuario).setAnuncios(anunciosAnunciante);
+				// Se setean los objetos necesarios para el constructor de la puja
+				Anuncio anuncioAPujar = new Anuncio();
+
+				// Se obtiene el codigo de la puja
+				int codigoPuja = ModelFactoryController.getInstance().aplicacionSubastas.getCantidadPujas();
+
+				// Se le suma a la cantidad de pujas
+				int nuevaCantidadPujas = ModelFactoryController.getInstance().aplicacionSubastas.getCantidadPujas() + 1;
+
+				// Se setea la nueva cantidad de pujas
+				ModelFactoryController.getInstance().aplicacionSubastas.setCantidadPujas(nuevaCantidadPujas);
+
+				// Se obtiene el anuncio
+				ArrayList<Anuncio> anunciosGlobales = ModelFactoryController.getInstance().aplicacionSubastas.getAnuncios();
+				
+				for (Anuncio anuncio : anunciosGlobales) {
+					if (nombreProducto.equals(anuncio.getNombreProducto())) {
+						anuncioAPujar = anuncio;
 						break;
 					}
 				}
-				break;
+
+				// Se construye el objeto puja
+				Puja puja = new Puja(valorPuja, anuncioAPujar.getNombreAnunciante(), anuncioAPujar.getNombreProducto(),comprador.getNombre(), codigoPuja);
+
+				// Se añade al anuncio la puja
+				anuncioAPujar.getPujas().add(puja);
+
+				// Se setea el arraylist de anuncios globales con la nueva puja en el anuncio especifico
+				ModelFactoryController.getInstance().aplicacionSubastas.setAnuncios(anunciosGlobales);
+				
+				//Se setea la puja en el anuncio del anunciante en especifico
+				ArrayList<Usuario> usuarios = ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios();
+
+				for (Usuario usuario : usuarios) {
+					if (lblNombreAnunciante.getText().equals(usuario.getNombre()) && usuario instanceof Anunciante) {
+						ArrayList<Anuncio> anunciosAnunciante = ((Anunciante) usuario).getAnuncios();
+						for (Anuncio anuncio : anunciosAnunciante) {
+							if (anuncioAPujar.getNombreProducto().equals(anuncio.getNombreProducto())) {
+								anuncio.getPujas().add(puja);
+								((Anunciante) usuario).setAnuncios(anunciosAnunciante);
+								break;
+							}
+						}
+						break;
+					}
+				}
+				
+				//Se guarda la puja en el arraylist de pujas del comprador
+				for (Usuario usuario : usuarios) {
+					if (ModelFactoryController.getInstance().compradorSesionIniciada.getNombre().equals(usuario.getNombre()) && usuario instanceof Comprador) {
+						((Comprador) usuario).getPujas().add(puja);
+						break;
+					}
+				}
+				
+				
+				ModelFactoryController.getInstance().aplicacionSubastas.setUsuarios(usuarios);
+				ModelFactoryController.getInstance().guardarLog("Se guarda la puja", 1, "Pujar");
+				ModelFactoryController.getInstance().serializarModeloXml();
+				ModelFactoryController.getInstance().serializarModeloBinario();
+				ModelFactoryController.getInstance().guardarPuja(puja);
+				cerrarVentanaCompradorView();
+				ModelFactoryController.getInstance().gestorVentanas.abrirVentanaSelectorRolView();
 			}
 		}
-		
-		for (Usuario usuario : usuarios) {
-			if (ModelFactoryController.getInstance().compradorSesionIniciada.getNombre().equals(usuario.getNombre()) && usuario instanceof Comprador) {
-				((Comprador) usuario).getPujas().add(puja);
-				break;
-			}
-		}
-		
-		ModelFactoryController.getInstance().aplicacionSubastas.setUsuarios(usuarios);
-		ModelFactoryController.getInstance().guardarLog("Se guarda la puja", 1, "Pujar");
-		ModelFactoryController.getInstance().serializarModeloXml();
-		ModelFactoryController.getInstance().serializarModeloBinario();
-		ModelFactoryController.getInstance().guardarPuja(puja);
-		cerrarVentanaCompradorView();
-		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaSelectorRolView();
     }
 	
 	@FXML
@@ -184,14 +211,14 @@ public class CompradorViewController implements Initializable{
 	 */
 	private void setChosenAnnounce(Anuncio anuncio) {
 		lblNombreProducto.setText(anuncio.getNombreProducto());
-		lblPrecioProducto.setText(Main.CURRENCY + anuncio.getValorInicial());
+		lblPrecioProducto.setText(String.valueOf(anuncio.getValorInicial()));
 		image = new Image(anuncio.getFoto());
 		imgProducto.setImage(image);
 		lblDesProducto.setText(anuncio.getDescripcion());
 		lblFechaInicio.setText("Va desde: " + anuncio.getFechaPublicacion());
 		lblFechaFin.setText("Hasta: " + anuncio.getFechaFinPublicacion());
 		lblCategoria.setText("Categoria: " + anuncio.getTipoProducto());
-		lblNombreAnunciante.setText("Anunciante: " + anuncio.getNombreAnunciante());
+		lblNombreAnunciante.setText(anuncio.getNombreAnunciante());
 	}
     
     
@@ -216,6 +243,22 @@ public class CompradorViewController implements Initializable{
     	ModelFactoryController.getInstance().compradorSesionIniciada = comprador;
     	cerrarVentanaCompradorView();
     	ModelFactoryController.getInstance().gestorVentanas.start(stage);
+    }
+    
+    /**
+     * Metodo que verifica si la informacion de un campo de texto tiene letras
+     * @param esNumero
+     * @return
+     */
+    public boolean esNumero(String esNumero) {
+        boolean esApta = true;
+        char[] car = esNumero.toCharArray();
+        for (char c : car) {
+            if (!Character.isDigit(c)) {
+                esApta = false;
+            }
+        }
+        return esApta;
     }
 	
     @Override	

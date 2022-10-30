@@ -28,12 +28,12 @@
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Label>
-                  <TextField fx:id="txtCorreoLoginAnunciante" layoutX="144.0" layoutY="54.0" />
+                  <TextField fx:id="txtCorreoLoginAnunciante" layoutX="144.0" layoutY="54.0" styleClass="text-field2" stylesheets="@../application/style.css" />
                   <Button fx:id="btnLoginAnunciante" layoutX="135.0" layoutY="139.0" mnemonicParsing="false" onAction="#iniciarSesionAnunciante" prefHeight="39.0" prefWidth="120.0" styleClass="login-btn" stylesheets="@../application/style.css" text="Iniciar Sesión" textFill="#878787">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Button>
-                  <PasswordField fx:id="txtContraLoginAnunciante" layoutX="144.0" layoutY="96.0" />
+                  <PasswordField fx:id="txtContraLoginAnunciante" layoutX="144.0" layoutY="96.0" styleClass="text-field2" stylesheets="@../application/style.css" />
                   <Button fx:id="btnVolver" layoutX="322.0" layoutY="163.0" mnemonicParsing="false" onAction="#volverASelector" prefHeight="31.0" prefWidth="63.0" styleClass="free-delivery-card" stylesheets="@../application/style.css" text="Volver" textFill="#878787">
                      <font>
                         <Font name="Cambria" size="14.0" />

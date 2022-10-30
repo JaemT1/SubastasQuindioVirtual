@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.Main;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.MyListenerCopia;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.UserNotAuthenticatedException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -76,7 +79,7 @@ public class UsuarioViewController implements Initializable {
 	 */
 	private void setChosenAnnounce(Anuncio anuncio) {
 		lblNombreProducto.setText(anuncio.getNombreProducto());
-		lblPrecioProducto.setText(Main.CURRENCY + anuncio.getValorInicial());
+		lblPrecioProducto.setText(Main.CURRENCY+anuncio.getValorInicial());
 		image = new Image(anuncio.getFoto());
 		imgProducto.setImage(image);
 		lblDescripcion.setText(anuncio.getDescripcion());
@@ -105,6 +108,9 @@ public class UsuarioViewController implements Initializable {
 		stage.close();
 	}
 	
+	/**
+	 * Metodo que crea una copia del modelo serializado en .xml
+	 */
 	public void crearCopiaXML() {
 		//Se obtiene la fecha
 		Calendar cal1 = Calendar.getInstance();
@@ -128,10 +134,18 @@ public class UsuarioViewController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Metodo que nos permite autenticar para poder pujar
+	 * @param event
+	 * @throws UserNotAuthenticatedException
+	 */
 	@FXML
-	public void pujar(ActionEvent event) {
+	public void pujar(ActionEvent event) throws UserNotAuthenticatedException{
 		cerrarVentanaPrincipal();
+		JOptionPane.showMessageDialog(null, "Debe autenticarse primero");
+		ModelFactoryController.getInstance().guardarLog("Usuario no autenticado para pujar", 2, "pujar");
 		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaLoginCompradorView();
+		throw new UserNotAuthenticatedException("Usuario no autenticado");
 	}
 
 	@Override

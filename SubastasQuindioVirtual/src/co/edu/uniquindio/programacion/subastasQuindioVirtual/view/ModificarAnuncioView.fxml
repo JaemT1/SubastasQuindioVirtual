@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="417.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.ModificarAnuncioViewController">
+<AnchorPane prefHeight="417.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.ModificarAnuncioViewController">
    <children>
-      <Button fx:id="btnModificarAnuncio" layoutX="204.0" layoutY="333.0" mnemonicParsing="false" onAction="#modificarAnuncio" prefHeight="39.0" prefWidth="149.0" styleClass="free-delivery-card" stylesheets="@../application/style.css" text="Modificar anuncio">
+      <Button fx:id="btnModificarAnuncio" layoutX="204.0" layoutY="333.0" mnemonicParsing="false" onAction="#modificarAnuncio" prefHeight="39.0" prefWidth="149.0" styleClass="login-btn" stylesheets="@../application/style.css" text="Modificar anuncio">
          <font>
             <Font name="Cambria" size="14.0" />
          </font></Button>
@@ -24,54 +19,54 @@
             <Font name="Cambria" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="33.0" layoutY="126.0" text="Descripción:">
+      <Label layoutX="27.0" layoutY="129.0" prefHeight="18.0" prefWidth="111.0" text="Descripción:">
          <font>
             <Font name="Cambria" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="450.0" layoutY="138.0" text="Foto del producto:">
+      <Label layoutX="450.0" layoutY="147.0" text="Foto del producto:">
          <font>
             <Font name="Cambria" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="32.0" layoutY="168.0" text="Nombre Anunciante:">
+      <Label layoutX="27.0" layoutY="169.0" prefHeight="18.0" prefWidth="129.0" text="Nombre Anunciante:">
          <font>
             <Font name="Cambria" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="33.0" layoutY="209.0" text="Fecha de publicacion:">
+      <Label layoutX="27.0" layoutY="210.0" prefHeight="18.0" prefWidth="136.0" text="Fecha de publicacion:">
          <font>
             <Font name="Cambria" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="31.0" layoutY="245.0" text="Fecha finalizacion:">
+      <Label layoutX="27.0" layoutY="246.0" text="Fecha finalizacion:">
          <font>
             <Font name="Cambria" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="30.0" layoutY="285.0" text="Valor inicial de la puja:">
+      <Label layoutX="27.0" layoutY="285.0" prefHeight="18.0" prefWidth="142.0" text="Valor inicial de la puja:">
          <font>
             <Font name="Cambria" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtDesProducto" layoutX="204.0" layoutY="123.0" />
-      <TextField fx:id="txtNombreDelAnunciante" editable="false" layoutX="204.0" layoutY="165.0" />
-      <TextField fx:id="txtValorInicialPuja" layoutX="204.0" layoutY="283.0" />
-      <ImageView fx:id="imageViewProducto" fitHeight="150.0" fitWidth="200.0" layoutX="408.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="txtDesProducto" layoutX="204.0" layoutY="123.0" styleClass="text-field2" stylesheets="@../application/style.css" />
+      <TextField fx:id="txtNombreDelAnunciante" editable="false" layoutX="204.0" layoutY="165.0" styleClass="text-field2" stylesheets="@../application/style.css" />
+      <TextField fx:id="txtValorInicialPuja" layoutX="203.0" layoutY="281.0" styleClass="text-field2" stylesheets="@../application/style.css" />
+      <ImageView fx:id="imageViewProducto" fitHeight="150.0" fitWidth="195.0" layoutX="408.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="btnInsetarImagen" layoutX="450.0" layoutY="101.0" mnemonicParsing="false" onAction="#insertarImagen" styleClass="free-delivery-card" stylesheets="@../application/style.css" text="Insertar Imagen">
          <font>
             <Font name="Cambria" size="14.0" />
          </font></Button>
-      <TextField fx:id="txtNombreProducto" layoutX="204.0" layoutY="86.0" />
+      <TextField fx:id="txtNombreProducto" layoutX="204.0" layoutY="86.0" styleClass="text-field2" stylesheets="@../application/style.css" />
       <Button fx:id="btnVolver" layoutX="531.0" layoutY="372.0" mnemonicParsing="false" onAction="#volverVentanaAnuncianteView" styleClass="free-delivery-card" stylesheets="@../application/style.css" text="Volver">
          <font>
             <Font name="Cambria" size="14.0" />
          </font></Button>
-      <DatePicker fx:id="dtPckrFechaInicioAnuncio" editable="false" layoutX="203.0" layoutY="206.0" />
-      <DatePicker fx:id="dtPckrFechaFinalAnuncio" editable="false" layoutX="203.0" layoutY="242.0" />
-      <Label layoutX="221.0" layoutY="22.0" text="Modificar Anuncio">
+      <DatePicker fx:id="dtPckrFechaInicioAnuncio" editable="false" layoutX="203.0" layoutY="206.0" prefHeight="25.0" prefWidth="149.0" />
+      <DatePicker fx:id="dtPckrFechaFinalAnuncio" editable="false" layoutX="204.0" layoutY="242.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label layoutX="207.0" layoutY="22.0" text="Modificar Anuncio">
          <font>
-            <Font name="Cambria" size="18.0" />
+            <Font size="24.0" />
          </font>
       </Label>
       <Label fx:id="lblRutaImagen" layoutX="29.0" layoutY="386.0" prefHeight="17.0" prefWidth="222.0" text="Label" visible="false" />

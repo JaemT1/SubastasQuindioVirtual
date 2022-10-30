@@ -11,24 +11,45 @@
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="380.0" prefWidth="380.0">
          <children>
-            <Pane prefHeight="380.0" prefWidth="380.0">
+            <Pane fx:id="panelBase" prefHeight="380.0" prefWidth="380.0" stylesheets="@../application/style.css">
                <children>
-                  <Label layoutX="100.0" layoutY="140.0" text="Edad:" />
-                  <TextField fx:id="txtEdadAnunciante" layoutX="190.0" layoutY="135.0" />
-                  <Label layoutX="95.0" layoutY="205.0" text="Correo:" />
-                  <TextField fx:id="txtCorreoAnunciante" layoutX="190.0" layoutY="200.0" />
-                  <Label layoutX="81.0" layoutY="270.0" text="Contraseña:" />
-                  <TextField fx:id="txtContraAnunciante" layoutX="190.0" layoutY="265.0" />
-                  <Button fx:id="btnRegistroAnunciante" layoutX="149.0" layoutY="323.0" mnemonicParsing="false" onAction="#registrarAnunciante" text="Registrarse" />
-                  <Label layoutX="98.0" layoutY="14.0" text="Registro como anunciante">
+                  <Label layoutX="23.0" layoutY="138.0" text="Edad:">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="14.0" />
+                     </font></Label>
+                  <TextField fx:id="txtEdadAnunciante" layoutX="155.0" layoutY="136.0" styleClass="text-field2" />
+                  <Label layoutX="23.0" layoutY="200.0" text="Correo:">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <TextField fx:id="txtCorreoAnunciante" layoutX="155.0" layoutY="198.0" styleClass="text-field2" />
+                  <Label layoutX="20.0" layoutY="268.0" text="Contraseña:">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <TextField fx:id="txtContraAnunciante" layoutX="155.0" layoutY="256.0" styleClass="text-field2" />
+                  <Button fx:id="btnRegistroAnunciante" layoutX="149.0" layoutY="323.0" mnemonicParsing="false" onAction="#registrarAnunciante" styleClass="login-btn" text="Registrarse" textFill="#878787">
+                     <font>
+                        <Font name="Cambria Bold" size="14.0" />
+                     </font></Button>
+                  <Label layoutX="82.0" layoutY="14.0" text="Registro como anunciante">
+                     <font>
+                        <Font size="20.0" />
                      </font>
                   </Label>
+                  <Label layoutX="23.0" layoutY="80.0" text="Nombre completo:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtNombreAnunciante" layoutX="155.0" layoutY="81.0" styleClass="text-field2" />
+                  <Button fx:id="btnVolver" layoutX="304.0" layoutY="336.0" mnemonicParsing="false" onAction="#volverALoginAnunciante" prefHeight="31.0" prefWidth="63.0" styleClass="free-delivery-card" stylesheets="@../application/style.css" text="Volver" textFill="#878787">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
-            <TextField fx:id="txtNombreAnunciante" layoutX="190.0" layoutY="70.0" />
-            <Label layoutX="65.0" layoutY="75.0" text="Nombre completo:" />
          </children>
       </AnchorPane>
    </children>

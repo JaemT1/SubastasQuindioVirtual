@@ -1,37 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="380.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.RegisterCompradorViewController">
+<AnchorPane prefHeight="380.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.RegisterCompradorViewController">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="380.0" prefWidth="380.0">
          <children>
-            <Pane prefHeight="380.0" prefWidth="380.0">
+            <Pane fx:id="panelBase" prefHeight="380.0" prefWidth="380.0" stylesheets="@../application/style.css">
                <children>
-                  <Label layoutX="100.0" layoutY="140.0" text="Edad:" />
-                  <TextField fx:id="txtEdadComprador" layoutX="190.0" layoutY="135.0" />
-                  <Label layoutX="95.0" layoutY="205.0" text="Correo:" />
-                  <TextField fx:id="txtCorreoComprador" layoutX="190.0" layoutY="200.0" />
-                  <Label layoutX="81.0" layoutY="270.0" text="Contraseña:" />
-                  <TextField fx:id="txtContraComprador" layoutX="190.0" layoutY="265.0" />
-                  <Button fx:id="btnRegistroComprador" layoutX="149.0" layoutY="323.0" mnemonicParsing="false" onAction="#registrarComprador" text="Registrarse" />
-                  <Label layoutX="97.0" layoutY="14.0" text="Registro como comprador">
+                  <Label layoutX="23.0" layoutY="138.0" text="Edad:">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label layoutX="23.0" layoutY="191.0" text="Correo:">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <TextField fx:id="txtCorreoComprador" layoutX="181.0" layoutY="189.0" styleClass="text-field2" />
+                  <TextField fx:id="txtEdadComprador" layoutX="181.0" layoutY="136.0" styleClass="text-field2" />
+                  <Label layoutX="20.0" layoutY="246.0" text="Contraseña:">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <TextField fx:id="txtContraComprador" layoutX="181.0" layoutY="244.0" styleClass="text-field2" />
+                  <Button fx:id="btnRegistroComprador" layoutX="149.0" layoutY="323.0" mnemonicParsing="false" onAction="#registrarComprador" styleClass="login-btn" text="Registrarse" textFill="#878787">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font></Button>
+                  <Label layoutX="70.0" layoutY="14.0" text="Registro como comprador">
+                     <font>
+                        <Font size="20.0" />
                      </font>
                   </Label>
+                  <Label layoutX="23.0" layoutY="88.0" text="Nombre completo:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtNombreComprador" layoutX="181.0" layoutY="87.0" styleClass="text-field2" />
+                  <Button fx:id="btnVolver" layoutX="303.0" layoutY="347.0" mnemonicParsing="false" onAction="#volverALoginComprador" prefHeight="20.0" prefWidth="73.0" styleClass="free-delivery-card" stylesheets="@../application/style.css" text="Volver" textFill="#878787">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
-            <TextField fx:id="txtNombreComprador" layoutX="190.0" layoutY="70.0" />
-            <Label layoutX="65.0" layoutY="75.0" text="Nombre completo:" />
          </children>
       </AnchorPane>
    </children>
