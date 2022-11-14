@@ -76,7 +76,7 @@ public class CrearAnuncioViewController implements Initializable {
 	public void crearAnuncio(ActionEvent event) throws Exception {
 		if(verificarCampoVacio()) {
 			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
-			ModelFactoryController.getInstance().guardarLog("Se intentó registrar sin suministrar la suficiente información", 2, "Registro de anunciante");
+			ModelFactoryController.getInstance().guardarLog("Se intentó registrar sin suministrar la suficiente información", 2, "Crear anuncio");
 			throw new InvalidInputException("Debe llenar todos los campos");
 		}else {
 			if (!verificarFechas()) {
@@ -103,8 +103,7 @@ public class CrearAnuncioViewController implements Initializable {
 		double valorInicial = 0;
 		// Se verifica que el campo del valor inicial sean solo numeros
 		if (!esNumero(txtValorInicialPuja.getText())) {
-			ModelFactoryController.getInstance().guardarLog("No se crea el anuncio, el valor inicial contiene letras",
-					2, "Crear Anuncio");
+			ModelFactoryController.getInstance().guardarLog("No se crea el anuncio, el valor inicial contiene letras",2, "Crear Anuncio");
 			JOptionPane.showMessageDialog(null, "El valor inicial solo debe contener numeros");
 			throw new InvalidInputException("Se ingresaron letras en el campo de valor inicial");
 		} else {
@@ -113,8 +112,7 @@ public class CrearAnuncioViewController implements Initializable {
 		boolean estado = true;
 		ArrayList<Puja> pujas = new ArrayList<Puja>();
 		// Construccion del objeto anuncio
-		Anuncio anuncio = new Anuncio(tipoProducto, tiempoLimite, nombreProducto, descripcion, imagenProducto,
-				nombreAnunciante, fechaInicioAnuncio, fechaFinAnuncio, valorInicial, estado, pujas);
+		Anuncio anuncio = new Anuncio(tipoProducto, tiempoLimite, nombreProducto, descripcion, imagenProducto,nombreAnunciante, fechaInicioAnuncio, fechaFinAnuncio, valorInicial, estado, pujas);
 		// Añadiendo el anuncio al arraylist de anuncios
 		ModelFactoryController.getInstance().aplicacionSubastas.getAnuncios().add(anuncio);
 		// Se añade el anuncio al arraylist de anuncios del anunciante que lo creó
@@ -125,9 +123,9 @@ public class CrearAnuncioViewController implements Initializable {
 				break;
 			}
 		}
+		
 		ModelFactoryController.getInstance().aplicacionSubastas.setUsuarios(usuarios);
-		ModelFactoryController.getInstance().guardarLog("El usuario : " + nombreAnunciante + " crea un nuevo anuncio",
-				1, "Crear anuncio");
+		ModelFactoryController.getInstance().guardarLog("El usuario : " + nombreAnunciante + " crea un nuevo anuncio",1, "Crear anuncio");
 		JOptionPane.showMessageDialog(null, "El anuncio ha sido creado");
 		ModelFactoryController.getInstance().serializarModeloXml();
 		ModelFactoryController.getInstance().serializarModeloBinario();

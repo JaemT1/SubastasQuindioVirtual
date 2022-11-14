@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="417.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.ModificarAnuncioViewController">
+<AnchorPane fx:id="panelBase" prefHeight="417.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.ModificarAnuncioViewController">
    <children>
       <Button fx:id="btnModificarAnuncio" layoutX="204.0" layoutY="333.0" mnemonicParsing="false" onAction="#modificarAnuncio" prefHeight="39.0" prefWidth="149.0" styleClass="login-btn" stylesheets="@../application/style.css" text="Modificar anuncio">
          <font>
@@ -44,14 +44,8 @@
             <Font name="Cambria" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="27.0" layoutY="285.0" prefHeight="18.0" prefWidth="142.0" text="Valor inicial de la puja:">
-         <font>
-            <Font name="Cambria" size="14.0" />
-         </font>
-      </Label>
       <TextField fx:id="txtDesProducto" layoutX="204.0" layoutY="123.0" styleClass="text-field2" stylesheets="@../application/style.css" />
       <TextField fx:id="txtNombreDelAnunciante" editable="false" layoutX="204.0" layoutY="165.0" styleClass="text-field2" stylesheets="@../application/style.css" />
-      <TextField fx:id="txtValorInicialPuja" layoutX="203.0" layoutY="281.0" styleClass="text-field2" stylesheets="@../application/style.css" />
       <ImageView fx:id="imageViewProducto" fitHeight="150.0" fitWidth="195.0" layoutX="408.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="btnInsetarImagen" layoutX="450.0" layoutY="101.0" mnemonicParsing="false" onAction="#insertarImagen" styleClass="free-delivery-card" stylesheets="@../application/style.css" text="Insertar Imagen">
          <font>

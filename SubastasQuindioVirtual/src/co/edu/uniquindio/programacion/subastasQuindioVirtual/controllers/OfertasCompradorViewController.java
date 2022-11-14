@@ -4,7 +4,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Comprador;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Puja;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -33,7 +35,12 @@ public class OfertasCompradorViewController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ObservableList<Puja> datosPujas = FXCollections.observableArrayList();
-    	ArrayList<Puja> pujasComprador = ModelFactoryController.getInstance().compradorSesionIniciada.getPujas();
+		ArrayList<Puja> pujasComprador = new ArrayList<Puja>();
+		for (Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
+			if (usuario instanceof Comprador && usuario.getNombre().equals(ModelFactoryController.getInstance().compradorSesionIniciada.getNombre())) {
+				pujasComprador = ((Comprador)usuario).getPujas();
+			}
+		}
     	for (Puja puja : pujasComprador) {
 			datosPujas.add(puja);
 		}

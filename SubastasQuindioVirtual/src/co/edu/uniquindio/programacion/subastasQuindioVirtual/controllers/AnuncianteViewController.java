@@ -183,7 +183,6 @@ public class AnuncianteViewController implements Initializable {
 			}
 		}
 
-		// -------------------------------------------------------------------------------------------------
 		// Se elimina del arraylist de anuncios global
 		ArrayList<Anuncio> anunciosGlobales = ModelFactoryController.getInstance().aplicacionSubastas.getAnuncios();
 		for (Anuncio anuncio : anunciosGlobales) {
@@ -194,10 +193,8 @@ public class AnuncianteViewController implements Initializable {
 		}
 		ModelFactoryController.getInstance().aplicacionSubastas.setAnuncios(anunciosGlobales);
 
-		// -------------------------------------------------------------------------------------------------
 
-		// Se setea el nuevo arraylist sin el anuncio al anunciante con la sesion
-		// iniciada
+		// Se setea el nuevo arraylist sin el anuncio al anunciante con la sesion iniciada
 		ModelFactoryController.getInstance().anuncianteSesionIniciada.setAnuncios(anuncios);
 		// Se elimina del arraylist de usuarios global
 		ArrayList<Usuario> usuarios = ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios();
@@ -212,6 +209,8 @@ public class AnuncianteViewController implements Initializable {
 		ModelFactoryController.getInstance().serializarModeloBinario();
 		JOptionPane.showMessageDialog(null, "Se eliminó el anuncio con exito");
 		ModelFactoryController.getInstance().guardarLog("Se elimina el anuncio: " + nombreProducto, 1,"Eliminar anuncio");
+		grid.getChildren().clear();
+		cargarAnuncios();
 	}
 
 	/**
@@ -309,13 +308,18 @@ public class AnuncianteViewController implements Initializable {
         return esApta;
     }
 	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		ModelFactoryController.getInstance().cargarDatosModelo();
-		lblUserName
-				.setText("Anunciante : " + ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre());
+	
+	/**
+	 * Método que carga los anuncios, usado para actualizar el grid cuando se han hecho operaciones CRUD
+	 */
+	public void cargarAnuncios() {
 		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
-		anuncios = ModelFactoryController.getInstance().anuncianteSesionIniciada.getAnuncios();
+		for (Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
+			if (usuario instanceof Anunciante && usuario.getNombre().equals(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre())) {
+				anuncios = ((Anunciante)usuario).getAnuncios();
+			}
+		}
+		lblUserName.setText("Anunciante : " + ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre());
 		// Pone el primer anuncio a la izq
 		if (anuncios.size() > 0) {
 			setChosenAnnounce(anuncios.get(0));
@@ -339,9 +343,6 @@ public class AnuncianteViewController implements Initializable {
 						lblCodigoPuja.setVisible(true);
 						txtCodigoPuja.setVisible(true);
 						btnVender.setVisible(true);
-						// el dia actual del a�o y
-						// el dia del a�o de la
-						// fecha fin del anuncio
 					} else {
 						lblCodigoPuja.setVisible(false);
 						txtCodigoPuja.setVisible(false);
@@ -367,7 +368,83 @@ public class AnuncianteViewController implements Initializable {
 					column = 0;
 					row++;
 				}
+				
+				
+				grid.add(anchorPane, column++, row); // (child,column,row)
+				// set grid width
+				grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+				grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+				grid.setMaxWidth(Region.USE_PREF_SIZE);
 
+				// set grid height
+				grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+				grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+				grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+				GridPane.setMargin(anchorPane, new Insets(10));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		ModelFactoryController.getInstance().cargarDatosModelo();
+		lblUserName.setText("Anunciante : " + ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre());
+		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
+		anuncios = ModelFactoryController.getInstance().anuncianteSesionIniciada.getAnuncios();
+
+		// Pone el primer anuncio a la izq
+		if (anuncios.size() > 0) {
+			setChosenAnnounce(anuncios.get(0));
+			myListener = new MyListenerCopia() {
+				@Override
+				public void onClickListener(Anuncio anuncio) {
+					// Se obtiene el dia del a�o actual
+					int diaActual = cal1.get(Calendar.DAY_OF_YEAR);
+					// Se setea el anuncio clickeado
+					setChosenAnnounce(anuncio);
+					// Se obtiene y construye en objeto la fecha final del anuncio
+					String fecha = anuncio.getFechaFinPublicacion();
+					String[] fechaSplit = fecha.split("-");
+					int diaFinAnuncio = Integer.parseInt(fechaSplit[2]);
+					int mesFinAnuncio = Integer.parseInt(fechaSplit[1]) - 1;
+					int anioFinAnuncio = Integer.parseInt(fechaSplit[0]);
+					GregorianCalendar fechaFinAnuncio = new GregorianCalendar(anioFinAnuncio, mesFinAnuncio,
+							diaFinAnuncio);
+
+					if (diaActual > fechaFinAnuncio.get(GregorianCalendar.DAY_OF_YEAR)) {// Se hace la comparacion con
+						lblCodigoPuja.setVisible(true);
+						txtCodigoPuja.setVisible(true);
+						btnVender.setVisible(true);
+					} else {
+						lblCodigoPuja.setVisible(false);
+						txtCodigoPuja.setVisible(false);
+						btnVender.setVisible(false);
+					}
+				}
+
+			};
+		}
+		int column = 0;
+		int row = 1;
+		try {
+			for (int i = 0; i < anuncios.size(); i++) {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				fxmlLoader.setLocation(getClass().getResource(
+						"/co/edu/uniquindio/programacion/subastasQuindioVirtual/view/PlantillaAnuncioCopia.fxml"));
+				AnchorPane anchorPane = fxmlLoader.load();
+
+				PlantillaAnuncioControllerCopia PlantillaController = fxmlLoader.getController();
+				PlantillaController.setData(anuncios.get(i), myListener);
+
+				if (column == 3) {
+					column = 0;
+					row++;
+				}
+				
+				
 				grid.add(anchorPane, column++, row); // (child,column,row)
 				// set grid width
 				grid.setMinWidth(Region.USE_COMPUTED_SIZE);

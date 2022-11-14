@@ -147,7 +147,7 @@ public class UsuarioViewController implements Initializable {
 		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaLoginCompradorView();
 		throw new UserNotAuthenticatedException("Usuario no autenticado");
 	}
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		crearCopiaXML();

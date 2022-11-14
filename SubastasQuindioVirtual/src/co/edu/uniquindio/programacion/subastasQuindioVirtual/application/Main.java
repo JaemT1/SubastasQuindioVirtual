@@ -2,6 +2,7 @@ package co.edu.uniquindio.programacion.subastasQuindioVirtual.application;
 	
 import java.io.IOException;
 
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.AnuncianteViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
@@ -118,6 +119,8 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setMaximized(true);
 			primaryStage.show();
+			AnuncianteViewController anuncianteController = fxmlLoader.getController();
+			anuncianteController.cargarAnuncios();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}

@@ -177,7 +177,7 @@
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets right="5.0" />
+                                    <Insets right="10.0" />
                                  </HBox.margin>
                               </Button>
                               <Button fx:id="btnMostrarListaOfertas" mnemonicParsing="false" onAction="#MostrarListaOfertas" prefHeight="44.0" prefWidth="169.0" styleClass="add-btn" stylesheets="@../application/style.css" text="LISTA DE OFERTAS" textFill="#828282" wrapText="true">
@@ -201,6 +201,34 @@
                                  </font>
                               </Label>
                               <TextField fx:id="txtValorPuja" prefHeight="25.0" prefWidth="182.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Código: " textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria Bold" size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="txtEliminarPuja" prefHeight="26.0" prefWidth="66.0">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <Button fx:id="btnEliminarPuja" mnemonicParsing="false" onAction="#eliminarPuja" prefHeight="39.0" prefWidth="107.0" styleClass="add-btn" stylesheets="@../application/style.css" text="ELIMINAR" textFill="#828282">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Button>
                            </children>
                         </HBox>
                      </children>
