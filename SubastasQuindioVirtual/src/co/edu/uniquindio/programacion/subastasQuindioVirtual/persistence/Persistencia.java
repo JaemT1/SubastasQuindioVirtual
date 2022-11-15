@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anunciante;
-import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Comprador;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Puja;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.SubastasQuindio;
@@ -31,7 +30,7 @@ public class Persistencia implements Serializable{
 	 * @return retorna un array con todos los anunciantes
 	 * @throws IOException
 	 */
-	public static ArrayList<Usuario> cargarAnunciantes() throws IOException{
+	/*public static ArrayList<Usuario> cargarAnunciantes() throws IOException{
 		ArrayList<String> anuncianteTxt = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_ANUNCIANTES);
 		ArrayList<Usuario> anunciantes = new ArrayList<Usuario>();
 		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
@@ -45,7 +44,7 @@ public class Persistencia implements Serializable{
 			anunciantes.add(anunciante);
 		}
 		return anunciantes;
-	}
+	}*/
 	
 	public static ArrayList<Usuario> cargarCompradores() throws IOException{
 		ArrayList<String> compradorTxt = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_COMPRADORES);

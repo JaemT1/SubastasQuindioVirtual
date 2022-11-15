@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="427.0" prefWidth="294.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.OfertasAnuncioViewController">
+<AnchorPane prefHeight="427.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers.OfertasAnuncioViewController">
    <children>
-      <TableView fx:id="tblOfertasAnuncio" prefHeight="427.0" prefWidth="293.0">
+      <TableView fx:id="tblOfertasAnuncio" prefHeight="427.0" prefWidth="407.0">
         <columns>
           <TableColumn fx:id="ClmnCodigoPuja" prefWidth="75.0" text="Código Puja" />
           <TableColumn fx:id="ClmnNombreComprador" prefWidth="135.0" text="Nombre Comprador" />
+            <TableColumn fx:id="ClmnCorreoComprador" prefWidth="110.0" text="Correo Comprador" />
             <TableColumn fx:id="ClmnValorOferta" prefWidth="75.0" text="Valor Oferta" />
         </columns>
       </TableView>

@@ -241,54 +241,61 @@ public class AnuncianteViewController implements Initializable {
 	 */
 	@FXML
 	public void vender(ActionEvent event) throws InvalidInputException {
-		if (!esNumero(txtCodigoPuja.getText())) {
-			JOptionPane.showMessageDialog(null, "El codigo solo debe contener n�meros");
-			throw new InvalidInputException("El cogigo solo debe contener numeros");
-		}
-		if (txtCodigoPuja.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debe ingresar el c�digo de una oferta");
-		} else {
-
-			// Se obtiene el codigo de la puja seleccionada
-			int codigoPujaSeleccionado = Integer.parseInt(txtCodigoPuja.getText());
-
-			// Se obtiene la fecha
-			int dia = cal1.get(Calendar.DAY_OF_MONTH);
-			int mes = cal1.get(Calendar.MONTH) + 1;
-			int anio = cal1.get(Calendar.YEAR);
-
-			// Valores para construir el objeto transaccion
-			String fecha = "" + anio + "-" + mes + "-" + dia;
-			double valorFinal = 0;
-			String nombreAnunciante = ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre();
-			String nombreComprador = "";
-			String nombreProducto = lblNombreProducto.getText();
-
-			ArrayList<Anuncio> anuncios = ModelFactoryController.getInstance().anuncianteSesionIniciada.getAnuncios();
-			ArrayList<Puja> pujasAnuncio = new ArrayList<Puja>();
-
-			for (Anuncio anuncio : anuncios) {
-				if (lblNombreProducto.getText().equals(anuncio.getNombreProducto())) {
-					pujasAnuncio = anuncio.getPujas();
-					break;
-				}
+		int registro = JOptionPane.showConfirmDialog(null,"Ha realizado los acuerdos" + "\n" + "con el comprador?");
+        if (registro == 0) {
+			if (!esNumero(txtCodigoPuja.getText())) {
+				JOptionPane.showMessageDialog(null, "El codigo solo debe contener numeros");
+				ModelFactoryController.getInstance().guardarLog("El codigo solo debe contener numeros", 2, "vender");
+				throw new InvalidInputException("El codigo solo debe contener numeros");
 			}
+			if (txtCodigoPuja.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Debe ingresar el c�digo de una oferta");
+				ModelFactoryController.getInstance().guardarLog("Se debe ingresar el codigo de una oferta", 2, "vender");
+				throw new InvalidInputException("Debe ingresar el c�digo de una oferta");
+			} else {
 
-			for (Puja puja : pujasAnuncio) {
-				if (codigoPujaSeleccionado == puja.getCodigoPuja()) {
-					valorFinal = puja.getValor();
-					nombreComprador = puja.getNombreComprador();
-					break;
+				// Se obtiene el codigo de la puja seleccionada
+				int codigoPujaSeleccionado = Integer.parseInt(txtCodigoPuja.getText());
+
+				// Se obtiene la fecha
+				int dia = cal1.get(Calendar.DAY_OF_MONTH);
+				int mes = cal1.get(Calendar.MONTH) + 1;
+				int anio = cal1.get(Calendar.YEAR);
+
+				// Valores para construir el objeto transaccion
+				String fecha = "" + anio + "-" + mes + "-" + dia;
+				double valorFinal = 0;
+				String nombreAnunciante = ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre();
+				String nombreComprador = "";
+				String nombreProducto = lblNombreProducto.getText();
+
+				ArrayList<Anuncio> anuncios = ModelFactoryController.getInstance().anuncianteSesionIniciada
+						.getAnuncios();
+				ArrayList<Puja> pujasAnuncio = new ArrayList<Puja>();
+
+				for (Anuncio anuncio : anuncios) {
+					if (lblNombreProducto.getText().equals(anuncio.getNombreProducto())) {
+						pujasAnuncio = anuncio.getPujas();
+						break;
+					}
 				}
+
+				for (Puja puja : pujasAnuncio) {
+					if (codigoPujaSeleccionado == puja.getCodigoPuja()) {
+						valorFinal = puja.getValor();
+						nombreComprador = puja.getNombreComprador();
+						break;
+					}
+				}
+
+				Transaccion transaccion = new Transaccion(0, fecha, valorFinal, nombreAnunciante, nombreComprador,nombreProducto);
+				ModelFactoryController.getInstance().guardarLog("Se vende el producto: " + nombreProducto + " a " + nombreComprador, 1, "Vender Producto");
+				ModelFactoryController.getInstance().guardarTransaccion(transaccion);
+				JOptionPane.showMessageDialog(null, "Se vendió con exito el anuncio");
+				txtCodigoPuja.setVisible(true);
 			}
-
-			Transaccion transaccion = new Transaccion(0, fecha, valorFinal, nombreAnunciante, nombreComprador,
-					nombreProducto);
-			ModelFactoryController.getInstance().guardarLog(
-					"Se vende el producto: " + nombreProducto + " a " + nombreComprador, 1, "Vender Producto");
-			ModelFactoryController.getInstance().guardarTransaccion(transaccion);
-			JOptionPane.showMessageDialog(null, "Se vendió con exito el anuncio");
-
+		}else if(registro == 1) {
+			JOptionPane.showMessageDialog(null, "Vuelva a intentar cuando esten los acuerdos hechos" + "\n" + "Puede comunicarse mediante el correo del comprador");
 		}
 	}
 	
@@ -328,6 +335,7 @@ public class AnuncianteViewController implements Initializable {
 				public void onClickListener(Anuncio anuncio) {
 					// Se obtiene el dia del a�o actual
 					int diaActual = cal1.get(Calendar.DAY_OF_YEAR);
+					int anioActual = cal1.get(Calendar.YEAR);
 					// Se setea el anuncio clickeado
 					setChosenAnnounce(anuncio);
 					// Se obtiene y construye en objeto la fecha final del anuncio
@@ -338,15 +346,25 @@ public class AnuncianteViewController implements Initializable {
 					int anioFinAnuncio = Integer.parseInt(fechaSplit[0]);
 					GregorianCalendar fechaFinAnuncio = new GregorianCalendar(anioFinAnuncio, mesFinAnuncio,
 							diaFinAnuncio);
-
-					if (diaActual > fechaFinAnuncio.get(GregorianCalendar.DAY_OF_YEAR)) {// Se hace la comparacion con
-						lblCodigoPuja.setVisible(true);
-						txtCodigoPuja.setVisible(true);
-						btnVender.setVisible(true);
-					} else {
+					
+					
+					if (anioActual >= fechaFinAnuncio.get(GregorianCalendar.YEAR)) {
+						if (diaActual > fechaFinAnuncio.get(GregorianCalendar.DAY_OF_YEAR)) {// Se hace la comparacion con el dia actual y el dia de la fecha fin
+							lblCodigoPuja.setVisible(true);
+							txtCodigoPuja.setVisible(true);
+							btnVender.setVisible(true);
+							btnModificarAnuncio.setDisable(true);
+						} else {
+							lblCodigoPuja.setVisible(false);
+							txtCodigoPuja.setVisible(false);
+							btnVender.setVisible(false);
+							btnModificarAnuncio.setDisable(false);
+						}
+					}else {
 						lblCodigoPuja.setVisible(false);
 						txtCodigoPuja.setVisible(false);
 						btnVender.setVisible(false);
+						btnModificarAnuncio.setDisable(false);
 					}
 				}
 
@@ -403,6 +421,7 @@ public class AnuncianteViewController implements Initializable {
 				public void onClickListener(Anuncio anuncio) {
 					// Se obtiene el dia del a�o actual
 					int diaActual = cal1.get(Calendar.DAY_OF_YEAR);
+					int anioActual = cal1.get(Calendar.YEAR);
 					// Se setea el anuncio clickeado
 					setChosenAnnounce(anuncio);
 					// Se obtiene y construye en objeto la fecha final del anuncio
@@ -414,14 +433,23 @@ public class AnuncianteViewController implements Initializable {
 					GregorianCalendar fechaFinAnuncio = new GregorianCalendar(anioFinAnuncio, mesFinAnuncio,
 							diaFinAnuncio);
 
-					if (diaActual > fechaFinAnuncio.get(GregorianCalendar.DAY_OF_YEAR)) {// Se hace la comparacion con
-						lblCodigoPuja.setVisible(true);
-						txtCodigoPuja.setVisible(true);
-						btnVender.setVisible(true);
-					} else {
+					if (anioActual >= fechaFinAnuncio.get(GregorianCalendar.YEAR)) {
+						if (diaActual > fechaFinAnuncio.get(GregorianCalendar.DAY_OF_YEAR)) {// Se hace la comparacion con el dia actual y el dia de la fecha fin
+							lblCodigoPuja.setVisible(true);
+							txtCodigoPuja.setVisible(true);
+							btnVender.setVisible(true);
+							btnModificarAnuncio.setDisable(true);
+						} else {
+							lblCodigoPuja.setVisible(false);
+							txtCodigoPuja.setVisible(false);
+							btnVender.setVisible(false);
+							btnModificarAnuncio.setDisable(false);
+						}
+					}else {
 						lblCodigoPuja.setVisible(false);
 						txtCodigoPuja.setVisible(false);
 						btnVender.setVisible(false);
+						btnModificarAnuncio.setDisable(false);
 					}
 				}
 

@@ -63,7 +63,8 @@ public class ModelFactoryController implements Serializable{
     public void cargarDatosIniciales() {
     	ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
     	ArrayList<Puja> pujas = new ArrayList<Puja>();
-    	Anunciante anunciante = new Anunciante(anuncios, "holi", "Juan Tunubala", 19, "juantunubala@gmail.com");
+    	ArrayList<Transaccion> transacciones = new ArrayList<Transaccion>();
+    	Anunciante anunciante = new Anunciante(anuncios, "holi", "Juan Tunubala", 19, "juantunubala@gmail.com",transacciones);
     	Comprador comprador = new Comprador(pujas, "puedeser", "Jose Antonio", 41, "joseant@gmail.com");
     	Anuncio anuncio = new Anuncio("Tecnologico", 68, "La roca chiquita", "Skin limitada de la roca chiquita", "C:\\td\\persistencia\\imagenesProductos\\laroca.jpeg", "Juan Tunubala", "2022-10-23", "2022-12-30", 78000, true, pujas);
     	anunciante.getAnuncios().add(anuncio);
@@ -84,14 +85,14 @@ public class ModelFactoryController implements Serializable{
     /**
      * Método que carga los usuarios desde el archivo .txt
      */
-    public void cargarAnunciantes() {
+    /*public void cargarAnunciantes() {
     	try {
 			this.aplicacionSubastas.setUsuarios(Persistencia.cargarAnunciantes());
 			cargarCompradores();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
+    }*/
     
     /**
      * M�todo que carga los compradores desde el archivo .txt

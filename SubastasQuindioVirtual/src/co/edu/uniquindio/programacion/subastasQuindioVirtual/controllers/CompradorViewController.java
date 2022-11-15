@@ -3,6 +3,8 @@ package co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
@@ -93,6 +95,8 @@ public class CompradorViewController implements Initializable {
 	private Image image;
 	private MyListenerCopia myListener;
 	Stage stage = new Stage();
+	Calendar cal1 = Calendar.getInstance();
+
 
 	/**
 	 * Metodo que nos permite pujar
@@ -178,7 +182,7 @@ public class CompradorViewController implements Initializable {
 
 				// Se construye el objeto puja
 				Puja puja = new Puja(valorPuja, anuncioAPujar.getNombreAnunciante(), anuncioAPujar.getNombreProducto(),
-						comprador.getNombre(), codigoPuja);
+						comprador.getNombre(), codigoPuja, comprador.getCorreo());
 
 				// Se añade al anuncio la puja
 				anuncioAPujar.getPujas().add(puja);
@@ -190,7 +194,7 @@ public class CompradorViewController implements Initializable {
 				// Se setea la puja en el anuncio del anunciante en especifico
 				ArrayList<Usuario> usuarios = ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios();
 
-				for (Usuario usuario : usuarios) {
+				/*for (Usuario usuario : usuarios) {
 					if (lblNombreAnunciante.getText().equals(usuario.getNombre()) && usuario instanceof Anunciante) {
 						ArrayList<Anuncio> anunciosAnunciante = ((Anunciante) usuario).getAnuncios();
 						for (Anuncio anuncio : anunciosAnunciante) {
@@ -202,7 +206,7 @@ public class CompradorViewController implements Initializable {
 						}
 						break;
 					}
-				}
+				}*/
 
 				// Se guarda la puja en el arraylist de pujas del comprador
 				for (Usuario usuario : usuarios) {
@@ -439,7 +443,40 @@ public class CompradorViewController implements Initializable {
 			myListener = new MyListenerCopia() {
 				@Override
 				public void onClickListener(Anuncio anuncio) {
+					//setChosenAnnounce(anuncio);
+					// Se obtiene el dia del a�o actual
+					int diaActual = cal1.get(Calendar.DAY_OF_YEAR);
+					int anioActual = cal1.get(Calendar.YEAR);
+					// Se setea el anuncio clickeado
 					setChosenAnnounce(anuncio);
+					// Se obtiene y construye en objeto la fecha final del anuncio
+					String fecha = anuncio.getFechaFinPublicacion();
+					String[] fechaSplit = fecha.split("-");
+					int diaFinAnuncio = Integer.parseInt(fechaSplit[2]);
+					int mesFinAnuncio = Integer.parseInt(fechaSplit[1]) - 1;
+					int anioFinAnuncio = Integer.parseInt(fechaSplit[0]);
+					GregorianCalendar fechaFinAnuncio = new GregorianCalendar(anioFinAnuncio, mesFinAnuncio,
+							diaFinAnuncio);
+					
+					
+					if (anioActual >= fechaFinAnuncio.get(GregorianCalendar.YEAR)) {
+						if (diaActual > fechaFinAnuncio.get(GregorianCalendar.DAY_OF_YEAR)) {// Se hace la comparacion con el dia actual y el dia de la fecha fin
+							btnPujar.setDisable(true);
+							txtValorPuja.setDisable(true);
+							btnEliminarPuja.setDisable(true);
+							txtEliminarPuja.setDisable(true);
+						}else {
+							btnPujar.setDisable(false);
+							txtValorPuja.setDisable(false);
+							btnEliminarPuja.setDisable(false);
+							txtEliminarPuja.setDisable(false);
+						}
+					}else {
+						btnPujar.setDisable(false);
+						txtValorPuja.setDisable(false);
+						btnEliminarPuja.setDisable(false);
+						txtEliminarPuja.setDisable(false);
+					}
 				}
 			};
 		}
@@ -482,16 +519,49 @@ public class CompradorViewController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		ModelFactoryController.getInstance().cargarDatosModelo();
-		lblUserName.setText("Comprador : " + ModelFactoryController.getInstance().compradorSesionIniciada.getNombre());
 		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
 		anuncios = ModelFactoryController.getInstance().aplicacionSubastas.getAnuncios();
+		lblUserName.setText("Comprador : " + ModelFactoryController.getInstance().compradorSesionIniciada.getNombre());
 		// Pone el primer anuncio a la izq
 		if (anuncios.size() > 0) {
 			setChosenAnnounce(anuncios.get(0));
 			myListener = new MyListenerCopia() {
 				@Override
 				public void onClickListener(Anuncio anuncio) {
+					//setChosenAnnounce(anuncio);
+					// Se obtiene el dia del a�o actual
+					int diaActual = cal1.get(Calendar.DAY_OF_YEAR);
+					int anioActual = cal1.get(Calendar.YEAR);
+					// Se setea el anuncio clickeado
 					setChosenAnnounce(anuncio);
+					// Se obtiene y construye en objeto la fecha final del anuncio
+					String fecha = anuncio.getFechaFinPublicacion();
+					String[] fechaSplit = fecha.split("-");
+					int diaFinAnuncio = Integer.parseInt(fechaSplit[2]);
+					int mesFinAnuncio = Integer.parseInt(fechaSplit[1]) - 1;
+					int anioFinAnuncio = Integer.parseInt(fechaSplit[0]);
+					GregorianCalendar fechaFinAnuncio = new GregorianCalendar(anioFinAnuncio, mesFinAnuncio,
+							diaFinAnuncio);
+					
+					
+					if (anioActual >= fechaFinAnuncio.get(GregorianCalendar.YEAR)) {
+						if (diaActual > fechaFinAnuncio.get(GregorianCalendar.DAY_OF_YEAR)) {// Se hace la comparacion con el dia actual y el dia de la fecha fin
+							btnPujar.setDisable(true);
+							txtValorPuja.setDisable(true);
+							btnEliminarPuja.setDisable(true);
+							txtEliminarPuja.setDisable(true);
+						}else {
+							btnPujar.setDisable(false);
+							txtValorPuja.setDisable(false);
+							btnEliminarPuja.setDisable(false);
+							txtEliminarPuja.setDisable(false);
+						}
+					}else {
+						btnPujar.setDisable(false);
+						txtValorPuja.setDisable(false);
+						btnEliminarPuja.setDisable(false);
+						txtEliminarPuja.setDisable(false);
+					}
 				}
 			};
 		}

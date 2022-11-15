@@ -7,15 +7,17 @@ public class Anunciante extends Usuario implements Serializable{
 
 	private static final long serialVersionUID = 7032391086599142701L;
 	
-	ArrayList<Anuncio> anuncios= new ArrayList<Anuncio>();
+	ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
+	ArrayList<Transaccion> transacciones = new ArrayList<Transaccion>();
 	
 	public Anunciante() {
 		
 	}
 
-	public Anunciante(ArrayList<Anuncio> anuncios, String contrasena, String nombre, int edad, String correo) {
+	public Anunciante(ArrayList<Anuncio> anuncios, String contrasena, String nombre, int edad, String correo, ArrayList<Transaccion> transacciones) {
 		super(contrasena, nombre, edad, correo);
 		this.anuncios = anuncios;
+		this.transacciones = transacciones;
 	}
 
 	public ArrayList<Anuncio> getAnuncios() {
@@ -24,6 +26,14 @@ public class Anunciante extends Usuario implements Serializable{
 
 	public void setAnuncios(ArrayList<Anuncio> anuncios) {
 		this.anuncios = anuncios;
+	}
+
+	public ArrayList<Transaccion> getTransacciones() {
+		return transacciones;
+	}
+
+	public void setTransacciones(ArrayList<Transaccion> transacciones) {
+		this.transacciones = transacciones;
 	}
 	
 		

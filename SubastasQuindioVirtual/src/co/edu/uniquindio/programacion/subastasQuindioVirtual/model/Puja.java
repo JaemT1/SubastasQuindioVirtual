@@ -10,19 +10,21 @@ public class Puja implements Serializable{
 	String nombreAnunciante;
 	String nombreProducto;
 	String nombreComprador;
+	String correoComprador;
 	int codigoPuja;
 	
 	public Puja() {
 		super();
 	}
 
-	public Puja(double valor, String nombreAnunciante, String nombreProducto, String nombreComprador, int codigoPuja) {
+	public Puja(double valor, String nombreAnunciante, String nombreProducto, String nombreComprador, int codigoPuja, String correoComprador) {
 		super();
 		this.valor = valor;
 		this.nombreAnunciante = nombreAnunciante;
 		this.nombreProducto = nombreProducto;
 		this.nombreComprador = nombreComprador;
 		this.codigoPuja = codigoPuja;
+		this.correoComprador = correoComprador;
 	}
 
 	public double getValor() {
@@ -64,9 +66,17 @@ public class Puja implements Serializable{
 	public void setCodigoPuja(int codigoPuja) {
 		this.codigoPuja = codigoPuja;
 	}
+	
+	public String getCorreoComprador() {
+		return correoComprador;
+	}
+
+	public void setCorreoComprador(String correoComprador) {
+		this.correoComprador = correoComprador;
+	}
 
 	@Override
 	public String toString() {
-		return valor + "@@" + nombreAnunciante + "@@" + nombreProducto + "@@" + nombreComprador + "@@" + codigoPuja + "\n";
+		return valor + "@@" + nombreAnunciante + "@@" + nombreProducto + "@@" + nombreComprador + "@@" + codigoPuja + "@@" + correoComprador + "\n";
 	}	
 }

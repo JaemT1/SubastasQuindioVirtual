@@ -129,5 +129,11 @@ public class Anuncio implements Serializable{
 	public void setPujas(ArrayList<Puja> pujas) {
 		this.pujas = pujas;
 	}
-	
+
+	//To String
+	@Override
+	public String toString() {
+		return tipoProducto + "@@" + nombreProducto + "@@" + descripcion + "@@" + rutaFoto + "@@" + nombreAnunciante
+				+ "@@" + fechaPublicacion + "@@" + fechaFinPublicacion+ "@@" + valorInicial;
+	}
 }

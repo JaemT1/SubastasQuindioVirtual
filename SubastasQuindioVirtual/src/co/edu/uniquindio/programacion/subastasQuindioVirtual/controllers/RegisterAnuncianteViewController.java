@@ -9,6 +9,7 @@ import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.AlreadyT
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.InvalidInputException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anunciante;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Transaccion;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -72,7 +73,8 @@ public class RegisterAnuncianteViewController {
 				JOptionPane.showMessageDialog(null, "Lo sentimos, el nombre de usuario ya está en uso");
 				throw new AlreadyTakenUsernameException("Lo sentimos, el nombre de usuario ya está en uso");
 			} else {
-				Anunciante anunciante = new Anunciante(anuncios, contrasena, nombre, edad, correo);
+				ArrayList<Transaccion> transacciones = new ArrayList<Transaccion>();
+				Anunciante anunciante = new Anunciante(anuncios, contrasena, nombre, edad, correo,transacciones);
 				ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios().add(anunciante);
 				ModelFactoryController.getInstance().guardarAnunciante(anunciante);
 				ModelFactoryController.getInstance().serializarModeloXml();

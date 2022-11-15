@@ -1,7 +1,15 @@
 package co.edu.uniquindio.programacion.subastasQuindioVirtual.model;
 
-public class Transaccion {
+import java.io.Serializable;
 
+public class Transaccion implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	private int numTransaccion;
 	private String fecha;
 	private double valor;

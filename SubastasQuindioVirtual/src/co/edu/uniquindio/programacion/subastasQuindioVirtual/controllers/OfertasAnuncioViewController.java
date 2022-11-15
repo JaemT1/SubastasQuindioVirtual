@@ -24,6 +24,9 @@ public class OfertasAnuncioViewController implements Initializable{
 
     @FXML
     private TableColumn<Puja, String> ClmnNombreComprador;
+    
+    @FXML
+    private TableColumn<Puja, String> ClmnCorreoComprador;
 
     @FXML
     private TableView<Puja> tblOfertasAnuncio;
@@ -45,11 +48,12 @@ public class OfertasAnuncioViewController implements Initializable{
 		}
 		ClmnCodigoPuja.setCellValueFactory(new PropertyValueFactory<Puja, Integer>("codigoPuja"));
 		ClmnNombreComprador.setCellValueFactory(new PropertyValueFactory<Puja, String>("nombreComprador"));
+		ClmnCorreoComprador.setCellValueFactory(new PropertyValueFactory<Puja, String>("correoComprador"));
 		ClmnValorOferta.setCellValueFactory(new PropertyValueFactory<Puja, Double>("valor"));
 		tblOfertasAnuncio.setItems(datosPujas);
 
 	}
-    
-    
+
+	
     
 }
