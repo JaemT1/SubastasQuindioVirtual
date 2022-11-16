@@ -50,17 +50,17 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="315.0">
                            <children>
-                              <Label fx:id="lblNombreProducto" prefHeight="32.0" prefWidth="223.0" text="Balón Champions" textFill="WHITE">
+                              <Label fx:id="lblNombreProducto" prefHeight="32.0" prefWidth="223.0" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <Label text="\$" textFill="WHITE">
+                              <Label textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblPrecioProducto" prefHeight="32.0" prefWidth="129.0" text="2.99" textFill="WHITE">
+                              <Label fx:id="lblPrecioProducto" prefHeight="32.0" prefWidth="129.0" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="20.0" />
                                  </font>
@@ -74,9 +74,6 @@
                            </VBox.margin>
                         </HBox>
                         <ImageView fx:id="imgProducto" disable="true" fitHeight="170.0" fitWidth="285.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../../../../../../td/persistencia/imagenesProductos/r950633_1296x729_16-9.jpg" />
-                           </image>
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin>
@@ -98,7 +95,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="73.0" prefWidth="335.0">
                            <children>
-                              <Label fx:id="lblDesProducto" prefHeight="59.0" prefWidth="299.0" text="vendo la roca chiquita esta en buen estado" textFill="WHITE" wrapText="true">
+                              <Label fx:id="lblDesProducto" prefHeight="59.0" prefWidth="299.0" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font name="Cambria" size="17.0" />
                                  </font>
@@ -132,7 +129,10 @@
                         </VBox>
                         <HBox alignment="CENTER" prefHeight="38.0" prefWidth="335.0">
                            <children>
-                              <Line endX="100.0" startX="-200.0" stroke="WHITE" />
+                              <Line endX="100.0" startX="-200.0" stroke="WHITE">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </HBox.margin></Line>
                            </children>
                            <VBox.margin>
                               <Insets />
@@ -145,13 +145,25 @@
                                     <Font name="Cambria Bold" size="20.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets left="20.0" right="20.0" />
+                                    <Insets bottom="10.0" left="20.0" right="20.0" />
                                  </HBox.margin>
                               </Label>
                               <Label fx:id="lblNombreAnunciante" prefHeight="24.0" prefWidth="142.0" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="20.0" />
                                  </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="94.0" prefWidth="335.0">
+                           <children>
+                              <Label fx:id="lblEstado" prefHeight="27.0" prefWidth="279.0" text="Estado:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria Bold" size="22.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
                         </HBox>

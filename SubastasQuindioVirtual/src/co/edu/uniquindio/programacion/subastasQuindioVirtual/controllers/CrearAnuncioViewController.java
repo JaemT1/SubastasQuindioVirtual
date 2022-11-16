@@ -9,11 +9,12 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
-import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.AdvertisementLimitedAmountException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.InvalidInputException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anunciante;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
@@ -48,7 +49,7 @@ public class CrearAnuncioViewController implements Initializable {
 	@FXML
 	private TextField txtNombreAnunciante;
 	@FXML
-	private DatePicker dtPckrFechaPublicacion;
+	private TextField txtFechaPublicacion;
 	@FXML
 	private DatePicker dtPckrFechaFin;
 	@FXML
@@ -65,6 +66,7 @@ public class CrearAnuncioViewController implements Initializable {
 	private AnchorPane panelBase;
 
 	Stage stage = new Stage();
+	Calendar cal1 = Calendar.getInstance();
 
 	/**
 	 * Método que crea un anuncio
@@ -83,22 +85,15 @@ public class CrearAnuncioViewController implements Initializable {
 				JOptionPane.showMessageDialog(null, "Debe ingresar una fecha válida");
 				ModelFactoryController.getInstance().guardarLog("Fechas inválidas", 2, "Crear Anuncio");
 			}else {
-			
-			if (ModelFactoryController.getInstance().anuncianteSesionIniciada.getAnuncios().size() == 3) {
-				JOptionPane.showMessageDialog(null, "Ya ha alcanzado el límite de anuncios por anunciante");
-				ModelFactoryController.getInstance().guardarLog("Limite de anuncios alcanzado", 2, "Anunciar");
-				throw new AdvertisementLimitedAmountException("Limite de anuncios alcanzado por: " + ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre());
-			}
+				
 		// Obtencion de datos
 		String tipoProducto = cBoxTipoProducto.getValue();
 		String nombreProducto = txtNombreProducto.getText();
 		String descripcion = txtDesProducto.getText();
 		String imagenProducto = lblRutaImagen.getText();
 		String nombreAnunciante = txtNombreAnunciante.getText();
-		LocalDate fechaPublicacion = dtPckrFechaPublicacion.getValue();
+		String fechaPublicacion = txtFechaPublicacion.getText();
 		LocalDate fechaFin = dtPckrFechaFin.getValue();
-		int tiempoLimite = fechaFin.getDayOfYear() - fechaPublicacion.getDayOfYear();
-		String fechaInicioAnuncio = fechaPublicacion.toString();
 		String fechaFinAnuncio = fechaFin.toString();
 		double valorInicial = 0;
 		// Se verifica que el campo del valor inicial sean solo numeros
@@ -112,7 +107,7 @@ public class CrearAnuncioViewController implements Initializable {
 		boolean estado = true;
 		ArrayList<Puja> pujas = new ArrayList<Puja>();
 		// Construccion del objeto anuncio
-		Anuncio anuncio = new Anuncio(tipoProducto, tiempoLimite, nombreProducto, descripcion, imagenProducto,nombreAnunciante, fechaInicioAnuncio, fechaFinAnuncio, valorInicial, estado, pujas);
+		Anuncio anuncio = new Anuncio(tipoProducto, 0, nombreProducto, descripcion, imagenProducto,nombreAnunciante, fechaPublicacion, fechaFinAnuncio, valorInicial, estado, pujas);
 		// Añadiendo el anuncio al arraylist de anuncios
 		ModelFactoryController.getInstance().aplicacionSubastas.getAnuncios().add(anuncio);
 		// Se añade el anuncio al arraylist de anuncios del anunciante que lo creó
@@ -239,7 +234,7 @@ public class CrearAnuncioViewController implements Initializable {
 		if (dtPckrFechaFin.getValue() == null) {
 			centinela = true;
 		}
-		if (dtPckrFechaPublicacion.getValue() == null) {
+		if (txtFechaPublicacion.getText().isEmpty()) {
 			centinela = true;
 		}
 		if (cBoxTipoProducto.getValue() == null) {
@@ -267,17 +262,22 @@ public class CrearAnuncioViewController implements Initializable {
 	 */
 	public boolean verificarFechas() throws InvalidInputException{
 		boolean isValida = false;
-		LocalDate fechaPublicacion = dtPckrFechaPublicacion.getValue();
+		String fechaPublicacion = txtFechaPublicacion.getText();
+		String[] fechaSplit = fechaPublicacion.split("-");
+		int diaInicioAnuncio = Integer.parseInt(fechaSplit[2]);
+		int mesInicioAnuncio = Integer.parseInt(fechaSplit[1]) - 1;
+		int anioInicioAnuncio = Integer.parseInt(fechaSplit[0]);
+		GregorianCalendar fechaInicioAnuncio = new GregorianCalendar(anioInicioAnuncio, mesInicioAnuncio,diaInicioAnuncio);
 		LocalDate fechaFin = dtPckrFechaFin.getValue();
 		//Verifica si las fechas son iguales
-		if(fechaPublicacion.getDayOfYear() == fechaFin.getDayOfYear()) {
+		if(fechaInicioAnuncio.get(GregorianCalendar.DAY_OF_YEAR) == fechaFin.getDayOfYear()) {
 			return isValida;
 		}
 		//
-		if (fechaFin.getYear() > fechaPublicacion.getYear()) {
+		if (fechaFin.getYear() > fechaInicioAnuncio.get(GregorianCalendar.YEAR)) {
 			isValida = true;
-		}else if (fechaFin.getYear() == fechaPublicacion.getYear()) {
-			if (fechaFin.getDayOfYear() > fechaPublicacion.getDayOfYear() && fechaFin.getMonthValue() >= fechaPublicacion.getMonthValue()) {
+		}else if (fechaFin.getYear() == fechaInicioAnuncio.get(GregorianCalendar.YEAR)) {
+			if (fechaFin.getDayOfYear() > fechaInicioAnuncio.get(GregorianCalendar.DAY_OF_YEAR) && fechaFin.getMonthValue() >= fechaInicioAnuncio.get(GregorianCalendar.MONTH)) {
 				isValida = true;
 			}else {
 				ModelFactoryController.getInstance().guardarLog("La fecha final es menor a la inicial", 2, "Crear Anuncio");
@@ -288,10 +288,15 @@ public class CrearAnuncioViewController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		int diaActual = cal1.get(Calendar.DAY_OF_MONTH);
+		int anioActual = cal1.get(Calendar.YEAR);
+		int mesActual = cal1.get(Calendar.MONTH) + 1;
+		String fechaActual = "" + anioActual + "-" + mesActual + "-" + diaActual;
+		txtFechaPublicacion.setText(fechaActual);
 		txtNombreAnunciante.setEditable(false);
 		txtNombreAnunciante.setText(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre());
 		lblRutaImagen.setVisible(false);
-		dtPckrFechaPublicacion.setEditable(false);
+		txtFechaPublicacion.setEditable(false);
 		dtPckrFechaFin.setEditable(false);
 		ModelFactoryController.getInstance().cargarTiposProductos();
 		cBoxTipoProducto.getItems().add(ModelFactoryController.getInstance().tiposProductos[0]);

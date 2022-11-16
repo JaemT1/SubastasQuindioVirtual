@@ -50,12 +50,12 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="335.0">
                            <children>
-                              <Label fx:id="lblNombreProducto" prefHeight="48.0" prefWidth="316.0" text="El balón de la champions" textFill="WHITE">
+                              <Label fx:id="lblNombreProducto" prefHeight="48.0" prefWidth="316.0" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblPrecioProducto" alignment="CENTER" prefHeight="57.0" prefWidth="171.0" text="\$2.99" textFill="WHITE">
+                              <Label fx:id="lblPrecioProducto" alignment="CENTER" prefHeight="57.0" prefWidth="171.0" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="20.0" />
                                  </font>
@@ -66,9 +66,6 @@
                            </VBox.margin>
                         </HBox>
                         <ImageView fx:id="imgProducto" disable="true" fitHeight="170.0" fitWidth="285.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../../../../../../td/persistencia/imagenesProductos/r950633_1296x729_16-9.jpg" />
-                           </image>
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin>
@@ -90,7 +87,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="73.0" prefWidth="335.0">
                            <children>
-                              <Label fx:id="lblDescripcion" prefHeight="59.0" prefWidth="299.0" text="vendo la roca chiquita esta en buen estado" textFill="WHITE" wrapText="true">
+                              <Label fx:id="lblDescripcion" prefHeight="59.0" prefWidth="299.0" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font name="Cambria" size="17.0" />
                                  </font>
@@ -124,8 +121,26 @@
                         </VBox>
                         <HBox alignment="CENTER" prefHeight="38.0" prefWidth="335.0">
                            <children>
-                              <Line endX="100.0" startX="-200.0" stroke="WHITE" />
+                              <Line endX="100.0" startX="-200.0" stroke="WHITE">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></Line>
                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="306.0">
+                           <children>
+                              <Label fx:id="lblEstado" prefHeight="27.0" prefWidth="262.0" text="Estado:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria Bold" size="22.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="15.0" />
+                           </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="335.0">
                            <children>
@@ -175,7 +190,7 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="lblCodigoPuja" text="Código Puja: " textFill="WHITE">
+                              <Label fx:id="lblCodigoPuja" text="Código Puja: " textFill="WHITE" visible="false">
                                  <font>
                                     <Font name="Cambria Bold" size="20.0" />
                                  </font>
@@ -183,13 +198,13 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="txtCodigoPuja" prefHeight="25.0" prefWidth="166.0">
+                              <TextField fx:id="txtCodigoPuja" disable="true" prefHeight="25.0" prefWidth="166.0" visible="false">
                                  <font>
                                     <Font name="Cambria" size="14.0" />
                                  </font></TextField>
                            </children>
                         </HBox>
-                        <Button fx:id="btnVender" mnemonicParsing="false" onAction="#vender" prefHeight="39.0" prefWidth="111.0" styleClass="add-btn" stylesheets="@../application/style.css" text="VENDER" textFill="#828282">
+                        <Button fx:id="btnVender" mnemonicParsing="false" onAction="#vender" prefHeight="39.0" prefWidth="111.0" styleClass="add-btn" stylesheets="@../application/style.css" text="VENDER" textFill="#828282" visible="false">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>

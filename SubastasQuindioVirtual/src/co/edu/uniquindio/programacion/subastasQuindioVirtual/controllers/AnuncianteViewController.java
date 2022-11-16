@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.Main;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.MyListenerCopia;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.AdvertisementLimitedAmountException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.InvalidInputException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anunciante;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
@@ -62,6 +63,9 @@ public class AnuncianteViewController implements Initializable {
 
 	@FXML
 	private Label lblCodigoPuja;
+	
+	@FXML
+    private Label lblEstado;
 
 	@FXML
 	private Button btnVender;
@@ -156,11 +160,26 @@ public class AnuncianteViewController implements Initializable {
 	 * Método que nos lleva a la ventana de crear anuncios
 	 * 
 	 * @param event
+	 * @throws AdvertisementLimitedAmountException 
 	 */
 	@FXML
-	public void anunciar(ActionEvent event) {
-		cerrarVentanaAnuncianteView();
-		ModelFactoryController.getInstance().gestorVentanas.abrirVentanaCrearAnuncioView();
+	public void anunciar(ActionEvent event) throws AdvertisementLimitedAmountException {
+		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>(); 
+		for(Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
+			if (usuario.getNombre().equals(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre()) && usuario instanceof Anunciante) {
+				anuncios = ((Anunciante) usuario).getAnuncios();
+				break;
+			}
+		}
+		if (anuncios.size() == 3) {
+			JOptionPane.showMessageDialog(null, "Ya ha alcanzado el límite de anuncios por anunciante");
+			ModelFactoryController.getInstance().guardarLog("Limite de anuncios alcanzado", 2, "Anunciar");
+			throw new AdvertisementLimitedAmountException("Limite de anuncios alcanzado por: " + ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre());
+		}else {
+			cerrarVentanaAnuncianteView();
+			ModelFactoryController.getInstance().gestorVentanas.abrirVentanaCrearAnuncioView();			
+		}
+		
 	}
 
 	/**
@@ -174,7 +193,16 @@ public class AnuncianteViewController implements Initializable {
 		// Se obtiene el nombre del producto a eliminar
 		String nombreProducto = lblNombreProducto.getText();
 		// Se crea un arraylist temporal para trabajarlo mejor
-		ArrayList<Anuncio> anuncios = ModelFactoryController.getInstance().anuncianteSesionIniciada.getAnuncios();
+		//ArrayList<Anuncio> anuncios = ModelFactoryController.getInstance().anuncianteSesionIniciada.getAnuncios();
+		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>(); 
+		for(Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
+			if (usuario.getNombre().equals(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre()) && usuario instanceof Anunciante) {
+				anuncios = ((Anunciante) usuario).getAnuncios();
+				break;
+			}
+		}
+
+		
 		// Se elimina del usuario con la sesion iniciada
 		for (Anuncio anuncio : anuncios) {
 			if (nombreProducto.equals(anuncio.getNombreProducto())) {
@@ -354,18 +382,30 @@ public class AnuncianteViewController implements Initializable {
 							txtCodigoPuja.setVisible(true);
 							btnVender.setVisible(true);
 							btnModificarAnuncio.setDisable(true);
+							lblEstado.setText("Estado: No disponible");
 						} else {
 							lblCodigoPuja.setVisible(false);
 							txtCodigoPuja.setVisible(false);
 							btnVender.setVisible(false);
 							btnModificarAnuncio.setDisable(false);
+							lblEstado.setText("Estado: Disponible");
 						}
 					}else {
 						lblCodigoPuja.setVisible(false);
 						txtCodigoPuja.setVisible(false);
 						btnVender.setVisible(false);
 						btnModificarAnuncio.setDisable(false);
+						lblEstado.setText("Estado: Disponible");
 					}
+					
+					if (!anuncio.getEstado()) {
+						lblEstado.setText("Estado: Vendido");
+						lblCodigoPuja.setVisible(false);
+						txtCodigoPuja.setVisible(false);
+						btnVender.setVisible(false);
+						btnModificarAnuncio.setDisable(true);
+					}
+					
 				}
 
 			};
@@ -411,8 +451,15 @@ public class AnuncianteViewController implements Initializable {
 		ModelFactoryController.getInstance().cargarDatosModelo();
 		lblUserName.setText("Anunciante : " + ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre());
 		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
-		anuncios = ModelFactoryController.getInstance().anuncianteSesionIniciada.getAnuncios();
+		//anuncios = ModelFactoryController.getInstance().anuncianteSesionIniciada.getAnuncios();
 
+		for(Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
+			if (usuario.getNombre().equals(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre()) && usuario instanceof Anunciante) {
+				anuncios = ((Anunciante) usuario).getAnuncios();
+				break;
+			}
+		}
+		
 		// Pone el primer anuncio a la izq
 		if (anuncios.size() > 0) {
 			setChosenAnnounce(anuncios.get(0));
@@ -439,17 +486,28 @@ public class AnuncianteViewController implements Initializable {
 							txtCodigoPuja.setVisible(true);
 							btnVender.setVisible(true);
 							btnModificarAnuncio.setDisable(true);
+							lblEstado.setText("Estado: No disponible");
 						} else {
 							lblCodigoPuja.setVisible(false);
 							txtCodigoPuja.setVisible(false);
 							btnVender.setVisible(false);
 							btnModificarAnuncio.setDisable(false);
+							lblEstado.setText("Estado: Disponible");
 						}
 					}else {
 						lblCodigoPuja.setVisible(false);
 						txtCodigoPuja.setVisible(false);
 						btnVender.setVisible(false);
 						btnModificarAnuncio.setDisable(false);
+						lblEstado.setText("Estado: Disponible");
+					}
+					
+					if (!anuncio.getEstado()) {
+						lblEstado.setText("Estado: Vendido");
+						lblCodigoPuja.setVisible(false);
+						txtCodigoPuja.setVisible(false);
+						btnVender.setVisible(false);
+						btnModificarAnuncio.setDisable(true);
 					}
 				}
 

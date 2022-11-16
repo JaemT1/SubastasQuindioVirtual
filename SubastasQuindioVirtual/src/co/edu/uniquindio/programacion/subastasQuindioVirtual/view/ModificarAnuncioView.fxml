@@ -56,7 +56,6 @@
          <font>
             <Font name="Cambria" size="14.0" />
          </font></Button>
-      <DatePicker fx:id="dtPckrFechaInicioAnuncio" editable="false" layoutX="203.0" layoutY="206.0" prefHeight="25.0" prefWidth="149.0" />
       <DatePicker fx:id="dtPckrFechaFinalAnuncio" editable="false" layoutX="204.0" layoutY="242.0" prefHeight="25.0" prefWidth="149.0" />
       <Label layoutX="207.0" layoutY="22.0" text="Modificar Anuncio">
          <font>
@@ -64,5 +63,6 @@
          </font>
       </Label>
       <Label fx:id="lblRutaImagen" layoutX="29.0" layoutY="386.0" prefHeight="17.0" prefWidth="222.0" text="Label" visible="false" />
+      <TextField fx:id="txtFechaInicioAnuncio" editable="false" layoutX="204.0" layoutY="206.0" styleClass="text-field2" stylesheets="@../application/style.css" />
    </children>
 </AnchorPane>

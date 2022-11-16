@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
@@ -57,7 +58,7 @@ public class ModificarAnuncioViewController implements Initializable {
     private TextField txtNombreProducto;
 
     @FXML
-    private DatePicker dtPckrFechaInicioAnuncio;
+    private TextField txtFechaInicioAnuncio;
 
     @FXML
     private DatePicker dtPckrFechaFinalAnuncio;
@@ -94,24 +95,31 @@ public class ModificarAnuncioViewController implements Initializable {
 		// Obtencion de datos
 		String nuevoNombreAnuncio = txtNombreProducto.getText();
 		String descripcion = txtDesProducto.getText();
-		LocalDate fechaPublicacion = dtPckrFechaInicioAnuncio.getValue();
+		String fechaPublicacion = txtFechaInicioAnuncio.getText();
 		LocalDate fechaFin = dtPckrFechaFinalAnuncio.getValue();
-		int tiempoLimite = fechaFin.getDayOfYear() - fechaPublicacion.getDayOfYear();
 		String fechaInicioAnuncio = fechaPublicacion.toString();
 		String fechaFinAnuncio = fechaFin.toString();
 		String rutaImagen = lblRutaImagen.getText();
 		
 		// Se crea un arraylist temporal para trabajarlo mejor
-		ArrayList<Anuncio> anunciosAnunciante = ModelFactoryController.getInstance().anuncianteSesionIniciada.getAnuncios();
+		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>(); 
+		for(Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
+			if (usuario.getNombre().equals(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre()) && usuario instanceof Anunciante) {
+				anuncios = ((Anunciante) usuario).getAnuncios();
+				break;
+			}
+		}
+		
+		
 		// se modifica el anuncio
-		for (Anuncio anuncio : anunciosAnunciante) {
+		for (Anuncio anuncio : anuncios) {
 			if (nombreAnuncioAModificar.equals(anuncio.getNombreProducto())) {
 				anuncio.setNombreProducto(nuevoNombreAnuncio);
 				anuncio.setDescripcion(descripcion);
 				anuncio.setFechaPublicacion(fechaInicioAnuncio);
 				anuncio.setFechaFinPublicacion(fechaFinAnuncio);
 				anuncio.setFoto(rutaImagen);
-				anuncio.setTiempoLimite(tiempoLimite);
+				anuncio.setTiempoLimite(0);
 				break;
 			}
 		}
@@ -124,7 +132,7 @@ public class ModificarAnuncioViewController implements Initializable {
 				anuncio.setFechaPublicacion(fechaInicioAnuncio);
 				anuncio.setFechaFinPublicacion(fechaFinAnuncio);
 				anuncio.setFoto(rutaImagen);
-				anuncio.setTiempoLimite(tiempoLimite);
+				anuncio.setTiempoLimite(0);
 				break;
 			}
 		}
@@ -132,12 +140,12 @@ public class ModificarAnuncioViewController implements Initializable {
 		// Se añade el arraylist modificado a los anuncios globales
 		ModelFactoryController.getInstance().aplicacionSubastas.setAnuncios(anunciosGlobales);
 		// Se setea el nuevo arraylist con el anuncio modificado al anunciante con la sesion iniciada
-		ModelFactoryController.getInstance().anuncianteSesionIniciada.setAnuncios(anunciosAnunciante);
+		ModelFactoryController.getInstance().anuncianteSesionIniciada.setAnuncios(anuncios);
 		// Se modifica del arraylist de usuarios global
 		ArrayList<Usuario> usuarios = ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios();
 		for (Usuario usuario : usuarios) {
 			if (usuario.getNombre().equals(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre())&& usuario instanceof Anunciante) {
-				((Anunciante) usuario).setAnuncios(anunciosAnunciante);
+				((Anunciante) usuario).setAnuncios(anuncios);
 				break;
 			}
 		}
@@ -243,7 +251,7 @@ public class ModificarAnuncioViewController implements Initializable {
 		if (dtPckrFechaFinalAnuncio.getValue() == null) {
 			centinela = true;
 		}
-		if (dtPckrFechaInicioAnuncio.getValue() == null) {
+		if (txtFechaInicioAnuncio.getText().isEmpty()) {
 			centinela = true;
 		}
 		for (Node c : panelBase.getChildren()) {
@@ -268,17 +276,22 @@ public class ModificarAnuncioViewController implements Initializable {
 	 */
 	public boolean verificarFechas() throws InvalidInputException{
 		boolean isValida = false;
-		LocalDate fechaPublicacion = dtPckrFechaInicioAnuncio.getValue();
+		String fechaPublicacion = txtFechaInicioAnuncio.getText();
+		String[] fechaSplit = fechaPublicacion.split("-");
+		int diaInicioAnuncio = Integer.parseInt(fechaSplit[2]);
+		int mesInicioAnuncio = Integer.parseInt(fechaSplit[1]) - 1;
+		int anioInicioAnuncio = Integer.parseInt(fechaSplit[0]);
+		GregorianCalendar fechaInicioAnuncio = new GregorianCalendar(anioInicioAnuncio, mesInicioAnuncio,diaInicioAnuncio);
 		LocalDate fechaFin = dtPckrFechaFinalAnuncio.getValue();
 		//Verifica si las fechas son iguales
-		if(fechaPublicacion.getDayOfYear() == fechaFin.getDayOfYear()) {
+		if(fechaInicioAnuncio.get(GregorianCalendar.DAY_OF_YEAR) == fechaFin.getDayOfYear()) {
 			return isValida;
 		}
 		//
-		if (fechaFin.getYear() > fechaPublicacion.getYear()) {
+		if (fechaFin.getYear() > fechaInicioAnuncio.get(GregorianCalendar.YEAR)) {
 			isValida = true;
-		}else if (fechaFin.getYear() == fechaPublicacion.getYear()) {
-			if (fechaFin.getDayOfYear() > fechaPublicacion.getDayOfYear() && fechaFin.getMonthValue() >= fechaPublicacion.getMonthValue()) {
+		}else if (fechaFin.getYear() == fechaInicioAnuncio.get(GregorianCalendar.YEAR)) {
+			if (fechaFin.getDayOfYear() > fechaInicioAnuncio.get(GregorianCalendar.DAY_OF_YEAR) && fechaFin.getMonthValue() >= fechaInicioAnuncio.get(GregorianCalendar.MONTH)) {
 				isValida = true;
 			}else {
 				ModelFactoryController.getInstance().guardarLog("La fecha final es menor a la inicial", 2, "Modificar Anuncio");
@@ -290,6 +303,19 @@ public class ModificarAnuncioViewController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		txtNombreDelAnunciante.setText(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre());
+		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>(); 
+		for(Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
+			if (usuario.getNombre().equals(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre()) && usuario instanceof Anunciante) {
+				anuncios = ((Anunciante) usuario).getAnuncios();
+				break;
+			}
+		}
+		for (Anuncio anuncio : anuncios) {
+			if (nombreAnuncioAModificar.equals(anuncio.getNombreProducto())) {
+				txtFechaInicioAnuncio.setText(anuncio.getFechaPublicacion());
+				break;
+			}
+		}
 	}
 }
 

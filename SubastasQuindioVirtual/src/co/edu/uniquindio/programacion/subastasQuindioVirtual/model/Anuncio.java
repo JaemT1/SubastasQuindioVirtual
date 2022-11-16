@@ -114,7 +114,7 @@ public class Anuncio implements Serializable{
 		this.valorInicial = valorInicial;
 	}
 
-	public boolean isEstado() {
+	public boolean getEstado() {
 		return estado;
 	}
 

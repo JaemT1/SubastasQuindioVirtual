@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -39,6 +40,9 @@ public class UsuarioViewController implements Initializable {
 
 	@FXML
 	private Button btnIniciarSesion;
+	
+	@FXML
+    private Button btnPujar;
 
 	@FXML
 	private Label lblNombreProducto;
@@ -48,6 +52,9 @@ public class UsuarioViewController implements Initializable {
 
 	@FXML
 	private Label lblPrecioProducto;
+	
+    @FXML
+    private Label lblEstado;
 
 	@FXML
 	private ImageView imgProducto;
@@ -72,6 +79,7 @@ public class UsuarioViewController implements Initializable {
 
 	private Image image;
 	private MyListenerCopia myListener;
+	Calendar cal1 = Calendar.getInstance();
 	
 	/**
 	 * Metodo que nos permite setear los datos de un anuncio en especifíco a la izq de la interfaz
@@ -160,7 +168,36 @@ public class UsuarioViewController implements Initializable {
 			myListener = new MyListenerCopia() {
 				@Override
 				public void onClickListener(Anuncio anuncio) {
+					// Se obtiene el dia del a�o actual
+					int diaActual = cal1.get(Calendar.DAY_OF_YEAR);
+					int anioActual = cal1.get(Calendar.YEAR);
+					// Se setea el anuncio clickeado
 					setChosenAnnounce(anuncio);
+					// Se obtiene y construye en objeto la fecha final del anuncio
+					String fecha = anuncio.getFechaFinPublicacion();
+					String[] fechaSplit = fecha.split("-");
+					int diaFinAnuncio = Integer.parseInt(fechaSplit[2]);
+					int mesFinAnuncio = Integer.parseInt(fechaSplit[1]) - 1;
+					int anioFinAnuncio = Integer.parseInt(fechaSplit[0]);
+					GregorianCalendar fechaFinAnuncio = new GregorianCalendar(anioFinAnuncio, mesFinAnuncio,
+							diaFinAnuncio);
+
+					if (anioActual >= fechaFinAnuncio.get(GregorianCalendar.YEAR)) {
+						if (diaActual > fechaFinAnuncio.get(GregorianCalendar.DAY_OF_YEAR)) {// Se hace la comparacion con el dia actual y el dia de la fecha fin
+							btnPujar.setDisable(true);
+							lblEstado.setText("Estado: No disponible");
+						} else {
+							btnPujar.setDisable(false);	
+							lblEstado.setText("Estado: Disponible");
+						}
+					}else {
+						btnPujar.setDisable(false);	
+						lblEstado.setText("Estado: Disponible");
+					}
+					
+					if (!anuncio.getEstado()) {
+						lblEstado.setText("Estado: Vendido");
+					}
 				}
 			};
 		}

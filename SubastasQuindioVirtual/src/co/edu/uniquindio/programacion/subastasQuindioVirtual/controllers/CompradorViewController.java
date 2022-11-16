@@ -58,6 +58,9 @@ public class CompradorViewController implements Initializable {
 
 	@FXML
 	private Label lblNombreAnunciante;
+	
+    @FXML
+    private Label lblEstado;
 
 	@FXML
 	private TextField txtValorPuja;
@@ -465,17 +468,28 @@ public class CompradorViewController implements Initializable {
 							txtValorPuja.setDisable(true);
 							btnEliminarPuja.setDisable(true);
 							txtEliminarPuja.setDisable(true);
+							lblEstado.setText("Estado: No disponible");
 						}else {
 							btnPujar.setDisable(false);
 							txtValorPuja.setDisable(false);
 							btnEliminarPuja.setDisable(false);
 							txtEliminarPuja.setDisable(false);
+							lblEstado.setText("Estado: Disponible");
 						}
 					}else {
 						btnPujar.setDisable(false);
 						txtValorPuja.setDisable(false);
 						btnEliminarPuja.setDisable(false);
 						txtEliminarPuja.setDisable(false);
+						lblEstado.setText("Estado: Disponible");
+					}
+					
+					if (!anuncio.getEstado()) {
+						lblEstado.setText("Estado: Vendido");
+						btnPujar.setDisable(true);
+						txtValorPuja.setDisable(true);
+						btnEliminarPuja.setDisable(true);
+						txtEliminarPuja.setDisable(true);
 					}
 				}
 			};
@@ -550,17 +564,28 @@ public class CompradorViewController implements Initializable {
 							txtValorPuja.setDisable(true);
 							btnEliminarPuja.setDisable(true);
 							txtEliminarPuja.setDisable(true);
+							lblEstado.setText("Estado: No disponible");
 						}else {
 							btnPujar.setDisable(false);
 							txtValorPuja.setDisable(false);
 							btnEliminarPuja.setDisable(false);
 							txtEliminarPuja.setDisable(false);
+							lblEstado.setText("Estado: Disponible");
 						}
 					}else {
 						btnPujar.setDisable(false);
 						txtValorPuja.setDisable(false);
 						btnEliminarPuja.setDisable(false);
 						txtEliminarPuja.setDisable(false);
+						lblEstado.setText("Estado: Disponible");
+					}
+					
+					if (!anuncio.getEstado()) {
+						lblEstado.setText("Estado: Vendido");
+						btnPujar.setDisable(true);
+						txtValorPuja.setDisable(true);
+						btnEliminarPuja.setDisable(true);
+						txtEliminarPuja.setDisable(true);
 					}
 				}
 			};
