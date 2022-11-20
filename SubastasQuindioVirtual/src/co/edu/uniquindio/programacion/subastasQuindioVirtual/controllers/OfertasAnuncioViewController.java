@@ -15,19 +15,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class OfertasAnuncioViewController implements Initializable{
-
+	// Declaracion de atributos fxml
     @FXML
     private TableColumn<Puja, Double> ClmnValorOferta;
-
     @FXML
     private TableColumn<Puja, Integer> ClmnCodigoPuja;
-
     @FXML
     private TableColumn<Puja, String> ClmnNombreComprador;
-    
     @FXML
     private TableColumn<Puja, String> ClmnCorreoComprador;
-
     @FXML
     private TableView<Puja> tblOfertasAnuncio;
 
@@ -51,9 +47,5 @@ public class OfertasAnuncioViewController implements Initializable{
 		ClmnCorreoComprador.setCellValueFactory(new PropertyValueFactory<Puja, String>("correoComprador"));
 		ClmnValorOferta.setCellValueFactory(new PropertyValueFactory<Puja, Double>("valor"));
 		tblOfertasAnuncio.setItems(datosPujas);
-
-	}
-
-	
-    
+	} 
 }

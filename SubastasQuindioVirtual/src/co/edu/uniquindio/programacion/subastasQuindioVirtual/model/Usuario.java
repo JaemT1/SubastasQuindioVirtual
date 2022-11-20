@@ -14,7 +14,7 @@ public class Usuario implements Serializable{
 	
 	//Constructores
 	public Usuario() {
-		super();
+
 	}
 
 	public Usuario(String contrasena, String nombre, int edad, String correo) {

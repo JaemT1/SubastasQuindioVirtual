@@ -7,9 +7,11 @@ public class Anunciante extends Usuario implements Serializable{
 
 	private static final long serialVersionUID = 7032391086599142701L;
 	
+	//Atributos
 	ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
 	ArrayList<Transaccion> transacciones = new ArrayList<Transaccion>();
 	
+	//Constructores
 	public Anunciante() {
 		
 	}
@@ -20,6 +22,7 @@ public class Anunciante extends Usuario implements Serializable{
 		this.transacciones = transacciones;
 	}
 
+	//Getters y Setters
 	public ArrayList<Anuncio> getAnuncios() {
 		return anuncios;
 	}
@@ -35,6 +38,4 @@ public class Anunciante extends Usuario implements Serializable{
 	public void setTransacciones(ArrayList<Transaccion> transacciones) {
 		this.transacciones = transacciones;
 	}
-	
-		
 }

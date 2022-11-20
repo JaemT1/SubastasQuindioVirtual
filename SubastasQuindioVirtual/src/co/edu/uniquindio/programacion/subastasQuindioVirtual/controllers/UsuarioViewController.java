@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.Main;
-import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.MyListenerCopia;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.MyListener;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.UserNotAuthenticatedException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
 import javafx.event.ActionEvent;
@@ -37,48 +37,35 @@ public class UsuarioViewController implements Initializable {
 	//Declaracion de atributos FXML
 	@FXML
 	private VBox chosenFruitCard;
-
 	@FXML
 	private Button btnIniciarSesion;
-	
 	@FXML
     private Button btnPujar;
-
 	@FXML
 	private Label lblNombreProducto;
-	
 	@FXML 
 	private Label lblNombreAnunciante;
-
 	@FXML
 	private Label lblPrecioProducto;
-	
     @FXML
     private Label lblEstado;
-
 	@FXML
 	private ImageView imgProducto;
-
 	@FXML
 	private Label lblFechaInicio;
-
 	@FXML
 	private Label lblFechaFin;
-
 	@FXML
 	private Label lblDescripcion;
-
 	@FXML
 	private Label lblCategoria;
-
 	@FXML
 	private ScrollPane scroll;
-
 	@FXML
 	private GridPane grid;
 
 	private Image image;
-	private MyListenerCopia myListener;
+	private MyListener myListener;
 	Calendar cal1 = Calendar.getInstance();
 	
 	/**
@@ -165,7 +152,7 @@ public class UsuarioViewController implements Initializable {
 		// Pone el primer anuncio a la izq
 		if (anuncios.size() > 0) {
 			setChosenAnnounce(anuncios.get(0));
-			myListener = new MyListenerCopia() {
+			myListener = new MyListener() {
 				@Override
 				public void onClickListener(Anuncio anuncio) {
 					// Se obtiene el dia del a�o actual
@@ -210,7 +197,7 @@ public class UsuarioViewController implements Initializable {
 						"/co/edu/uniquindio/programacion/subastasQuindioVirtual/view/PlantillaAnuncioCopia.fxml"));
 				AnchorPane anchorPane = fxmlLoader.load();
 
-				PlantillaAnuncioControllerCopia PlantillaController = fxmlLoader.getController();
+				PlantillaAnuncioController PlantillaController = fxmlLoader.getController();
 				PlantillaController.setData(anuncios.get(i), myListener);
 
 				if (column == 3) {

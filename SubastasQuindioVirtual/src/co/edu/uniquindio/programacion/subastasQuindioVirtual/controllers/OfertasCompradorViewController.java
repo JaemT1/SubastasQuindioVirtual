@@ -16,19 +16,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class OfertasCompradorViewController implements Initializable{
-
+	// Declaracion de atributos fxml
     @FXML
     private TableColumn<Puja, Double> ClmnValorOferta;
-
     @FXML
     private TableColumn<Puja, Integer> ClmnCodigo;
-
     @FXML
     private TableView<Puja> tblOfertasComprador;
-
     @FXML
     private TableColumn<Puja, String> ClmnNomProducto;
-
     @FXML
     private TableColumn<Puja, String> ClmnNomAnunciante;
     

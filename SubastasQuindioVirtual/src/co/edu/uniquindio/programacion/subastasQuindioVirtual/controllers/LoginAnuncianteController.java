@@ -17,9 +17,7 @@ public class LoginAnuncianteController{
 	private PasswordField txtContraLoginAnunciante;
 	@FXML
 	private Button btnLoginAnunciante;
-	
-	private Stage stage = new Stage();
-	
+		
 	/**
 	 * M�todo que verifica si un anunciante ya est� registrado
 	 * @param event
@@ -32,8 +30,7 @@ public class LoginAnuncianteController{
         boolean usuarioEncontrado = false;
         //Búsqueda del usuario
         for (Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
-
-            if (correoAnunciante.equals(usuario.getCorreo()) && contraseniaAnunciante.equals(usuario.getContrasena())) {
+            if (correoAnunciante.equals(usuario.getCorreo()) && contraseniaAnunciante.equals(usuario.getContrasena()) && usuario instanceof Anunciante) {
                 JOptionPane.showMessageDialog(null, "Sesión Iniciada");
                 ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoAnunciante + " inicia sesión", 1, "Se inicia sesión");
                 cerrarVentanaLogin();

@@ -2,11 +2,11 @@ package co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions;
 
 //Excepción usada cuando el tiempo de un anuncio ha terminado
 
-public class AdvertisementTimeExcededException extends Exception{
+public class WrongDateException extends Exception{
 
 	private static final long serialVersionUID = 1L;
 
-	public AdvertisementTimeExcededException(String message) {
+	public WrongDateException(String message) {
 		super(message);
 	}
 }

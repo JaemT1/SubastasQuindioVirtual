@@ -6,11 +6,9 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class SelectorRolViewController {
-	
 	//Declaracion de atributos FXML
 	@FXML
     private Button btnAnunciante;
-
     @FXML
     private Button btnComprador;
     

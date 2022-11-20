@@ -6,6 +6,7 @@ public class Puja implements Serializable{
 
 	private static final long serialVersionUID = -8486945425831717466L;
 	
+	//Atributos
 	double valor;
 	String nombreAnunciante;
 	String nombreProducto;
@@ -13,8 +14,8 @@ public class Puja implements Serializable{
 	String correoComprador;
 	int codigoPuja;
 	
+	//Constructores
 	public Puja() {
-		super();
 	}
 
 	public Puja(double valor, String nombreAnunciante, String nombreProducto, String nombreComprador, int codigoPuja, String correoComprador) {
@@ -27,6 +28,7 @@ public class Puja implements Serializable{
 		this.correoComprador = correoComprador;
 	}
 
+	//Getters y setters
 	public double getValor() {
 		return valor;
 	}
@@ -74,7 +76,8 @@ public class Puja implements Serializable{
 	public void setCorreoComprador(String correoComprador) {
 		this.correoComprador = correoComprador;
 	}
-
+	
+	//To String
 	@Override
 	public String toString() {
 		return valor + "@@" + nombreAnunciante + "@@" + nombreProducto + "@@" + nombreComprador + "@@" + codigoPuja + "@@" + correoComprador + "\n";

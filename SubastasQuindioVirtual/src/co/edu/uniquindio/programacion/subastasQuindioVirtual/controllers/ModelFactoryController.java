@@ -196,4 +196,8 @@ public class ModelFactoryController implements Serializable{
 	public void guardarPuja(Puja puja) {
 		Persistencia.guardarPuja(puja);		
 	}
+	
+	public void guardarCSV(ArrayList<Anuncio> anuncios, ArrayList<Transaccion> transacciones) {
+        Persistencia.guardarCSV(anuncios, transacciones);
+    }
 }

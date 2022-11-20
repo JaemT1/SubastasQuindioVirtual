@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anunciante;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Comprador;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Puja;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.SubastasQuindio;
@@ -24,6 +25,7 @@ public class Persistencia implements Serializable{
 	public static final String RUTA_ARCHIVO_TIPOS_PRODUCTOS_PROPERTIES = "C:\\td\\persistencia\\archivos\\tiposProductos.properties";
 	public static final String RUTA_ARCHIVO_MODEL_XML = "C:\\td\\persistencia\\model.xml";
 	public static final String RUTA_ARCHIVO_MODEL_DAT = "C:\\td\\persistencia\\model.dat";
+	public static String RUTA_ARCHIVO_CSV = "";
 	
 	/**
 	 * Método que carga todos los anunciantes guardados en el archivo .txt
@@ -46,6 +48,11 @@ public class Persistencia implements Serializable{
 		return anunciantes;
 	}*/
 	
+	/**
+	 * Carga los compradores desde el archivo .txt
+	 * @return
+	 * @throws IOException
+	 */
 	public static ArrayList<Usuario> cargarCompradores() throws IOException{
 		ArrayList<String> compradorTxt = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_COMPRADORES);
 		ArrayList<Usuario> compradores = new ArrayList<Usuario>();
@@ -182,4 +189,28 @@ public class Persistencia implements Serializable{
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Guarda los anuncios y transacciones de un anunciante
+	 * @param anuncios anuncios a guardar
+	 * @param transacciones transacciones a guardar
+	 */
+	public static void guardarCSV(ArrayList<Anuncio> anuncios, ArrayList<Transaccion> transacciones) {
+        String contenido = "";
+
+        for (Anuncio anuncio : anuncios) {
+            contenido += anuncio.toString()+"\n";
+        }
+
+        for (Transaccion transaccion : transacciones) {
+            contenido += transaccion.toString()+"\n";
+        }
+        try {
+            ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_CSV, contenido, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

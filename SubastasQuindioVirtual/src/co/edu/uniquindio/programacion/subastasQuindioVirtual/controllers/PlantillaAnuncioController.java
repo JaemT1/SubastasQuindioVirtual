@@ -8,25 +8,24 @@ import javafx.scene.input.MouseEvent;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.*;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.*;
 
-public class PlantillaAnuncioControllerCopia {
+public class PlantillaAnuncioController {
+	// Declaracion de atributos fxml
 	@FXML
     private Label lblNombreProducto;
-
     @FXML
     private Label lblPrecio;
-
     @FXML
     private ImageView imgProducto;
-
+    
     @FXML
     private void click(MouseEvent mouseEvent) {
         myListener.onClickListener(anuncio);
     }
 
     private Anuncio anuncio;
-    private MyListenerCopia myListener;
+    private MyListener myListener;
 
-    public void setData(Anuncio anuncio, MyListenerCopia myListener) {
+    public void setData(Anuncio anuncio, MyListener myListener) {
         this.anuncio = anuncio;
         this.myListener = myListener;
         lblNombreProducto.setText(anuncio.getNombreProducto());

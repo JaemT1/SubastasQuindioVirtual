@@ -14,9 +14,11 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.InvalidInputException;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.WrongDateException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anunciante;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Usuario;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.services.VerificacionesInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,41 +33,31 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class ModificarAnuncioViewController implements Initializable {
+public class ModificarAnuncioViewController implements Initializable, VerificacionesInterface {
 	//Declaracion de atributos FXML
     @FXML
     private ImageView imageViewProducto;
-
     @FXML
     private TextField txtDesProducto;
-
     @FXML
     private Button btnInsetarImagen;
-
     @FXML
     private Button btnVolver;
-
     @FXML
     private Button btnModificarAnuncio;
-
     @FXML
     private TextField txtNombreDelAnunciante;
-
     @FXML
     private TextField txtValorInicialPuja;
-
     @FXML
     private TextField txtNombreProducto;
-
     @FXML
     private TextField txtFechaInicioAnuncio;
-
     @FXML
-    private DatePicker dtPckrFechaFinalAnuncio;
-    
+    private DatePicker dtPckrFechaFinalAnuncio; 
     @FXML
     private Label lblRutaImagen;
-    
+   
     @FXML
 	private AnchorPane panelBase;
     
@@ -225,6 +217,7 @@ public class ModificarAnuncioViewController implements Initializable {
 	 * @param valor valor a verificar
 	 * @return retorna false si contiene letras o true si solo contiene numeros
 	 */
+	@Override
 	public boolean esNumero(String esNumero) {
         boolean esApta = true;
         char[] car = esNumero.toCharArray();
@@ -240,6 +233,7 @@ public class ModificarAnuncioViewController implements Initializable {
 	 * Metodo que verifica si los campos están vacíos 
 	 * @return
 	 */
+	@Override
 	public boolean verificarCampoVacio() {
 		boolean centinela = false;
 		// creamos un objeto tipo textField
@@ -274,7 +268,8 @@ public class ModificarAnuncioViewController implements Initializable {
 	 * @return
 	 * @throws InvalidInputException
 	 */
-	public boolean verificarFechas() throws InvalidInputException{
+	@Override
+	public boolean verificarFechas() throws WrongDateException{
 		boolean isValida = false;
 		String fechaPublicacion = txtFechaInicioAnuncio.getText();
 		String[] fechaSplit = fechaPublicacion.split("-");
@@ -294,7 +289,7 @@ public class ModificarAnuncioViewController implements Initializable {
 			if (fechaFin.getDayOfYear() > fechaInicioAnuncio.get(GregorianCalendar.DAY_OF_YEAR) && fechaFin.getMonthValue() >= fechaInicioAnuncio.get(GregorianCalendar.MONTH)) {
 				isValida = true;
 			}else {
-				ModelFactoryController.getInstance().guardarLog("La fecha final es menor a la inicial", 2, "Modificar Anuncio");
+				throw new WrongDateException("Fechas inválidas");
 			}
 		}
 		return isValida;

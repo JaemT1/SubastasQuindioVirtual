@@ -7,8 +7,10 @@ public class Comprador extends Usuario implements Serializable{
 
 	private static final long serialVersionUID = 8586936108288247513L;
 	
+	//Atributos
 	ArrayList<Puja> pujas= new ArrayList<Puja>();
 	
+	//Constructores
 	public Comprador() {
 		
 	}
@@ -17,7 +19,8 @@ public class Comprador extends Usuario implements Serializable{
 		super(contrasena, nombre, edad, correo);
 		this.pujas = pujas;
 	}
-
+	
+	//Getters y Setters
 	public ArrayList<Puja> getPujas() {
 		return pujas;
 	}

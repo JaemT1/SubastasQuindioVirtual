@@ -1,5 +1,7 @@
 package co.edu.uniquindio.programacion.subastasQuindioVirtual.controllers;
 
+import java.awt.Component;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -7,17 +9,21 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.Main;
-import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.MyListenerCopia;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.MyListener;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.AdvertisementLimitedAmountException;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.EmptyArrayException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.InvalidInputException;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.OfferNotFoundException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anunciante;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Puja;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Transaccion;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Usuario;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.persistence.Persistencia;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,69 +45,55 @@ public class AnuncianteViewController implements Initializable {
 	// Declaracion de atributos FXML
 	@FXML
 	private VBox chosenFruitCard;
-
 	@FXML
 	private Button btnIniciarSesion;
-
 	@FXML
 	private Button btnCerrarSesion;
-
 	@FXML
 	private Button btnModificarAnuncio;
-
 	@FXML
 	private Button btnEliminarAnuncio;
-
 	@FXML
 	private Button btnAnunciar;
-
 	@FXML
 	private Button btnVerOfertas;
-
 	@FXML
 	private Label lblUserName;
-
 	@FXML
 	private Label lblCodigoPuja;
-	
 	@FXML
     private Label lblEstado;
-
 	@FXML
 	private Button btnVender;
-
 	@FXML
 	private TextField txtCodigoPuja;
-
 	@FXML
 	private Label lblNombreProducto;
-
 	@FXML
 	private Label lblPrecioProducto;
-
 	@FXML
 	private Label lblFechaInicio;
-
 	@FXML
 	private Label lblFechaFin;
-
 	@FXML
 	private Label lblDescripcion;
-
 	@FXML
 	private Label lblCategoria;
-
 	@FXML
 	private ImageView imgProducto;
-
 	@FXML
 	private ScrollPane scroll;
-
 	@FXML
 	private GridPane grid;
+	@FXML
+    private Button btnGuardarCsv;
+	@FXML
+    private Component panelBase;
+	@FXML
+	private Label lblRutaCSV;
 
 	private Image image;
-	private MyListenerCopia myListener;
+	private MyListener myListener;
 	private Stage stage = new Stage();
 	Calendar cal1 = Calendar.getInstance();
 
@@ -265,10 +257,10 @@ public class AnuncianteViewController implements Initializable {
 	 * se proporciona el id de la oferta o puja
 	 * 
 	 * @param event
-	 * @throws InvalidInputException
+	 * @throws Exception 
 	 */
 	@FXML
-	public void vender(ActionEvent event) throws InvalidInputException {
+	public void vender(ActionEvent event) throws Exception {
 		int registro = JOptionPane.showConfirmDialog(null,"Ha realizado los acuerdos" + "\n" + "con el comprador?");
         if (registro == 0) {
 			if (!esNumero(txtCodigoPuja.getText())) {
@@ -296,29 +288,85 @@ public class AnuncianteViewController implements Initializable {
 				String nombreAnunciante = ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre();
 				String nombreComprador = "";
 				String nombreProducto = lblNombreProducto.getText();
-
-				ArrayList<Anuncio> anuncios = ModelFactoryController.getInstance().anuncianteSesionIniciada
-						.getAnuncios();
+				
+				//Se obtienen los anuncios del usuario
+				ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>(); 
+				for(Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
+					if (usuario.getNombre().equals(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre()) && usuario instanceof Anunciante) {
+						anuncios = ((Anunciante) usuario).getAnuncios();
+						break;
+					}
+				}
+				
+				//Se obtienen las pujas de ese anuncio
 				ArrayList<Puja> pujasAnuncio = new ArrayList<Puja>();
-
 				for (Anuncio anuncio : anuncios) {
-					if (lblNombreProducto.getText().equals(anuncio.getNombreProducto())) {
+					if (nombreProducto.equals(anuncio.getNombreProducto())) {
 						pujasAnuncio = anuncio.getPujas();
 						break;
 					}
 				}
-
+				
+				//Se obtiene el valor de la puja y el nombre del comprador
 				for (Puja puja : pujasAnuncio) {
 					if (codigoPujaSeleccionado == puja.getCodigoPuja()) {
 						valorFinal = puja.getValor();
 						nombreComprador = puja.getNombreComprador();
 						break;
+					}else {
+						JOptionPane.showMessageDialog(null, "El codigo de la puja no existe");
+						ModelFactoryController.getInstance().guardarLog("Ingresó codigo incorrecto de la puja", 2,"Vender");
+						throw new OfferNotFoundException("El codigo de la puja es incorrecto");
 					}
 				}
+				
+				//Se setea el estado del anuncio en false indicando que ya está vendido
+				for (Anuncio anuncio2 : anuncios) {
+					if (nombreProducto.equals(anuncio2.getNombreProducto())) {
+						anuncio2.setEstado(false);
+						break;
+					}
+				}
+				
+				// Se modifica el arraylist de anuncios globales
+				ArrayList<Anuncio> anunciosGlobales = ModelFactoryController.getInstance().aplicacionSubastas.getAnuncios();
+				for (Anuncio anuncio : anunciosGlobales) {
+					if (nombreProducto.equals(anuncio.getNombreProducto())) {
+						anuncio.setEstado(false);
+						break;
+					}
+				}
+				
+				// Se añade el arraylist modificado a los anuncios globales
+				ModelFactoryController.getInstance().aplicacionSubastas.setAnuncios(anunciosGlobales);
+				
+				
+				//Se procesa el codigo de la transaccion
+				
+				// Se obtiene el codigo de la puja
+				int codigoTransaccion = ModelFactoryController.getInstance().aplicacionSubastas.getCantidadTransacciones();
 
-				Transaccion transaccion = new Transaccion(0, fecha, valorFinal, nombreAnunciante, nombreComprador,nombreProducto);
+				// Se le suma a la cantidad de pujas
+				int nuevaCantidadTransacciones = ModelFactoryController.getInstance().aplicacionSubastas.getCantidadTransacciones() + 1;
+
+				// Se setea la nueva cantidad de pujas
+				ModelFactoryController.getInstance().aplicacionSubastas.setCantidadTransacciones(nuevaCantidadTransacciones);
+				
+				
+				Transaccion transaccion = new Transaccion(codigoTransaccion, fecha, valorFinal, nombreAnunciante, nombreComprador,nombreProducto);
+				
+				//ArrayList<Transaccion> transacciones = new ArrayList<Transaccion>();
+				for(Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
+					if (usuario.getNombre().equals(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre()) && usuario instanceof Anunciante) {
+						((Anunciante) usuario).getTransacciones().add(transaccion);
+						break;
+					}
+				}
+				
 				ModelFactoryController.getInstance().guardarLog("Se vende el producto: " + nombreProducto + " a " + nombreComprador, 1, "Vender Producto");
 				ModelFactoryController.getInstance().guardarTransaccion(transaccion);
+				ModelFactoryController.getInstance().serializarModeloXml();
+				ModelFactoryController.getInstance().serializarModeloBinario();
 				JOptionPane.showMessageDialog(null, "Se vendió con exito el anuncio");
 				txtCodigoPuja.setVisible(true);
 			}
@@ -347,6 +395,7 @@ public class AnuncianteViewController implements Initializable {
 	/**
 	 * Método que carga los anuncios, usado para actualizar el grid cuando se han hecho operaciones CRUD
 	 */
+	@FXML
 	public void cargarAnuncios() {
 		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
 		for (Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
@@ -358,7 +407,7 @@ public class AnuncianteViewController implements Initializable {
 		// Pone el primer anuncio a la izq
 		if (anuncios.size() > 0) {
 			setChosenAnnounce(anuncios.get(0));
-			myListener = new MyListenerCopia() {
+			myListener = new MyListener() {
 				@Override
 				public void onClickListener(Anuncio anuncio) {
 					// Se obtiene el dia del a�o actual
@@ -419,7 +468,7 @@ public class AnuncianteViewController implements Initializable {
 						"/co/edu/uniquindio/programacion/subastasQuindioVirtual/view/PlantillaAnuncioCopia.fxml"));
 				AnchorPane anchorPane = fxmlLoader.load();
 
-				PlantillaAnuncioControllerCopia PlantillaController = fxmlLoader.getController();
+				PlantillaAnuncioController PlantillaController = fxmlLoader.getController();
 				PlantillaController.setData(anuncios.get(i), myListener);
 
 				if (column == 3) {
@@ -446,6 +495,46 @@ public class AnuncianteViewController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Método que permite guardar en .csv los anuncios y transacciones de un anunciante
+	 * @param event
+	 * @throws EmptyArrayException
+	 */
+	@FXML
+	private void guardarCsv(ActionEvent event) throws EmptyArrayException {
+		ArrayList<Anuncio> anuncios = new ArrayList<Anuncio>();
+		ArrayList<Transaccion> transacciones = new ArrayList<Transaccion>();
+		for (Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
+			if (usuario instanceof Anunciante && usuario.getNombre().equals(ModelFactoryController.getInstance().anuncianteSesionIniciada.getNombre())) {
+				anuncios = ((Anunciante) usuario).getAnuncios();
+				transacciones = ((Anunciante) usuario).getTransacciones();
+			}
+		}
+		//Verifica que los arraylists no estén vacios
+		if (anuncios.size() == 0 || transacciones.size() == 0) {
+			JOptionPane.showMessageDialog(null, "Debe tener como minimo un anuncio y una compra realizada para exportar en csv");
+			ModelFactoryController.getInstance().guardarLog("Array de transacciones o anuncios vacios", 2,"guardarCSV");
+			throw new EmptyArrayException("Array vacio");
+		} else {
+			JFileChooser selectorCarpeta = new JFileChooser();
+			selectorCarpeta.setCurrentDirectory(new File("*"));
+			selectorCarpeta.setDialogTitle("Seleccione la carpeta");
+			selectorCarpeta.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+			if (selectorCarpeta.showOpenDialog(panelBase) == JFileChooser.APPROVE_OPTION) {
+
+				File carpetaSelecciona = selectorCarpeta.getSelectedFile();
+				lblRutaCSV.setText(carpetaSelecciona.toString());
+				String ruta = lblRutaCSV.getText();
+				Persistencia.RUTA_ARCHIVO_CSV = ruta + "\\archivoAnunciante.csv";
+			}
+
+			ModelFactoryController.getInstance().guardarLog("Se crear archivo csv", 1, "guardarCSV");
+			ModelFactoryController.getInstance().guardarCSV(anuncios, transacciones);
+			JOptionPane.showMessageDialog(null, "Se guardo el archivo .csv");
+		}
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ModelFactoryController.getInstance().cargarDatosModelo();
@@ -463,7 +552,7 @@ public class AnuncianteViewController implements Initializable {
 		// Pone el primer anuncio a la izq
 		if (anuncios.size() > 0) {
 			setChosenAnnounce(anuncios.get(0));
-			myListener = new MyListenerCopia() {
+			myListener = new MyListener() {
 				@Override
 				public void onClickListener(Anuncio anuncio) {
 					// Se obtiene el dia del a�o actual
@@ -522,7 +611,7 @@ public class AnuncianteViewController implements Initializable {
 						"/co/edu/uniquindio/programacion/subastasQuindioVirtual/view/PlantillaAnuncioCopia.fxml"));
 				AnchorPane anchorPane = fxmlLoader.load();
 
-				PlantillaAnuncioControllerCopia PlantillaController = fxmlLoader.getController();
+				PlantillaAnuncioController PlantillaController = fxmlLoader.getController();
 				PlantillaController.setData(anuncios.get(i), myListener);
 
 				if (column == 3) {

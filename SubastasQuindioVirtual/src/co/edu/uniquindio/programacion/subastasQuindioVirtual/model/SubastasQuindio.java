@@ -7,10 +7,13 @@ public class SubastasQuindio implements Serializable{
 
 	private static final long serialVersionUID = 67227836544102263L;
 	
+	//Atributos
 	ArrayList<Anuncio> anuncios= new ArrayList<Anuncio>();
 	ArrayList<Usuario> usuarios= new ArrayList<Usuario>();
 	int cantidadPujas = 0;
+	int cantidadTransacciones = 0;
 	
+	//Getters y Setters
 	public ArrayList<Anuncio> getAnuncios() {
 		return anuncios;
 	}
@@ -29,6 +32,11 @@ public class SubastasQuindio implements Serializable{
 	public void setCantidadPujas(int cantidadPujas) {
 		this.cantidadPujas = cantidadPujas;
 	}
-	
+	public int getCantidadTransacciones() {
+		return cantidadTransacciones;
+	}
+	public void setCantidadTransacciones(int cantidadTransacciones) {
+		this.cantidadTransacciones = cantidadTransacciones;
+	}
 	
 }

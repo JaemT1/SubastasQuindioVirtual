@@ -9,7 +9,7 @@ public class Transaccion implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
+	//Atributos
 	private int numTransaccion;
 	private String fecha;
 	private double valor;
@@ -17,6 +17,7 @@ public class Transaccion implements Serializable{
 	private String nombreComprador;
 	private String nombreProducto;
 	
+	//Constructores
 	public Transaccion(){
 		
 	}
@@ -32,6 +33,7 @@ public class Transaccion implements Serializable{
 		this.nombreProducto = nombreProducto;
 	}
 
+	//Getters y Setters
 	public int getNumTransaccion() {
 		return numTransaccion;
 	}
@@ -81,10 +83,8 @@ public class Transaccion implements Serializable{
 	}
 
 	//Sobreescritura del método toString
-		@Override
-		public String toString() {
-			return numTransaccion + "@@" + fecha + "@@" + valor + "@@" + nombreAnunciante + "@@" + nombreComprador + "@@" + nombreProducto +"\n";
-		}
-	
-	
+	@Override
+	public String toString() {
+		return numTransaccion + "@@" + fecha + "@@" + valor + "@@" + nombreAnunciante + "@@" + nombreComprador + "@@" + nombreProducto +"\n";
+	}
 }

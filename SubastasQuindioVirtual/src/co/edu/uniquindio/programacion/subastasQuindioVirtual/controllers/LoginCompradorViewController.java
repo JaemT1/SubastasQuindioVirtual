@@ -36,7 +36,7 @@ public class LoginCompradorViewController {
         //Búsqueda del usuario
         for (Usuario usuario : ModelFactoryController.getInstance().aplicacionSubastas.getUsuarios()) {
 
-            if (correoComprador.equals(usuario.getCorreo()) && contraseniaComprador.equals(usuario.getContrasena())) {
+            if (correoComprador.equals(usuario.getCorreo()) && contraseniaComprador.equals(usuario.getContrasena()) && usuario instanceof Comprador) {
                 JOptionPane.showMessageDialog(null, "Sesión Iniciada");
                 ModelFactoryController.getInstance().guardarLog("El usuario con correo: " + correoComprador + " inicia sesión", 1, "Se inicia sesión");
                 cerrarVentanaLogin();

@@ -16,10 +16,12 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.InvalidInputException;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.WrongDateException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anunciante;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Puja;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Usuario;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.services.VerificacionesInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,7 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class CrearAnuncioViewController implements Initializable {
+public class CrearAnuncioViewController implements Initializable, VerificacionesInterface {
 
 	// Declaracion de atributos fxml
 	@FXML
@@ -139,10 +141,8 @@ public class CrearAnuncioViewController implements Initializable {
 		// Se declara el FileChooser
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Buscar Imagen");
-
 		// Agregar filtros para facilitar la busqueda
-		fileChooser.getExtensionFilters()
-				.addAll(new FileChooser.ExtensionFilter("Archivos perzonalizados", "*.jpg; *.png;*.jpeg"));
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Archivos perzonalizados", "*.jpg; *.png;*.jpeg"));
 
 		// Obtener la imagen seleccionada
 		File imgFile = fileChooser.showOpenDialog(stage);
@@ -152,12 +152,14 @@ public class CrearAnuncioViewController implements Initializable {
 			// Se realiza la copia de la imagen en la carpeta de persistencia ubicada en
 			// Disco local (C:)
 			Path origenPath = FileSystems.getDefault().getPath(imgFile.getAbsolutePath());
-			Path destinoPath = FileSystems.getDefault()
-					.getPath("C:\\td\\persistencia\\imagenesProductos\\" + imgFile.getName());
+			Path destinoPath = FileSystems.getDefault().getPath("C:\\td\\persistencia\\imagenesProductos\\" + imgFile.getName());
 
 			// Se guarda la ruta para despues obtenerla mas facil
+			
 			lblRutaImagen.setText(destinoPath.toString());
+			
 			// Se muestra la imagen
+			
 			Image image = new Image("file:" + imgFile.getAbsolutePath());
 			imgVwImagenProducto.setImage(image);
 
@@ -166,6 +168,7 @@ public class CrearAnuncioViewController implements Initializable {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
 		}
 	}
 
@@ -208,6 +211,7 @@ public class CrearAnuncioViewController implements Initializable {
 	 * @param valor valor a verificar
 	 * @return retorna false si contiene letras o true si solo contiene numeros
 	 */
+	@Override
 	public boolean esNumero(String esNumero) {
         boolean esApta = true;
         char[] car = esNumero.toCharArray();
@@ -223,6 +227,7 @@ public class CrearAnuncioViewController implements Initializable {
 	 * Metodo que verifica si los campos están vacíos 
 	 * @return
 	 */
+	@Override
 	public boolean verificarCampoVacio() {
 		boolean centinela = false;
 		// creamos un objeto tipo textField
@@ -260,7 +265,8 @@ public class CrearAnuncioViewController implements Initializable {
 	 * @return
 	 * @throws InvalidInputException
 	 */
-	public boolean verificarFechas() throws InvalidInputException{
+	@Override
+	public boolean verificarFechas() throws WrongDateException{
 		boolean isValida = false;
 		String fechaPublicacion = txtFechaPublicacion.getText();
 		String[] fechaSplit = fechaPublicacion.split("-");
@@ -280,7 +286,7 @@ public class CrearAnuncioViewController implements Initializable {
 			if (fechaFin.getDayOfYear() > fechaInicioAnuncio.get(GregorianCalendar.DAY_OF_YEAR) && fechaFin.getMonthValue() >= fechaInicioAnuncio.get(GregorianCalendar.MONTH)) {
 				isValida = true;
 			}else {
-				ModelFactoryController.getInstance().guardarLog("La fecha final es menor a la inicial", 2, "Crear Anuncio");
+				throw new WrongDateException("Fechas inválidas");
 			}
 		}
 		return isValida;

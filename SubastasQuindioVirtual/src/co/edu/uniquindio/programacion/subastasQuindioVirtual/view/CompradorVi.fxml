@@ -300,7 +300,7 @@
                               </VBox>
                               <ImageView fitHeight="74.0" fitWidth="139.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../../../../../lujus/OneDrive/Escritorio/Imagenes/ic_lista.png" />
+                                    <Image url="@../resources/ic_lista.png" />
                                  </image>
                               </ImageView>
                            </children>

@@ -8,10 +8,11 @@ import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
-import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.MyListenerCopia;
-import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.AdvertisementLimitedAmountException;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.application.MyListener;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.IncorrectAmountOfferedException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.InvalidInputException;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.OfferAmountExcededException;
+import co.edu.uniquindio.programacion.subastasQuindioVirtual.exceptions.OfferNotFoundException;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anunciante;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Anuncio;
 import co.edu.uniquindio.programacion.subastasQuindioVirtual.model.Comprador;
@@ -35,68 +36,50 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CompradorViewController implements Initializable {
+	// Declaracion de atributos fxml
 	@FXML
 	private Label lblUserName;
-
 	@FXML
 	private Label lblFechaInicio;
-
 	@FXML
 	private Label lblNombreProducto;
-
 	@FXML
 	private Label lblFechaFin;
-
 	@FXML
 	private ImageView imgProducto;
-
 	@FXML
 	private Label lblDesProducto;
-
 	@FXML
 	private GridPane grid;
-
 	@FXML
 	private Label lblNombreAnunciante;
-	
     @FXML
     private Label lblEstado;
-
 	@FXML
 	private TextField txtValorPuja;
-
 	@FXML
 	private TextField txtEliminarPuja;
-
 	@FXML
 	private Label lblCategoria;
-
 	@FXML
 	private Button btnCerrarSesion;
-
 	@FXML
 	private Button btnPujar;
-
 	@FXML
 	private Button btnMostrarListaOfertas;
-
 	@FXML
 	private Button btnMisOfertas;
-
 	@FXML
 	private Button btnEliminarPuja;
-
 	@FXML
 	private ScrollPane scroll;
-
 	@FXML
 	private VBox chosenAnnounce;
-
 	@FXML
 	private Label lblPrecioProducto;
 
 	private Image image;
-	private MyListenerCopia myListener;
+	private MyListener myListener;
 	Stage stage = new Stage();
 	Calendar cal1 = Calendar.getInstance();
 
@@ -130,7 +113,7 @@ public class CompradorViewController implements Initializable {
 				JOptionPane.showMessageDialog(null, "Ya ha alcanzado el limite de pujas en este anuncio");
 				ModelFactoryController.getInstance().guardarLog("Limite de pujas alcanzado", 2, "Pujar");
 				numOfertas = 0;
-				throw new AdvertisementLimitedAmountException("Limite de pujas alcanzado para el anuncio "
+				throw new OfferAmountExcededException("Limite de pujas alcanzado para el anuncio "
 						+ nombreProducto + " por el comprador " + comprador.getNombre());
 			}
 		}
@@ -289,9 +272,8 @@ public class CompradorViewController implements Initializable {
 			// Si el centinela es false es porque el codigo no existe
 			if (!centinela) {
 				JOptionPane.showMessageDialog(null, "El codigo de la puja no existe");
-				ModelFactoryController.getInstance().guardarLog("Ingresó codigo incorrecto de la puja", 2,
-						"eliminarPuja");
-				throw new InvalidInputException("El codigo de la puja es incorrecto");
+				ModelFactoryController.getInstance().guardarLog("Ingresó codigo incorrecto de la puja", 2,"eliminarPuja");
+				throw new OfferNotFoundException("El codigo de la puja es incorrecto");
 			} else { // Si es true elimina la puja
 						// Remueve la puja del anuncio en el arraylist global
 				Puja pujaAEliminar = new Puja();
@@ -443,7 +425,7 @@ public class CompradorViewController implements Initializable {
 		// Pone el primer anuncio a la izq
 		if (anuncios.size() > 0) {
 			setChosenAnnounce(anuncios.get(0));
-			myListener = new MyListenerCopia() {
+			myListener = new MyListener() {
 				@Override
 				public void onClickListener(Anuncio anuncio) {
 					//setChosenAnnounce(anuncio);
@@ -503,7 +485,7 @@ public class CompradorViewController implements Initializable {
 						"/co/edu/uniquindio/programacion/subastasQuindioVirtual/view/PlantillaAnuncioCopia.fxml"));
 				AnchorPane anchorPane = fxmlLoader.load();
 
-				PlantillaAnuncioControllerCopia PlantillaController = fxmlLoader.getController();
+				PlantillaAnuncioController PlantillaController = fxmlLoader.getController();
 				PlantillaController.setData(anuncios.get(i), myListener);
 
 				if (column == 3) {
@@ -539,7 +521,7 @@ public class CompradorViewController implements Initializable {
 		// Pone el primer anuncio a la izq
 		if (anuncios.size() > 0) {
 			setChosenAnnounce(anuncios.get(0));
-			myListener = new MyListenerCopia() {
+			myListener = new MyListener() {
 				@Override
 				public void onClickListener(Anuncio anuncio) {
 					//setChosenAnnounce(anuncio);
@@ -599,7 +581,7 @@ public class CompradorViewController implements Initializable {
 						"/co/edu/uniquindio/programacion/subastasQuindioVirtual/view/PlantillaAnuncioCopia.fxml"));
 				AnchorPane anchorPane = fxmlLoader.load();
 
-				PlantillaAnuncioControllerCopia PlantillaController = fxmlLoader.getController();
+				PlantillaAnuncioController PlantillaController = fxmlLoader.getController();
 				PlantillaController.setData(anuncios.get(i), myListener);
 
 				if (column == 3) {
